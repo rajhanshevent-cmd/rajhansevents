@@ -11,7 +11,7 @@
   "dependencies": {
     "@next/bundle-analyzer": "^16.2.10",
     "@supabase/ssr": "^0.12.1",
-    "@supabase/supabase-js": "^2.109.0",
+    "@supabase/supabase-js": "^2.112.1",
     "browser-image-compression": "^2.0.2",
     "dotenv": "^17.4.2",
     "next": "16.2.10",
