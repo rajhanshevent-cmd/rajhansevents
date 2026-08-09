@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 import './admin.css';
 import { supabase } from '@/app/api/supabaseClient';
 
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOGIN_COOLDOWN_MS = 5 * 60 * 1000;
+
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,6 +15,8 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [checking, setChecking] = useState(true);
+  const [failedAttempts, setFailedAttempts] = useState(0);
+  const [lockedUntil, setLockedUntil] = useState(null);
   const router = useRouter();
 
   // Check authentication status on mount
@@ -45,34 +50,70 @@ export default function AdminLoginPage() {
       .single();
 
     if (profile?.role === 'admin') {
+      setFailedAttempts(0);
+      setLockedUntil(null);
       router.push('/');
     } else {
       await supabase.auth.signOut();
-      setError('Access Denied: You are not an authorized admin.');
-      setLoading(false);
+      setError('Invalid credentials');
+      setFailedAttempts((prev) => {
+        const next = prev + 1;
+        if (next >= MAX_LOGIN_ATTEMPTS) {
+          setLockedUntil(Date.now() + LOGIN_COOLDOWN_MS);
+        }
+        return next;
+      });
+      return false;
     }
+    return true;
   };
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
+    if (lockedUntil && Date.now() < lockedUntil) {
+      setError('Too many attempts. Please wait before retrying.');
+      return;
+    }
+
     setLoading(true);
+    setError('');
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
-      setError('Invalid email or password');
-      setLoading(false);
+      setError('Invalid credentials');
+      setFailedAttempts((prev) => {
+        const next = prev + 1;
+        if (next >= MAX_LOGIN_ATTEMPTS) {
+          setLockedUntil(Date.now() + LOGIN_COOLDOWN_MS);
+        }
+        return next;
+      });
     } else {
       await verifyAdminRole(data.user.id);
     }
+    setLoading(false);
   };
 
   const handleGoogleLogin = async () => {
+    if (lockedUntil && Date.now() < lockedUntil) {
+      setError('Too many attempts. Please wait before retrying.');
+      return;
+    }
+
     setLoading(true);
+    setError('');
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: `${window.location.origin}/auth/callback` },
     });
     if (error) {
-      setError('Google login failed');
+      setError('Authentication failed');
+      setFailedAttempts((prev) => {
+        const next = prev + 1;
+        if (next >= MAX_LOGIN_ATTEMPTS) {
+          setLockedUntil(Date.now() + LOGIN_COOLDOWN_MS);
+        }
+        return next;
+      });
       setLoading(false);
     }
   };
