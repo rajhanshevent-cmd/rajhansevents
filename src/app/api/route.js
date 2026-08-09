@@ -10,7 +10,7 @@ export async function GET(request) {
   if (code) {
     const cookieStore = await cookies();
 
-    const supabase = createClient(
+    const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
       {
@@ -30,7 +30,11 @@ export async function GET(request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (error) {
-      console.error("Error exchanging auth code:", error);
+      console.error("Error exchanging auth code", {
+        message: error?.message,
+        code: error?.code,
+        status: error?.status,
+      });
       return NextResponse.redirect(
         new URL("/admin/login?error=auth_callback", requestUrl.origin)
       );
