@@ -92,8 +92,63 @@
 }
 
 .admin-nav-link {
-  color: #8B1E3F;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #7b1a28 !important;
+  font-weight: 700;
+  padding: 0.32rem 0.85rem;
+  border-radius: 20px;
+  background: rgba(212, 175, 55, 0.16);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  font-size: 0.82rem;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  margin-left: 0.4rem;
+}
+
+.admin-nav-link:hover,
+.admin-nav-link.active {
+  background: linear-gradient(135deg, #7b1a28 0%, #5c1328 100%);
+  color: #D4AF37 !important;
+  border-color: #D4AF37;
+  box-shadow: 0 4px 12px rgba(123, 26, 40, 0.25);
+  transform: translateY(-1px);
+}
+
+.admin-nav-icon {
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+.admin-pill-badge {
+  font-size: 0.68rem;
+  padding: 2px 7px;
+  background: #7b1a28;
+  color: #D4AF37;
+  border-radius: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.mobile-nav-link.admin-link {
+  background: rgba(212, 175, 55, 0.12);
+  color: #7b1a28;
+  font-weight: 700;
+  border-left: 4px solid #D4AF37;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  border-radius: 4px;
+}
+
+.mobile-nav-link.admin-link:hover,
+.mobile-nav-link.admin-link.active {
+  background: linear-gradient(135deg, #7b1a28, #5c1328);
+  color: #D4AF37;
+  border-left-color: #D4AF37;
 }
 
 /* Actions & Button */

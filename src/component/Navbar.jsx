@@ -101,7 +101,7 @@ function Navbar() {
 
     async function checkAdminStatus() {
       try {
-        const res = await fetch('/api/auth/me');
+        const res = await fetch('/api/auth/me', { cache: 'no-store' });
         const data = await res.json();
         if (isMounted) {
           setIsAdmin(!!data.authenticated);
@@ -166,14 +166,16 @@ function Navbar() {
             );
           })}
 
-          {/* Manage CMS tab: Only show on /admin */}
-          {pathname === '/admin' && (
+          {/* Manage CMS tab: Show when logged in, on /Manage, or on /admin */}
+          {(isAdmin || pathname === '/Manage' || pathname === '/admin') && (
             <Link 
               href="/Manage" 
               className={`nav-link admin-nav-link ${pathname === '/Manage' ? 'active' : ''}`}
               title="Admin CMS Dashboard"
             >
-              Manage CMS
+              <span className="admin-nav-icon">⚙️</span>
+              <span>Manage CMS</span>
+              {pathname === '/Manage' && <span className="active-indicator" />}
             </Link>
           )}
         </nav>
@@ -240,14 +242,19 @@ function Navbar() {
             );
           })}
 
-          {/* Mobile Manage Link: Only show on /admin */}
-          {pathname === '/admin' && (
+          {/* Mobile Manage Link: Show when logged in, on /Manage, or on /admin */}
+          {(isAdmin || pathname === '/Manage' || pathname === '/admin') && (
             <Link 
               href="/Manage" 
               className={`mobile-nav-link admin-link ${pathname === '/Manage' ? 'active' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
-              <span>Manage CMS</span>
+              <span>⚙️ Manage CMS</span>
+              {pathname === '/Manage' ? (
+                <span className="mobile-active-bullet">&bull;</span>
+              ) : (
+                <span className="admin-pill-badge">ADMIN</span>
+              )}
             </Link>
           )}
         </nav>
