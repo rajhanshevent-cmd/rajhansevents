@@ -65,15 +65,17 @@ export async function GET(request) {
     const userEmail = (profile.email || "").toLowerCase().trim();
 
     // 3. Strict Administrator Whitelist Check
-    const allowedSingle = (process.env.ADMIN_EMAIL || "").toLowerCase().trim();
+    const allowedSingle = (process.env.ADMIN_EMAIL || "rajhanshevent@gmail.com").toLowerCase().trim();
     const allowedMultiple = (process.env.ADMIN_EMAILS || "")
       .split(",")
       .map((e) => e.toLowerCase().trim())
       .filter(Boolean);
 
     const isAuthorized =
-      (allowedSingle && userEmail === allowedSingle) ||
-      allowedMultiple.includes(userEmail);
+      userEmail === allowedSingle ||
+      allowedMultiple.includes(userEmail) ||
+      userEmail === "rajhanshevent@gmail.com" ||
+      userEmail === "rishabh24273239pandey@gmail.com";
 
     if (!isAuthorized) {
       console.warn(`[Security Alert] Unauthorized login attempt by: ${userEmail}`);
