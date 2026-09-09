@@ -166,8 +166,8 @@ function Navbar() {
             );
           })}
 
-          {/* Manage CMS tab: Show when logged in, on /Manage, or on /admin */}
-          {(isAdmin || pathname === '/Manage' || pathname === '/admin') && (
+          {/* Manage CMS tab: ONLY visible when authenticated as admin */}
+          {isAdmin && (
             <Link 
               href="/Manage" 
               className={`nav-link admin-nav-link ${pathname === '/Manage' ? 'active' : ''}`}
@@ -242,8 +242,8 @@ function Navbar() {
             );
           })}
 
-          {/* Mobile Manage Link: Show when logged in, on /Manage, or on /admin */}
-          {(isAdmin || pathname === '/Manage' || pathname === '/admin') && (
+          {/* Mobile Manage Link: ONLY visible when authenticated as admin */}
+          {isAdmin && (
             <Link 
               href="/Manage" 
               className={`mobile-nav-link admin-link ${pathname === '/Manage' ? 'active' : ''}`}

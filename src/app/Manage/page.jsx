@@ -6,13 +6,6 @@ import { uploadToR2 } from '../../utils/r2Upload';
 import styles from './Manage.module.css';
 import imageCompression from 'browser-image-compression';
 
-// ============================================================================
-// DEV PREVIEW AUTH BYPASS
-// When true: Allows immediate direct viewing & testing of Admin CMS without login.
-// When asked to hide behind login: Change this to false.
-// ============================================================================
-const BYPASS_AUTH_FOR_DEV = true;
-
 const TABS = [
   { id: 'team', label: 'Team Members', icon: '👥' },
   { id: 'home', label: 'Home & Banner', icon: '🏠' },
@@ -27,8 +20,8 @@ const TABS = [
 
 export default function ManagePage() {
   const router = useRouter();
-  const [checkingAuth, setCheckingAuth] = useState(!BYPASS_AUTH_FOR_DEV);
-  const [isAuthorized, setIsAuthorized] = useState(BYPASS_AUTH_FOR_DEV);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -41,14 +34,12 @@ export default function ManagePage() {
     return 'team';
   });
 
-  // Verify auth if bypass is disabled
+  // Verify administrator session
   useEffect(() => {
-    if (BYPASS_AUTH_FOR_DEV) return;
-
     let isMounted = true;
     async function verifyAuth() {
       try {
-        const res = await fetch('/api/auth/me');
+        const res = await fetch('/api/auth/me', { cache: 'no-store' });
         const data = await res.json();
 
         if (!data.authenticated) {
@@ -62,7 +53,7 @@ export default function ManagePage() {
         }
       } catch (err) {
         console.error('Auth verification error in Manage:', err);
-        if (isMounted) router.push('/admin');
+        if (isMounted) router.push('/admin?error=unauthorized');
       }
     }
 
@@ -337,18 +328,7 @@ export default function ManagePage() {
 
   return (
     <div className={styles.manageContainer}>
-      {/* Dev Preview Banner */}
-      {BYPASS_AUTH_FOR_DEV && (
-        <div className={styles.devBanner}>
-          <div>
-            <span className={styles.devBadge}>DEV PREVIEW</span>
-            <strong style={{ color: '#7b1a28' }}>Admin CMS Active</strong>
-          </div>
-          <span style={{ color: '#666', fontSize: '0.8rem' }}>
-            Say <em>&quot;hide admin behind login&quot;</em> to lock.
-          </span>
-        </div>
-      )}
+
 
       {/* Clean Dashboard Top Header */}
       <header className={styles.dashboardHeader}>
