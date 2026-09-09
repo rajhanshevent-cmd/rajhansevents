@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/app/api/supabaseClient';
 
 export default function AutoLogout() {
+  const router = useRouter();
   const [isAdmin, setIsAdmin] = useState(false);
 
   // 1. Check if the user is logged in and is an Admin
@@ -50,19 +52,15 @@ export default function AutoLogout() {
 
     const handleLogout = async () => {
       await supabase.auth.signOut();
-      window.location.href = '/admin-login'; // Redirect to your login page
+      router.push('/admin');
     };
 
     const resetTimer = () => {
       clearTimeout(inactivityTimer);
-      // Set to 1800000 for 30 mins (using 5000 for a 5-second test)
+      // 30 minutes of inactivity
       inactivityTimer = setTimeout(() => {
         handleLogout();
-      }, 1800000); 
-    };
-
-    const handleTabClose = () => {
-      supabase.auth.signOut();
+      }, 1800000);
     };
 
     const activityEvents = ['mousemove', 'keydown', 'scroll', 'touchstart', 'click'];
@@ -71,7 +69,6 @@ export default function AutoLogout() {
     activityEvents.forEach((event) => {
       window.addEventListener(event, resetTimer);
     });
-    window.addEventListener('beforeunload', handleTabClose);
 
     // Start timer on mount
     resetTimer();
@@ -82,9 +79,8 @@ export default function AutoLogout() {
       activityEvents.forEach((event) => {
         window.removeEventListener(event, resetTimer);
       });
-      window.removeEventListener('beforeunload', handleTabClose);
     };
-  }, [isAdmin]);
+  }, [isAdmin, router]);
 
   // This component is completely invisible
   return null; 

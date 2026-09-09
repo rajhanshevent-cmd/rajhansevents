@@ -3,12 +3,12 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
-  const requestUrl = new URL(request.url);
-  const code = requestUrl.searchParams.get("code");
+  const { searchParams, origin } = new URL(request.url);
+  const code = searchParams.get("code");
+  const next = searchParams.get("next") || "/admin/verify";
 
   if (code) {
     const cookieStore = await cookies();
-
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL || "https://uvoapeploerjdonrrbtp.supabase.co",
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-anon-key",
@@ -23,7 +23,7 @@ export async function GET(request) {
                 cookieStore.set(name, value, options);
               });
             } catch {
-              // Ignore cookie mutations if already committed
+              // In some contexts setAll may be called when headers have already been sent
             }
           },
         },
@@ -31,16 +31,13 @@ export async function GET(request) {
     );
 
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-
     if (error) {
-      console.error("Error exchanging auth code:", error);
-      return NextResponse.redirect(
-        new URL("/admin?error=auth_callback", requestUrl.origin)
-      );
+      console.error("Auth callback exchange error:", error);
+      return NextResponse.redirect(`${origin}/admin?error=auth_callback`);
     }
+
+    return NextResponse.redirect(`${origin}${next}`);
   }
 
-  return NextResponse.redirect(
-    new URL("/admin/verify", requestUrl.origin)
-  );
+  return NextResponse.redirect(`${origin}/admin`);
 }

@@ -1,13 +1,66 @@
 'use client';
 
-import React, { useState } from 'react';
-import { supabase } from '../api/supabaseClient';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { supabase } from '@/utils/supabaseClient';
 import { uploadImage } from '../../utils/supabaseUpload';
 import styles from './Manage.module.css';
 import imageCompression from 'browser-image-compression';
 
+// ============================================================================
+// DEV PREVIEW AUTH BYPASS
+// When true: Allows immediate direct viewing & testing of Admin CMS without login.
+// When asked to hide behind login: Change this to false.
+// ============================================================================
+const BYPASS_AUTH_FOR_DEV = true;
+
 export default function ManagePage() {
-const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const [checkingAuth, setCheckingAuth] = useState(!BYPASS_AUTH_FOR_DEV);
+  const [isAuthorized, setIsAuthorized] = useState(BYPASS_AUTH_FOR_DEV);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (BYPASS_AUTH_FOR_DEV) {
+      return;
+    }
+
+    let isMounted = true;
+    async function verifyAuth() {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          if (isMounted) router.push('/admin');
+          return;
+        }
+
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .single();
+
+        if (profile?.role !== 'admin') {
+          await supabase.auth.signOut();
+          if (isMounted) router.push('/admin?error=unauthorized');
+          return;
+        }
+
+        if (isMounted) {
+          setIsAuthorized(true);
+          setCheckingAuth(false);
+        }
+      } catch (err) {
+        console.error('Auth verification error in Manage:', err);
+        if (isMounted) router.push('/admin');
+      }
+    }
+
+    verifyAuth();
+    return () => {
+      isMounted = false;
+    };
+  }, [router]);
   
   // Section States
   const [homeData, setHomeData] = useState({ identifier: 'home_main', logo: null, banner_video: null, banner_title: '', banner_text: '', founded: '' });
@@ -103,9 +156,92 @@ const [loading, setLoading] = useState(false);
     }
   };
 
+  if (checkingAuth) {
+    return (
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '70vh',
+        gap: '1rem',
+        padding: '2rem',
+        color: '#0B192C',
+        fontFamily: 'var(--font-nunito, sans-serif)'
+      }}>
+        <div style={{
+          width: '44px',
+          height: '44px',
+          border: '3px solid rgba(218, 165, 32, 0.2)',
+          borderTopColor: '#DAA520',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite'
+        }} />
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        <p style={{ fontWeight: 600, fontSize: '1.05rem' }}>Verifying administrator privileges...</p>
+      </div>
+    );
+  }
+
+  if (!isAuthorized) {
+    return null;
+  }
+
   return (
     <div className={styles.manageContainer}>
-      <h1>Website Content Manager</h1>
+      {BYPASS_AUTH_FOR_DEV && (
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(123, 26, 40, 0.1), rgba(212, 175, 55, 0.15))',
+          border: '1.5px solid #D4AF37',
+          borderRadius: '10px',
+          padding: '16px 20px',
+          marginBottom: '2rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '6px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <span style={{
+              background: '#7b1a28',
+              color: '#D4AF37',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              letterSpacing: '1.5px',
+              padding: '4px 10px',
+              borderRadius: '20px'
+            }}>
+              DEV PREVIEW ACTIVE
+            </span>
+            <strong style={{ color: '#7b1a28', fontSize: '0.95rem' }}>
+              Admin page unlocked without login per your request
+            </strong>
+          </div>
+          <p style={{ margin: 0, fontSize: '0.88rem', color: '#444' }}>
+            You have direct access to view and test all content sections. Say <em>&quot;hide admin behind login&quot;</em> when you want to re-engage the authentication guard.
+          </p>
+        </div>
+      )}
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+        <h1 style={{ margin: 0 }}>Website Content Manager</h1>
+        <button
+          onClick={async () => {
+            await supabase.auth.signOut();
+            router.push('/admin');
+          }}
+          style={{
+            padding: '8px 18px',
+            backgroundColor: '#c53030',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '4px',
+            fontWeight: 600,
+            cursor: 'pointer'
+          }}
+        >
+          Logout
+        </button>
+      </div>
 
       <section className={styles.section}>
         <h2>Home Page Main</h2>
@@ -238,7 +374,7 @@ const [loading, setLoading] = useState(false);
 
         <h3>Smiles We Created</h3>
         <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'smiles', { identifier: smileData.identifier }, { file: smileData.file, bucket: 'smiles', columnName: 'image_url' })}>
-          <input type="text" placeholder="Identifier" required onChange={e => setSmileData({...smileData, title: e.target.value})} />
+          <input type="text" placeholder="Identifier" required onChange={e => setSmileData({...smileData, identifier: e.target.value})} />
           <input type="file" accept="image/*" required onChange={e => setSmileData({...smileData, file: e.target.files[0]})} />
           <button type="submit" disabled={loading}>Save Smile Image</button>
         </form>

@@ -1,9 +1,10 @@
-import { supabase } from '@/app/api/supabaseClient'; 
+import { supabase } from '@/utils/supabaseClient'; 
+import { BUSINESS_CONFIG } from '@/utils/constants';
 import './Packages.css'; 
 
 export const metadata = {
-  title: "Raj Hansh", 
-  description: "From luxury weddings to professional corporate events, explore the wide range of management services offered by Raj Hansh Event." 
+  title: "Packages & Pricing | Raj Hansh Events Ranchi", 
+  description: "Transparent, luxury event planning and wedding packages tailored to your vision and celebration size in Ranchi." 
 };
 
 export default async function Packages() {
@@ -38,7 +39,7 @@ export default async function Packages() {
   ];
 
   return (
-    <main className="packages-page">
+    <div className="packages-page">
       
       {/* --- Packages Section --- */}
       <section className="container packages-container">
@@ -53,9 +54,11 @@ export default async function Packages() {
           {displayPackages.map((pkg, index) => {
             // Map the individual database feature columns into an array and filter out any empty ones
             const features = [pkg.f1, pkg.f2, pkg.f3, pkg.f4].filter(Boolean); 
+            const isFeatured = index === 1 || pkg.pkg_name?.toLowerCase() === 'gold';
             
             return (
-              <div key={pkg.identifier || index} className="pricing-card">
+              <div key={pkg.identifier || index} className={`pricing-card ${isFeatured ? 'featured-card' : ''}`}>
+                {isFeatured && <span className="package-ribbon">MOST POPULAR</span>}
                 <h3>{pkg.pkg_name}</h3> 
                 <div className="price">{pkg.price}</div> 
                 <p className="text-muted" style={{ marginBottom: '1rem' }}>Starting From</p> 
@@ -64,27 +67,28 @@ export default async function Packages() {
                     <li key={i}>✓ {feature}</li> 
                   ))}
                 </ul>
-                <a style= {{maxWidth :'95%'}}
-                  href={`https://wa.me/91YOURWHATSAPPNUMBER?text=${encodeURIComponent(
-                    `Hello Raj Hansh Events,
+                <div className="pricing-action">
+                  <a
+                    href={`https://wa.me/${BUSINESS_CONFIG.whatsappNumber}?text=${encodeURIComponent(
+                      `Hello Raj Hansh Events,
 
-                I'm interested in your ${pkg.pkg_name} Package.
+I'm interested in your ${pkg.pkg_name} Package.
 
-                Could you please share:
-                • Complete package details
-                • What's included
-                • Pricing breakdown
-                • Availability for my event
-                • Next steps
+Could you please share:
+• Complete package details
+• What's included
+• Pricing breakdown
+• Availability for my event
 
-                Thank you!`
-                  )}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="btn btn-outline" 
-                >
-                  Select Package
-                </a>
+Thank you!`
+                    )}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className={`pkg-btn ${isFeatured ? 'featured-btn' : ''}`}
+                  >
+                    SELECT THIS PACKAGE &rarr;
+                  </a>
+                </div>
               </div>
             );
           })}
@@ -137,6 +141,6 @@ export default async function Packages() {
           ))}
         </div>
       </section>
-    </main>
+    </div>
   );
 }

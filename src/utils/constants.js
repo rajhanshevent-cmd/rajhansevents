@@ -1,0 +1,9 @@
+export const BUSINESS_CONFIG = {
+  name: "Raj Hansh Events",
+  phone: "+91 90060 89331",
+  whatsappNumber: "919006089331",
+  email: "rajhanshevent@gmail.com",
+  location: "Ranchi, Jharkhand 834001, India",
+  hours: "Mon – Sun • 9:00 AM to 9:00 PM",
+  calendlyUrl: "https://calendly.com/rajhanshevents/consultation"
+};

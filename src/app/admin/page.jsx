@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import './admin.css';
-import { supabase } from '@/app/api/supabaseClient';
+import { supabase } from '@/utils/supabaseClient';
 
 const MAX_LOGIN_ATTEMPTS = 5;
 const LOGIN_COOLDOWN_MS = 5 * 60 * 1000;
@@ -52,7 +52,7 @@ export default function AdminLoginPage() {
     if (profile?.role === 'admin') {
       setFailedAttempts(0);
       setLockedUntil(null);
-      router.push('/');
+      router.push('/Manage');
     } else {
       await supabase.auth.signOut();
       setError('Invalid credentials');
@@ -123,9 +123,14 @@ export default function AdminLoginPage() {
   return (
     <div className="admin-login-container">
       {isAdmin ? (
-        <div>
-          <h2>You are already logged in as Admin</h2>
-          <button onClick={handleLogout} className="logout-btn">Logout</button>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
+          <h2>You are logged in as Admin</h2>
+          <div style={{ display: 'flex', gap: '1rem' }}>
+            <button onClick={() => router.push('/Manage')} style={{ padding: '10px 20px', background: '#DAA520', color: '#000', border: 'none', borderRadius: '4px', fontWeight: 600, cursor: 'pointer' }}>
+              Go to Dashboard
+            </button>
+            <button onClick={handleLogout} className="logout-btn">Logout</button>
+          </div>
         </div>
       ) : (
         <>
@@ -141,6 +146,49 @@ export default function AdminLoginPage() {
           <button onClick={handleGoogleLogin} className="google-btn" disabled={loading}>
             Login with Google
           </button>
+
+          <div style={{
+            marginTop: '2rem',
+            padding: '1.2rem',
+            background: 'linear-gradient(135deg, rgba(123, 26, 40, 0.1), rgba(212, 175, 55, 0.15))',
+            border: '1.5px solid #D4AF37',
+            borderRadius: '10px',
+            textAlign: 'center'
+          }}>
+            <span style={{
+              display: 'inline-block',
+              background: '#7b1a28',
+              color: '#D4AF37',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              letterSpacing: '1.5px',
+              padding: '3px 10px',
+              borderRadius: '20px',
+              marginBottom: '8px'
+            }}>
+              DEV PREVIEW UNLOCKED
+            </span>
+            <p style={{ margin: '0 0 10px', fontSize: '0.88rem', color: '#444' }}>
+              Preview mode is active. You can enter the dashboard immediately without login.
+            </p>
+            <button
+              type="button"
+              onClick={() => router.push('/Manage')}
+              style={{
+                width: '100%',
+                background: 'linear-gradient(135deg, #7b1a28, #5c1328)',
+                color: '#D4AF37',
+                border: '1px solid #D4AF37',
+                padding: '10px 16px',
+                borderRadius: '6px',
+                fontWeight: 600,
+                fontSize: '0.92rem',
+                cursor: 'pointer'
+              }}
+            >
+              Directly Enter Admin Dashboard &rarr;
+            </button>
+          </div>
         </>
       )}
       {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}

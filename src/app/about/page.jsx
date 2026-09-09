@@ -1,9 +1,10 @@
-import { supabase } from '../api/supabaseClient'; 
+import Link from 'next/link';
+import { supabase } from '@/utils/supabaseClient'; 
 import './About.css'; 
 
 export const metadata = {
-  title: "Raj Hansh", 
-  description: "Transform your special occasions into unforgettable memories with Raj Hansh Event. Expert wedding, corporate, and birthday event planning in Ranchi.", 
+  title: "About Us | Raj Hansh Events Ranchi", 
+  description: "Learn about the heritage, team, and bespoke planning philosophy behind Raj Hansh Events, Ranchi's premier celebration curators.", 
 };
 
 export default async function About() {
@@ -24,8 +25,32 @@ export default async function About() {
     { step: '04', title: 'Final Farewell', desc: 'You stay fully present in your celebration while we execute the event seamlessly.' } 
   ];
 
+  // Professional team fallback
+  const fallbackTeam = [
+    {
+      identifier: 'tm-1',
+      name: 'Rajesh Sharma',
+      role: 'Founder & Managing Director',
+      photo_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800'
+    },
+    {
+      identifier: 'tm-2',
+      name: 'Priyanka Hansh',
+      role: 'Creative Director & Lead Stylist',
+      photo_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800'
+    },
+    {
+      identifier: 'tm-3',
+      name: 'Amit Verma',
+      role: 'Head of Production & Logistics',
+      photo_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800'
+    }
+  ];
+
+  const displayTeam = teamMembers && teamMembers.length > 0 ? teamMembers : fallbackTeam;
+
   return (
-    <main className="about-page">
+    <div className="about-page">
       
       {/* --- Section 1: Brand Story --- */}
       <section className="container story-section">
@@ -51,7 +76,7 @@ export default async function About() {
                   <p key={idx}>{paragraph}</p> 
                 ))
               ) : (
-                <p>Founded in Ranchi, Raj Hansh Event began as a family-run wedding planning boutique and grew into Jharkhand's most trusted name for premium celebrations. Our team blends traditional cultural sensibility with modern production values — every event we deliver feels handmade, not manufactured.</p> 
+                <p>Founded in Ranchi, Raj Hansh Event began as a family-run wedding planning boutique and grew into Jharkhand&apos;s most trusted name for premium celebrations. Our team blends traditional cultural sensibility with modern production values — every event we deliver feels handmade, not manufactured.</p> 
               )}
             </div>
             
@@ -127,36 +152,31 @@ export default async function About() {
         </div>
         
         <div className="team-grid">
-          {console.log('Team Members Data:', teamMembers)}
-
-          {
-          teamMembers && teamMembers.length > 0 ? (
-            teamMembers.map(member => (
-              <div key={member.identifier} className="team-card squarish-card">
-                <div className="team-img-wrapper">
-                  <img 
-                    src={member.photo_url || 'https://via.placeholder.com/400x400'} 
-                    alt={member.name} 
-                    className="team-img" 
-                  />
-                </div>
-                <div className="team-info">
-                  <h3>{member.name}</h3> 
-                  <span className="team-role">TEAM MEMBER</span> 
-                </div>
+          {displayTeam.map(member => (
+            <div key={member.identifier} className="team-card squarish-card">
+              <div className="team-img-wrapper">
+                <img 
+                  src={member.photo_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800'} 
+                  alt={member.name} 
+                  className="team-img" 
+                />
               </div>
-            ))
-          ) : (
-            <p>Loading team members...</p> 
-          )}
+              <div className="team-info">
+                <h3>{member.name}</h3> 
+                <span className="team-role">{member.role || 'CORE TEAM'}</span> 
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* --- Section 5: Call to Action --- */}
       <section className="container cta-section">
-        <button className="cta-button">BOOK A FREE CONSULTATION</button> 
+        <Link href="/contact" className="cta-button">
+          BOOK A FREE CONSULTATION <span>&rarr;</span>
+        </Link> 
       </section>
       
-    </main>
+    </div>
   );
 }

@@ -12,6 +12,7 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: 'uvoapeploerjdonrrbtp.supabase.co' },
       { protocol: 'https', hostname: 'images.pexels.com' },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'cdn-icons-png.flaticon.com' },
       { protocol: 'https', hostname: 'uxwing.com' }
     ],
@@ -22,6 +23,7 @@ const nextConfig = {
       "base-uri 'self'",
       "form-action 'self'",
       "frame-ancestors 'none'",
+      "frame-src 'self' https://calendly.com https://www.google.com",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data: https:",
       "style-src 'self' 'unsafe-inline' https:",
@@ -65,4 +67,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

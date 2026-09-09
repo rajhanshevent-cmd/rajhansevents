@@ -1,9 +1,10 @@
-import { supabase } from '@/app/api/supabaseClient';
+import Link from 'next/link';
+import { supabase } from '@/utils/supabaseClient';
 import './Services.css';
 
 export const metadata = {
-  title: "Raj Hansh",
-  description: "From luxury weddings to professional corporate events, explore the wide range of management services offered by Raj Hansh Event.",
+  title: "Event Planning Services | Raj Hansh Events Ranchi",
+  description: "From luxury weddings to professional corporate events, explore our comprehensive event management and decor services.",
 };
 
 export default async function Services() {
@@ -13,14 +14,14 @@ export default async function Services() {
     .select('*')
     .order('created_at', { ascending: true });
 
-  // Fallback data mirroring the elegant structure from the screenshot
+  // Fallback data mirroring the elegant structure with curated images
   const fallbackServices = [
-    { identifier: 'srv-1', tag: 'WEDDING', title: 'Wedding Planning', desc: 'End-to-end open wedding orchestration — floral design, catering, decor & rituals crafted to your traditions.', image_url: '/monalisa.jpg' },
-    { identifier: 'srv-2', tag: 'BIRTHDAY', title: 'Birthday Celebrations', desc: 'Themed birthday parties for every age — from magical first birthdays to milestone soirees.', image_url: '/monalisa.jpg' },
-    { identifier: 'srv-3', tag: 'ANNIVERSARY', title: 'Anniversary Celebrations', desc: 'Celebrate romance with intimate, meticulously designed anniversary experiences.', image_url: '/monalisa.jpg' },
-    { identifier: 'srv-4', tag: 'CORPORATE', title: 'Corporate & Commercial Events', desc: 'Product launches, conferences, gala dinners and brand activations executed with precision.', image_url: '/monalisa.jpg' },
-    { identifier: 'srv-5', tag: 'DECOR & DESIGN', title: 'Decoration & Floral Design', desc: 'Bespoke archway installations, centerpieces and lighting design for unforgettable venues.', image_url: '/monalisa.jpg' },
-    { identifier: 'srv-6', tag: 'CATERING', title: 'Catering & Culinary', desc: 'Multi-cuisine food counters and plated fine dining curated by award-winning chefs.', image_url: '/monalisa.jpg' }
+    { identifier: 'srv-1', tag: 'WEDDING', title: 'Wedding Planning', desc: 'End-to-end open wedding orchestration — floral design, catering, decor & rituals crafted to your traditions.', image_url: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800' },
+    { identifier: 'srv-2', tag: 'BIRTHDAY', title: 'Birthday Celebrations', desc: 'Themed birthday parties for every age — from magical first birthdays to milestone soirees.', image_url: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=800' },
+    { identifier: 'srv-3', tag: 'ANNIVERSARY', title: 'Anniversary Celebrations', desc: 'Celebrate romance with intimate, meticulously designed anniversary experiences.', image_url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800' },
+    { identifier: 'srv-4', tag: 'CORPORATE', title: 'Corporate & Commercial Events', desc: 'Product launches, conferences, gala dinners and brand activations executed with precision.', image_url: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800' },
+    { identifier: 'srv-5', tag: 'DECOR & DESIGN', title: 'Decoration & Floral Design', desc: 'Bespoke archway installations, centerpieces and lighting design for unforgettable venues.', image_url: 'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?q=80&w=800' },
+    { identifier: 'srv-6', tag: 'CATERING', title: 'Catering & Culinary', desc: 'Multi-cuisine food counters and plated fine dining curated by award-winning chefs.', image_url: 'https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=800' }
   ];
 
   const displayServices = servicesData && servicesData.length > 0 ? servicesData : fallbackServices; //[cite: 1]
@@ -33,7 +34,7 @@ export default async function Services() {
   ]; //[cite: 1]
 
   return (
-    <main className="services-page">
+    <div className="services-page">
       {/* --- Main Services Grid --- */}
       <section className="services-container">
         
@@ -58,14 +59,14 @@ export default async function Services() {
                 <hr className="card-divider" />
                 <h3 className="card-title">{service.title}</h3>
                 <p className="card-desc">{service.desc || 'Experience our premium services tailored just for your special occasion.'}</p>
-                <a href="#quote" className="card-quote-link">GET A QUOTE &gt;</a>
+                <Link href="/contact" className="card-quote-link">GET A QUOTE <span>&rarr;</span></Link>
               </div>
             </div>
           ))}
         </div>
 
         <div className="services-footer-link">
-          <a href="#all-services">VIEW ALL SERVICES</a>
+          <Link href="/packages">VIEW OUR PACKAGES <span>&rarr;</span></Link>
         </div>
       </section>
 
@@ -85,9 +86,9 @@ export default async function Services() {
           </div>
         </div>
       </section>
-      <section className="brochure-section" style = {{textAlign: 'center', margin: '40px 0'}}>
-        <a href="/brochure.pdf" download>Download Brochure</a>
+      <section className="brochure-section" style={{ textAlign: 'center', margin: '60px 0 20px' }}>
+        <a href="/brochure.pdf" download><span>📄</span> Download Brochure</a>
       </section>
-    </main>
+    </div>
   );
 }

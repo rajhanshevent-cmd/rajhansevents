@@ -1,67 +1,77 @@
 /* ==========================================================================
-   Manage Page Styles
+   Manage Page Styles — Royal Maroon & Imperial Gold Luxury Theme
    ========================================================================== */
 
 .manageContainer {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--font-base, sans-serif);
   line-height: 1.6;
-  max-width: 900px;
+  max-width: 1040px;
   margin: 40px auto;
-  padding: 25px;
-  color: #333;
-  background-color: #f4f7f6;
-  border-radius: 12px;
+  padding: 35px 40px;
+  color: #1F1F1F;
+  background-color: #FFFDF9;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
 }
 
 .manageContainer h1 {
-  text-align: center;
-  margin-bottom: 40px;
-  color: #1a1a1a;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  text-align: left;
+  margin-bottom: 25px;
+  color: #7b1a28;
+  font-family: var(--font-heading, serif);
+  font-size: 2.2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
 /* --- Section Layouts --- */
 .section {
-  border: 1px solid #e0e0e0;
-  padding: 30px;
-  margin-bottom: 30px;
-  border-radius: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  padding: 32px;
+  margin-bottom: 35px;
+  border-radius: 14px;
   background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .section h2 {
-  border-left: 5px solid #007bff;
-  padding-left: 15px;
+  border-left: 4px solid #D4AF37;
+  padding-left: 16px;
   margin-top: 0;
   margin-bottom: 25px;
-  color: #2c3e50;
+  color: #7b1a28;
+  font-family: var(--font-heading, serif);
+  font-size: 1.65rem;
+  font-weight: 500;
 }
 
 .section h3 {
-  margin-top: 30px;
-  color: #555;
-  font-size: 1.1rem;
-  text-decoration: underline;
-  text-underline-offset: 6px;
+  margin-top: 25px;
+  color: #7b1a28;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  padding-bottom: 8px;
 }
 
 .group {
   margin: 20px 0;
-  padding: 20px;
-  background: #fcfcfc;
-  border: 1px solid #eee;
-  border-radius: 8px;
+  padding: 24px;
+  background: #FDFBF7;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 10px;
 }
 
 /* --- Form Elements & Labels --- */
 .manageContainer label {
   display: block;
-  margin-top: 15px;
+  margin-top: 14px;
   font-weight: 600;
-  color: #444;
-  font-size: 0.9rem;
+  color: #555;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .manageContainer input[type="text"],
@@ -72,17 +82,21 @@
 .manageContainer select,
 .manageContainer textarea {
   width: 100%;
-  padding: 12px;
+  padding: 12px 14px;
   margin-top: 6px;
-  margin-bottom: 12px;
-  border: 1px solid #ced4da;
-  border-radius: 6px;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  margin-bottom: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  background-color: #ffffff;
+  color: #1F1F1F;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .manageContainer textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 90px;
 }
 
 /* --- Interactive States --- */
@@ -90,41 +104,48 @@
 .manageContainer select:focus,
 .manageContainer textarea:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+  border-color: #D4AF37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
 }
 
-.manageContainer button {
-  background: #007bff;
-  color: white;
-  padding: 14px 20px;
-  border: none;
-  border-radius: 6px;
+.manageContainer button[type="submit"] {
+  background: linear-gradient(135deg, #7b1a28 0%, #5c1328 100%);
+  color: #D4AF37;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 13px 24px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   width: 100%;
   margin-top: 15px;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(123, 26, 40, 0.15);
 }
 
-.manageContainer button:hover:not(:disabled) {
-  background: #0056b3;
+.manageContainer button[type="submit"]:hover:not(:disabled) {
+  background: linear-gradient(135deg, #D4AF37 0%, #B68D40 100%);
+  color: #1a0509;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
 }
 
-.manageContainer button:active:not(:disabled) {
-  transform: translateY(1px);
+.manageContainer button[type="submit"]:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .manageContainer button:disabled {
-  background: #a0c4eb;
+  background: #d4c5c8;
+  color: #888;
   cursor: not-allowed;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .manageContainer hr {
   border: 0;
   height: 1px;
-  background: #eaeaea;
-  margin: 40px 0;
+  background: rgba(212, 175, 55, 0.25);
+  margin: 35px 0;
 }
