@@ -232,7 +232,9 @@ const Footer = () => {
           <div className="footer-meta">
             <span>Jharkhand&apos;s Premier Event Specialists</span>
             <span className="meta-dot">•</span>
-            <Link href="/contact">Terms &amp; Privacy</Link>
+            <Link href="/privacy">Privacy Policy</Link>
+            <span className="meta-dot">•</span>
+            <Link href="/terms">Terms of Service</Link>
           </div>
           <button 
             type="button" 
