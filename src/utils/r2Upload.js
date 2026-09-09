@@ -58,7 +58,9 @@ export const uploadToR2 = async (file, folder = "general") => {
   });
 
   if (!uploadRes.ok) {
-    throw new Error(`Upload to Cloudflare R2 failed with status ${uploadRes.status}`);
+    const errorText = await uploadRes.text().catch(() => "");
+    console.error("[Cloudflare R2 Direct PUT Error]:", uploadRes.status, errorText);
+    throw new Error(`Upload to Cloudflare R2 failed (status ${uploadRes.status}): ${errorText || uploadRes.statusText}`);
   }
 
   return publicUrl;

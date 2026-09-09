@@ -100,7 +100,16 @@ export default function ManagePage() {
   };
 
   // Section States
-  const [homeData, setHomeData] = useState({ identifier: 'home_main', logo: null, banner_video: null, banner_title: '', banner_text: '', founded: '' });
+  const [homeData, setHomeData] = useState({
+    identifier: 'home_main',
+    logo: null,
+    banner_video: null,
+    banner_title: '',
+    banner_text: '',
+    founded: '',
+    banner_video_url: '',
+    logo_url: '',
+  });
   const [expertiseData, setExpertiseData] = useState({ identifier: '', title: '', file: null });
   const [featuredData, setFeaturedData] = useState({ identifier: '', title: '', file: null });
   const [contactData, setContactData] = useState({ identifier: 'contact_main', email: '', phone: '', location: '', insta: '', fb: '' });
@@ -189,6 +198,28 @@ export default function ManagePage() {
     }
   };
 
+  // Home Page Management Handlers
+  const loadHomeData = async () => {
+    try {
+      const res = await fetch('/api/cms/list?table=home_content');
+      const data = await res.json();
+      if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+        const home = data.data.find(h => h.identifier === 'home_main') || data.data[0];
+        setHomeData(prev => ({
+          ...prev,
+          identifier: home.identifier || 'home_main',
+          banner_title: home.banner_title || '',
+          banner_text: home.banner_text || '',
+          founded: home.founded || '',
+          banner_video_url: home.banner_video_url || '',
+          logo_url: home.logo_url || '',
+        }));
+      }
+    } catch (err) {
+      console.error('Failed to load home data:', err);
+    }
+  };
+
   // Team Management Handlers
   const loadTeamList = async () => {
     try {
@@ -204,18 +235,39 @@ export default function ManagePage() {
 
   useEffect(() => {
     let isMounted = true;
-    async function fetchTeam() {
+    async function initCmsData() {
       try {
-        const res = await fetch('/api/cms/list?table=team');
-        const data = await res.json();
-        if (isMounted && data.success && Array.isArray(data.data)) {
-          setTeamList(data.data);
+        const [teamRes, homeRes] = await Promise.all([
+          fetch('/api/cms/list?table=team'),
+          fetch('/api/cms/list?table=home_content'),
+        ]);
+        const [teamDataRes, homeDataRes] = await Promise.all([
+          teamRes.json().catch(() => ({})),
+          homeRes.json().catch(() => ({})),
+        ]);
+
+        if (isMounted) {
+          if (teamDataRes.success && Array.isArray(teamDataRes.data)) {
+            setTeamList(teamDataRes.data);
+          }
+          if (homeDataRes.success && Array.isArray(homeDataRes.data) && homeDataRes.data.length > 0) {
+            const home = homeDataRes.data.find(h => h.identifier === 'home_main') || homeDataRes.data[0];
+            setHomeData(prev => ({
+              ...prev,
+              identifier: home.identifier || 'home_main',
+              banner_title: home.banner_title || '',
+              banner_text: home.banner_text || '',
+              founded: home.founded || '',
+              banner_video_url: home.banner_video_url || '',
+              logo_url: home.logo_url || '',
+            }));
+          }
         }
       } catch (err) {
-        console.error('Failed to load team list:', err);
+        console.error('Failed to load CMS data:', err);
       }
     }
-    fetchTeam();
+    initCmsData();
     return () => { isMounted = false; };
   }, []);
 
@@ -584,39 +636,82 @@ export default function ManagePage() {
                 Home Page Main & Banner
               </h2>
             </div>
-            <form onSubmit={(e) => handleSubmit(
-              e, 'home_content', 
-              { identifier: homeData.identifier, banner_title: homeData.banner_title, banner_text: homeData.banner_text, founded: homeData.founded },
-              { file: homeData.logo, bucket: 'home', columnName: 'logo_url' },
-              { file: homeData.banner_video, bucket: 'home', columnName: 'banner_video_url' }
-            )}>
+            <form onSubmit={async (e) => {
+              e.preventDefault();
+              const payload = {
+                identifier: homeData.identifier || 'home_main',
+                ...(homeData.banner_title !== undefined ? { banner_title: homeData.banner_title } : {}),
+                ...(homeData.banner_text !== undefined ? { banner_text: homeData.banner_text } : {}),
+                ...(homeData.founded !== undefined ? { founded: homeData.founded } : {}),
+                ...(homeData.banner_video_url !== undefined ? { banner_video_url: homeData.banner_video_url } : {}),
+                ...(homeData.logo_url !== undefined ? { logo_url: homeData.logo_url } : {})
+              };
+              await handleSubmit(
+                e, 'home_content', 
+                payload,
+                homeData.logo ? { file: homeData.logo, bucket: 'home', columnName: 'logo_url' } : null,
+                homeData.banner_video ? { file: homeData.banner_video, bucket: 'home', columnName: 'banner_video_url' } : null
+              );
+              await loadHomeData();
+            }}>
               <div className={styles.formGrid}>
                 <div className={styles.fieldGroup}>
                   <label>Logo File</label>
                   <input type="file" accept="image/*" onChange={e => setHomeData({...homeData, logo: e.target.files[0]})} />
+                  {homeData.logo_url && (
+                    <div style={{ marginTop: '6px', fontSize: '0.82rem', color: '#666' }}>
+                      Current:{' '}
+                      <a href={homeData.logo_url} target="_blank" rel="noreferrer" style={{ color: '#0055DC', textDecoration: 'underline' }}>
+                        {homeData.logo_url.split('/').pop()}
+                      </a>
+                    </div>
+                  )}
                 </div>
                 <div className={styles.fieldGroup}>
-                  <label>Banner Media (Video/Image)</label>
+                  <label>Banner Media (Video or Image File)</label>
                   <input type="file" accept="video/*,image/*" onChange={e => setHomeData({...homeData, banner_video: e.target.files[0]})} />
+                  {homeData.banner_video_url && (
+                    <div style={{ marginTop: '6px', fontSize: '0.82rem', color: '#666' }}>
+                      Current:{' '}
+                      <a href={homeData.banner_video_url} target="_blank" rel="noreferrer" style={{ color: '#0055DC', textDecoration: 'underline' }}>
+                        {homeData.banner_video_url.split('/').pop()}
+                      </a>
+                    </div>
+                  )}
                 </div>
+              </div>
+
+              <div className={styles.fieldGroup}>
+                <label>Direct Media URL (Cloudflare R2 / CDN)</label>
+                <input 
+                  type="url" 
+                  placeholder="https://pub-5d8c780110a84ca79435d4e9a0a0bb30.r2.dev/home/..." 
+                  value={homeData.banner_video_url || ''} 
+                  onChange={e => setHomeData({...homeData, banner_video_url: e.target.value})} 
+                />
+                <span style={{ fontSize: '0.78rem', color: '#777', marginTop: '4px', display: 'block' }}>
+                  Upload a file above to host directly on Cloudflare R2, or paste a direct Cloudflare/CDN asset URL.
+                </span>
               </div>
 
               <div className={styles.formGrid}>
                 <div className={styles.fieldGroup}>
                   <label>Banner Title</label>
-                  <input type="text" placeholder="Title on Banner" onChange={e => setHomeData({...homeData, banner_title: e.target.value})} />
+                  <input type="text" placeholder="Title on Banner" value={homeData.banner_title || ''} onChange={e => setHomeData({...homeData, banner_title: e.target.value})} />
                 </div>
                 <div className={styles.fieldGroup}>
                   <label>Founded Year / Text</label>
-                  <input type="text" placeholder="e.g. Established 2017" onChange={e => setHomeData({...homeData, founded: e.target.value})} />
+                  <input type="text" placeholder="e.g. Established 2017" value={homeData.founded || ''} onChange={e => setHomeData({...homeData, founded: e.target.value})} />
                 </div>
               </div>
 
               <div className={styles.fieldGroup}>
                 <label>Text Under Title</label>
-                <textarea placeholder="Supporting text under main banner heading" onChange={e => setHomeData({...homeData, banner_text: e.target.value})} />
+                <textarea placeholder="Supporting text under main banner heading" value={homeData.banner_text || ''} onChange={e => setHomeData({...homeData, banner_text: e.target.value})} />
               </div>
-              <button type="submit" disabled={loading} className={styles.submitBtn}>Save Home Data</button>
+              <button type="submit" disabled={loading} className={styles.submitBtn}>
+                {loading ? 'Saving to Database & R2...' : 'Save Home Data'}
+              </button>
             </form>
 
             <h3 className={styles.subSectionTitle}>Our Expertise (Add Item)</h3>

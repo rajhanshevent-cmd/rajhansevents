@@ -193,9 +193,9 @@
 /* ========================================= */
 .hero {
   position: relative;
-  height: calc(100vh - var(--navbar-height, 75px));
-  height: calc(100dvh - var(--navbar-height, 75px));
-  min-height: 560px;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 650px;
   width: 100%;
   display: flex;
   align-items: center;

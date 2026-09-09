@@ -52,8 +52,8 @@ export default function RootLayout({ children }) {
       className={`${playfair.variable} ${cormorant.variable} ${nunito.variable} ${poppins.variable}`}
     >
       <head>
-        <link rel="preconnect" href="https://pub-9013d6d8ce774b47b1bac90aa5326c3b.r2.dev" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://pub-9013d6d8ce774b47b1bac90aa5326c3b.r2.dev" />
+        <link rel="preconnect" href="https://pub-5d8c780110a84ca79435d4e9a0a0bb30.r2.dev" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://pub-5d8c780110a84ca79435d4e9a0a0bb30.r2.dev" />
         <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://assets.calendly.com" crossOrigin="anonymous" />
