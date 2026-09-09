@@ -33,6 +33,13 @@
   --radius-lg: 20px;
   --radius-full: 9999px;
   --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --navbar-height: 75px;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --navbar-height: 64px;
+  }
 }
 
 html {
@@ -52,6 +59,7 @@ body {
   font-family: var(--font-body);
   overflow-x: hidden;
   line-height: 1.65;
+  padding-top: var(--navbar-height);
 }
 
 /* --- Luxury Custom Scrollbar --- */

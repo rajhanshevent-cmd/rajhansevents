@@ -171,10 +171,14 @@
 .direct-line-card {
   background: linear-gradient(180deg, var(--primary-maroon) 0%, var(--primary-maroon-dark) 100%); 
   color: #FFFDF9; 
-  padding: 3.2rem 2.4rem; 
+  padding: 3rem 2.2rem; 
   border-radius: 16px; 
   border: 1.5px solid var(--secondary-gold);
   box-shadow: 0 12px 35px rgba(123, 26, 40, 0.22);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .direct-line-card h3 {
@@ -227,14 +231,20 @@
 
 .action-buttons {
   display: flex; 
-  gap: 14px; 
+  flex-direction: column;
+  gap: 12px; 
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .btn-whatsapp, .btn-call {
   display: inline-flex; 
   align-items: center; 
   justify-content: center; 
-  padding: 12px 24px; 
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 13px 20px; 
   border-radius: 50px; 
   font-weight: 600; 
   font-size: 0.86rem; 
@@ -244,6 +254,7 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
 }
 
 .btn-whatsapp:hover, .btn-call:hover {
@@ -252,14 +263,40 @@
 
 .btn-whatsapp {
   background: linear-gradient(135deg, #25D366, #128C7E); 
-  color: #ffffff; 
+  color: #ffffff !important; 
   box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
 }
 
 .btn-call {
   background: linear-gradient(135deg, #D4AF37, #B68D40); 
-  color: #ffffff; 
+  color: #ffffff !important; 
   box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+}
+
+.btn-calendar-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 13px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2a1622 0%, #1c1826 100%);
+  color: #e5c158 !important;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.btn-calendar-slot:hover {
+  border-color: #e5c158;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(182, 141, 64, 0.25);
 }
 
 /* --- Full Width Map --- */
@@ -332,10 +369,12 @@
     padding: 14px 20px;
     font-size: 0.9rem;
   }
-  .btn-whatsapp, .btn-call {
+  .btn-whatsapp, .btn-call, .btn-calendar-slot {
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     text-align: center;
-    padding: 13px 18px;
+    padding: 12px 16px;
   }
   .map-section {
     height: 280px;

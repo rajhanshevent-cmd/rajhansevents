@@ -238,22 +238,7 @@ ${form.message}`;
                 <button
                   type="button"
                   onClick={openCalendlyModal}
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                    padding: '12px 18px',
-                    borderRadius: '12px',
-                    background: 'linear-gradient(135deg, #2a1622 0%, #1c1826 100%)',
-                    color: '#e5c158',
-                    border: '1px solid rgba(212, 175, 55, 0.4)',
-                    fontSize: '0.88rem',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease'
-                  }}
+                  className="btn-calendar-slot"
                   aria-label="Pick slot on consultation calendar"
                 >
                   📅 Pick Slot on Calendar

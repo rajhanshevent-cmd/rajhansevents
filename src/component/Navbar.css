@@ -3,14 +3,18 @@
 /* ========================================= */
 
 .navbar-header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 1000;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1040;
   background-color: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(212, 175, 55, 0.2);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 .navbar-header.scrolled {
@@ -353,6 +357,12 @@
 
 /* Responsive Breakpoint */
 @media (max-width: 1024px) {
+  .navbar-container {
+    padding: 0.65rem 1.25rem;
+  }
+  .brand-logo-img {
+    height: 44px;
+  }
   .desktop-nav {
     display: none;
   }
@@ -361,5 +371,14 @@
   }
   .mobile-toggle-btn {
     display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0.55rem 1rem;
+  }
+  .brand-logo-img {
+    height: 38px;
   }
 }
