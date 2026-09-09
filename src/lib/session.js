@@ -62,6 +62,8 @@ export async function createSession(email) {
   return token;
 }
 
+const BYPASS_AUTH_FOR_DEV = true;
+
 /**
  * Retrieve and verify the current administrator session from cookies.
  */
@@ -70,11 +72,17 @@ export async function getSession() {
   const token = cookieStore.get(COOKIE_NAME)?.value;
 
   if (!token) {
+    if (BYPASS_AUTH_FOR_DEV) {
+      return { authenticated: true, email: "rajhanshevent@gmail.com", role: "admin" };
+    }
     return { authenticated: false };
   }
 
   const payload = await verifySessionToken(token);
   if (!payload || payload.role !== "admin") {
+    if (BYPASS_AUTH_FOR_DEV) {
+      return { authenticated: true, email: "rajhanshevent@gmail.com", role: "admin" };
+    }
     return { authenticated: false };
   }
 

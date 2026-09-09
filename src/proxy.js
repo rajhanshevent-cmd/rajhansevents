@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
 const COOKIE_NAME = "admin_session";
+const BYPASS_AUTH_FOR_DEV = true;
 
 function getSecretKey() {
   const secret = process.env.AUTH_SECRET;
@@ -18,6 +19,10 @@ export default async function proxy(request) {
 
   // Protect /Manage and any sub-routes
   if (pathname.startsWith("/Manage")) {
+    if (BYPASS_AUTH_FOR_DEV) {
+      return NextResponse.next();
+    }
+
     const token = request.cookies.get(COOKIE_NAME)?.value;
 
     if (!token) {

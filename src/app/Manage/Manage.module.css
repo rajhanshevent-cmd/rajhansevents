@@ -316,3 +316,86 @@
   font-size: 0.85rem;
   color: #555;
 }
+
+/* --- CMS Top Navigation Tabs --- */
+.tabBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 6px 4px 16px 4px;
+  margin-bottom: 24px;
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.3);
+  scrollbar-width: thin;
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #ffffff;
+  color: #555;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  transition: all 0.25s ease;
+}
+
+.tabBtn:hover {
+  background: rgba(212, 175, 55, 0.15);
+  color: #7b1a28;
+  border-color: #D4AF37;
+}
+
+.tabBtnActive {
+  background: linear-gradient(135deg, #7b1a28 0%, #5c1328 100%);
+  color: #D4AF37;
+  border-color: #D4AF37;
+  box-shadow: 0 4px 12px rgba(123, 26, 40, 0.2);
+}
+
+.teamSectionSplit {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .teamSectionSplit {
+    grid-template-columns: 1fr;
+  }
+}
+
+.teamListStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.teamItemCardActive {
+  border-color: #D4AF37 !important;
+  background: rgba(212, 175, 55, 0.08) !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.4) !important;
+}
+
+.addBtn {
+  background: rgba(212, 175, 55, 0.2);
+  color: #7b1a28;
+  border: 1px solid #D4AF37;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.addBtn:hover {
+  background: #D4AF37;
+  color: #7b1a28;
+}

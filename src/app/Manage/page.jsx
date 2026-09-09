@@ -51,6 +51,21 @@ export default function ManagePage() {
     };
   }, [router]);
   
+  // Navigation Tabs State
+  const [activeTab, setActiveTab] = useState('team');
+
+  const TABS = [
+    { id: 'team', label: 'Team Members', icon: '👥' },
+    { id: 'home', label: 'Home & Banner', icon: '🏠' },
+    { id: 'about', label: 'About Us', icon: '📖' },
+    { id: 'services', label: 'Services', icon: '💼' },
+    { id: 'packages', label: 'Packages', icon: '📦' },
+    { id: 'portfolio', label: 'Portfolio', icon: '🎨' },
+    { id: 'testimonials', label: 'Testimonials', icon: '⭐' },
+    { id: 'contact', label: 'Contact Info', icon: '📞' },
+    { id: 'all', label: 'Show All', icon: '📑' },
+  ];
+
   // Section States
   const [homeData, setHomeData] = useState({ identifier: 'home_main', logo: null, banner_video: null, banner_title: '', banner_text: '', founded: '' });
   const [expertiseData, setExpertiseData] = useState({ identifier: '', title: '', file: null });
@@ -300,38 +315,39 @@ export default function ManagePage() {
     <div className={styles.manageContainer}>
       {BYPASS_AUTH_FOR_DEV && (
         <div style={{
-          background: 'linear-gradient(135deg, rgba(123, 26, 40, 0.1), rgba(212, 175, 55, 0.15))',
-          border: '1.5px solid #D4AF37',
-          borderRadius: '10px',
-          padding: '16px 20px',
-          marginBottom: '2rem',
+          background: 'rgba(212, 175, 55, 0.12)',
+          border: '1px solid #D4AF37',
+          borderRadius: '8px',
+          padding: '8px 14px',
+          marginBottom: '1rem',
           display: 'flex',
-          flexDirection: 'column',
-          gap: '6px'
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '8px',
+          fontSize: '0.85rem'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <div>
             <span style={{
               background: '#7b1a28',
               color: '#D4AF37',
-              fontSize: '0.75rem',
+              fontSize: '0.7rem',
               fontWeight: 700,
-              letterSpacing: '1.5px',
-              padding: '4px 10px',
-              borderRadius: '20px'
+              padding: '2px 8px',
+              borderRadius: '12px',
+              marginRight: '8px'
             }}>
-              DEV PREVIEW ACTIVE
+              DEV PREVIEW
             </span>
-            <strong style={{ color: '#7b1a28', fontSize: '0.95rem' }}>
-              Admin page unlocked without login per your request
-            </strong>
+            <strong style={{ color: '#7b1a28' }}>Admin CMS Active</strong>
           </div>
-          <p style={{ margin: 0, fontSize: '0.88rem', color: '#444' }}>
-            You have direct access to view and test all content sections. Say <em>&quot;hide admin behind login&quot;</em> when you want to re-engage the authentication guard.
-          </p>
+          <span style={{ color: '#666', fontSize: '0.8rem' }}>
+            Say <em>&quot;hide admin behind login&quot;</em> to re-lock.
+          </span>
         </div>
       )}
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.2rem' }}>
         <h1 style={{ margin: 0 }}>Website Content Manager</h1>
         <button
           onClick={async () => {
@@ -352,296 +368,361 @@ export default function ManagePage() {
         </button>
       </div>
 
-      <section className={styles.section}>
-        <h2>Home Page Main</h2>
-        <form onSubmit={(e) => handleSubmit(
-          e, 'home_content', 
-          { identifier: homeData.identifier, banner_title: homeData.banner_title, banner_text: homeData.banner_text, founded: homeData.founded },
-          { file: homeData.logo, bucket: 'home', columnName: 'logo_url' },
-          { file: homeData.banner_video, bucket: 'home', columnName: 'banner_video_url' }
-        )}>
-          <label>Logo</label>
-          <input type="file" accept="image/*" onChange={e => setHomeData({...homeData, logo: e.target.files[0]})} />
-          <label>Banner Media (Video/Image)</label>
-          <input type="file" accept="video/*,image/*" onChange={e => setHomeData({...homeData, banner_video: e.target.files[0]})} />
-          <input type="text" placeholder="Title on Banner" onChange={e => setHomeData({...homeData, banner_title: e.target.value})} />
-          <textarea placeholder="Text under Title" onChange={e => setHomeData({...homeData, banner_text: e.target.value})} />
-          <input type="text" placeholder="Founded Date/Text" onChange={e => setHomeData({...homeData, founded: e.target.value})} />
-          <button type="submit" disabled={loading}>Save Home Data</button>
-        </form>
-
-        <h3>Our Expertise (Add 3 items one by one)</h3>
-        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'expertise', { identifier: expertiseData.identifier, title: expertiseData.title }, { file: expertiseData.file, bucket: 'home', columnName: 'image_url' })}>
-          <input type="text" placeholder="Identifier (e.g., exp-1)" required onChange={e => setExpertiseData({...expertiseData, identifier: e.target.value})} />
-          <input type="text" placeholder="Title" required onChange={e => setExpertiseData({...expertiseData, title: e.target.value})} />
-          <input type="file" required onChange={e => setExpertiseData({...expertiseData, file: e.target.files[0]})} />
-          <button type="submit" disabled={loading}>Save Expertise Item</button>
-        </form>
-
-        <h3>Featured (Add 3 items one by one)</h3>
-        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'featured', { identifier: featuredData.identifier, title: featuredData.title }, { file: featuredData.file, bucket: 'home', columnName: 'image_url' })}>
-          <input type="text" placeholder="Identifier (e.g., feat-1)" required onChange={e => setFeaturedData({...featuredData, identifier: e.target.value})} />
-          <input type="text" placeholder="Title" required onChange={e => setFeaturedData({...featuredData, title: e.target.value})} />
-          <input type="file" required onChange={e => setFeaturedData({...featuredData, file: e.target.files[0]})} />
-          <button type="submit" disabled={loading}>Save Featured Item</button>
-        </form>
-
-        <h3>Contact Info</h3>
-        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'contact_info', { identifier: contactData.identifier, email: contactData.email, phone: contactData.phone, location: contactData.location, insta: contactData.insta, fb: contactData.fb })}>
-          <input type="email" placeholder="Email" onChange={e => setContactData({...contactData, email: e.target.value})} />
-          <input type="tel" placeholder="Phone" onChange={e => setContactData({...contactData, phone: e.target.value})} />
-          <input type="text" placeholder="Location" onChange={e => setContactData({...contactData, location: e.target.value})} />
-          <input type="text" placeholder="Instagram URL" onChange={e => setContactData({...contactData, insta: e.target.value})} />
-          <input type="text" placeholder="Facebook URL" onChange={e => setContactData({...contactData, fb: e.target.value})} />
-          <button type="submit" disabled={loading}>Save Contact Info</button>
-        </form>
-      </section>
-
-      <section className={styles.section}>
-        <h2>About Us</h2>
-        <form onSubmit={(e) => handleSubmit(e, 'about_us', { identifier: aboutData.identifier, description: aboutData.description })}>
-          <textarea placeholder="About description" required onChange={e => setAboutData({...aboutData, description: e.target.value})} />
-          <button type="submit" disabled={loading}>Save About Text</button>
-        </form>
-
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginTop: '25px', borderBottom: '1px solid rgba(212, 175, 55, 0.3)', paddingBottom: '8px' }}>
-          <h3 style={{ margin: 0, border: 'none', padding: 0 }}>Team Members ({teamList.length})</h3>
-          {!isEditingTeam && (
-            <button
-              type="button"
-              onClick={() => {
-                const nextId = `team-${teamList.length + 1}`;
-                setTeamData({ identifier: nextId, name: '', role: '', photo_url: '', file: null });
-                setTeamFilePreview('');
-              }}
-              style={{
-                background: 'rgba(212, 175, 55, 0.2)',
-                color: '#7b1a28',
-                border: '1px solid #D4AF37',
-                borderRadius: '6px',
-                padding: '4px 12px',
-                fontSize: '0.85rem',
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              + New Member (Auto ID)
-            </button>
-          )}
-        </div>
-
-        {/* Existing Team Members List */}
-        {teamList.length > 0 ? (
-          <div className={styles.teamListGrid}>
-            {teamList.map((member) => (
-              <div key={member.identifier} className={styles.teamItemCard}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={member.photo_url || '/logo.png'}
-                  alt={member.name || 'Team member'}
-                  className={styles.teamPhotoThumb}
-                  onError={(e) => { e.currentTarget.src = '/logo.png'; }}
-                />
-                <div className={styles.teamMeta}>
-                  <div className={styles.teamName}>{member.name || 'Unnamed'}</div>
-                  <div className={styles.teamRole}>{member.role || 'No role'}</div>
-                  <span className={styles.badge}>{member.identifier}</span>
-                </div>
-                <div className={styles.cardActions}>
-                  <button
-                    type="button"
-                    className={styles.editBtn}
-                    onClick={() => handleEditTeamMember(member)}
-                    title="Edit details"
-                  >
-                    ✏️ Edit
-                  </button>
-                  <button
-                    type="button"
-                    className={styles.deleteBtn}
-                    onClick={() => handleDeleteTeamMember(member.identifier, member.name)}
-                    title="Delete member"
-                  >
-                    🗑️ Delete
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p style={{ color: '#888', fontStyle: 'italic', margin: '14px 0' }}>
-            No team members in database yet. Add one below.
-          </p>
-        )}
-
-        {/* Team Member Form */}
-        <form className={styles.group} onSubmit={handleTeamSubmit}>
-          {isEditingTeam ? (
-            <div className={styles.modeNotice}>
-              <span>✏️ Editing Team Member: <strong>{teamData.name || teamData.identifier}</strong></span>
-              <button type="button" className={styles.cancelBtn} onClick={handleCancelTeamEdit}>
-                Cancel Edit
-              </button>
-            </div>
-          ) : (
-            <div style={{ fontWeight: 600, color: '#7b1a28', marginBottom: '10px' }}>
-              Add / Update Team Member
-            </div>
-          )}
-
-          <label>Identifier (Unique Key, e.g., team-1, team-2)</label>
-          <input
-            type="text"
-            placeholder="Identifier (e.g., team-1)"
-            value={teamData.identifier}
-            required
-            readOnly={isEditingTeam}
-            style={isEditingTeam ? { backgroundColor: '#f5f5f5', cursor: 'not-allowed' } : {}}
-            onChange={e => setTeamData({ ...teamData, identifier: e.target.value })}
-          />
-
-          <label>Full Name</label>
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={teamData.name}
-            required
-            onChange={e => setTeamData({ ...teamData, name: e.target.value })}
-          />
-
-          <label>Role / Designation</label>
-          <input
-            type="text"
-            placeholder="Role (e.g., Founder, Head, Creative Director)"
-            value={teamData.role}
-            onChange={e => setTeamData({ ...teamData, role: e.target.value })}
-          />
-
-          {teamFilePreview && (
-            <div className={styles.previewBox}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={teamFilePreview} alt="Preview" className={styles.previewThumb} />
-              <div className={styles.previewText}>
-                <strong>{teamData.file ? 'Selected New Photo' : 'Current Photo'}</strong>
-                <div>{teamData.file ? teamData.file.name : 'Photo saved in database / Cloudflare R2'}</div>
-              </div>
-            </div>
-          )}
-
-          <label>
-            {teamData.photo_url || isEditingTeam
-              ? 'Replace Photo (Optional — leave empty to keep current)'
-              : 'Photo (Required for new member)'}
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            required={!teamData.photo_url && !isEditingTeam}
-            onChange={e => {
-              const file = e.target.files[0];
-              if (file) {
-                setTeamData({ ...teamData, file });
-                setTeamFilePreview(URL.createObjectURL(file));
-              }
-            }}
-          />
-
-          <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
-            <button type="submit" disabled={loading}>
-              {loading ? 'Saving to Database & R2...' : isEditingTeam ? 'Update Team Member' : 'Save Team Member'}
-            </button>
-            {isEditingTeam && (
-              <button
-                type="button"
-                className={styles.cancelBtn}
-                onClick={handleCancelTeamEdit}
-                style={{ width: 'auto', padding: '0 20px', marginTop: '15px', height: 'auto' }}
-              >
-                Cancel
-              </button>
+      {/* Category Navigation Tabs */}
+      <div className={styles.tabBar}>
+        {TABS.map(tab => (
+          <button
+            key={tab.id}
+            type="button"
+            className={`${styles.tabBtn} ${activeTab === tab.id ? styles.tabBtnActive : ''}`}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            <span>{tab.icon}</span>
+            <span>{tab.label}</span>
+            {tab.id === 'team' && (
+              <span style={{
+                background: activeTab === 'team' ? '#D4AF37' : '#eee',
+                color: activeTab === 'team' ? '#7b1a28' : '#555',
+                padding: '1px 7px',
+                borderRadius: '10px',
+                fontSize: '0.72rem',
+                fontWeight: 700
+              }}>
+                {teamList.length}
+              </span>
             )}
+          </button>
+        ))}
+      </div>
+
+      {/* 1. TEAM MEMBERS SECTION (PROMINENT FIRST) */}
+      {(activeTab === 'team' || activeTab === 'all') && (
+        <section className={styles.section} id="section-team">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '18px' }}>
+            <h2 style={{ margin: 0 }}>Team Members Management</h2>
+            <span className={styles.badge} style={{ fontSize: '0.85rem', padding: '6px 14px' }}>
+              {teamList.length} Active Member{teamList.length === 1 ? '' : 's'}
+            </span>
           </div>
-        </form>
 
+          <div className={styles.teamSectionSplit}>
+            {/* Left Column: Live Team Cards */}
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                <strong style={{ color: '#7b1a28', fontSize: '1.05rem' }}>Current Team Cards</strong>
+                {!isEditingTeam && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const nextId = `team-${teamList.length + 1}`;
+                      setTeamData({ identifier: nextId, name: '', role: '', photo_url: '', file: null });
+                      setTeamFilePreview('');
+                    }}
+                    className={styles.addBtn}
+                  >
+                    + New Member (Auto ID)
+                  </button>
+                )}
+              </div>
 
-        <h3>Services</h3>
-        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'services', { identifier: serviceData.identifier, title: serviceData.title, tag: serviceData.tag, desc: serviceData.desc }, { file: serviceData.file, bucket: 'services', columnName: 'image_url' })}>
-          <input type="text" placeholder="Identifier (e.g., serv-1)" required onChange={e => setServiceData({...serviceData, identifier: e.target.value})} />
-          <input type="text" placeholder="Service Title" required onChange={e => setServiceData({...serviceData, title: e.target.value})} />
-          <input type="text" placeholder="Category Tag (e.g., WEDDING, CORPORATE, BIRTHDAY)" onChange={e => setServiceData({...serviceData, tag: e.target.value})} />
-          <textarea placeholder="Service Description" onChange={e => setServiceData({...serviceData, desc: e.target.value})} />
-          <input type="file" accept="image/*" required onChange={e => setServiceData({...serviceData, file: e.target.files[0]})} />
-          <button type="submit" disabled={loading}>Save Service</button>
-        </form>
-      </section>
+              {teamList.length > 0 ? (
+                <div className={styles.teamListStack}>
+                  {teamList.map((member) => (
+                    <div
+                      key={member.identifier}
+                      className={`${styles.teamItemCard} ${teamData.identifier === member.identifier && isEditingTeam ? styles.teamItemCardActive : ''}`}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={member.photo_url || '/logo.png'}
+                        alt={member.name || 'Team member'}
+                        className={styles.teamPhotoThumb}
+                        onError={(e) => { e.currentTarget.src = '/logo.png'; }}
+                      />
+                      <div className={styles.teamMeta}>
+                        <div className={styles.teamName}>{member.name || 'Unnamed'}</div>
+                        <div className={styles.teamRole}>{member.role || 'No role'}</div>
+                        <span className={styles.badge}>{member.identifier}</span>
+                      </div>
+                      <div className={styles.cardActions}>
+                        <button
+                          type="button"
+                          className={styles.editBtn}
+                          onClick={() => handleEditTeamMember(member)}
+                          title="Edit details"
+                        >
+                          ✏️ Edit
+                        </button>
+                        <button
+                          type="button"
+                          className={styles.deleteBtn}
+                          onClick={() => handleDeleteTeamMember(member.identifier, member.name)}
+                          title="Delete member"
+                        >
+                          🗑️ Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p style={{ color: '#888', fontStyle: 'italic', margin: '14px 0' }}>
+                  No team members in database yet. Add one using the form.
+                </p>
+              )}
+            </div>
 
-      <section className={styles.section}>
-        <h2>Packages</h2>
-        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'packages', { identifier: packageData.identifier, pkg_name: packageData.pkg_name, f1: packageData.f1, f2: packageData.f2, f3: packageData.f3, f4: packageData.f4, price: packageData.price })}>
-          <input type="text" placeholder="Identifier (e.g., pkg-1)" required onChange={e => setPackageData({...packageData, identifier: e.target.value})} />
-          <input type="text" placeholder="Package Name" required onChange={e => setPackageData({...packageData, pkg_name: e.target.value})} />
-          <input type="text" placeholder="Feature 1" onChange={e => setPackageData({...packageData, f1: e.target.value})} />
-          <input type="text" placeholder="Feature 2" onChange={e => setPackageData({...packageData, f2: e.target.value})} />
-          <input type="text" placeholder="Feature 3" onChange={e => setPackageData({...packageData, f3: e.target.value})} />
-          <input type="text" placeholder="Feature 4" onChange={e => setPackageData({...packageData, f4: e.target.value})} />
-          <input type="text" placeholder="Price" required onChange={e => setPackageData({...packageData, price: e.target.value})} />
-          <button type="submit" disabled={loading}>Save Package</button>
-        </form>
-      </section>
+            {/* Right Column: Form */}
+            <div>
+              <form className={styles.group} onSubmit={handleTeamSubmit} style={{ marginTop: 0 }}>
+                {isEditingTeam ? (
+                  <div className={styles.modeNotice}>
+                    <span>✏️ Editing: <strong>{teamData.name || teamData.identifier}</strong></span>
+                    <button type="button" className={styles.cancelBtn} onClick={handleCancelTeamEdit}>
+                      Cancel Edit
+                    </button>
+                  </div>
+                ) : (
+                  <div style={{ fontWeight: 700, color: '#7b1a28', marginBottom: '14px', fontSize: '1.05rem', borderBottom: '1px solid rgba(212, 175, 55, 0.3)', paddingBottom: '6px' }}>
+                    Add / Update Team Member
+                  </div>
+                )}
 
-      <section className={styles.section}>
-        <h2>Portfolio (Upload One by One)</h2>
-        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'portfolio', { identifier: portfolioData.identifier, category: portfolioData.category, media_type: portfolioData.media_type,title: portfolioData.title }, { file: portfolioData.file, bucket: 'portfolio', columnName: 'media_url' })}>
-          <input type="text" placeholder="Identifier (e.g., port-1)" required onChange={e => setPortfolioData({...portfolioData, identifier: e.target.value})} />
-          <input type="text" placeholder="Title of the image" required onChange={e => setPortfolioData({...portfolioData, title: e.target.value})} />
-          
-          <select required defaultValue="" onChange={e => setPortfolioData({...portfolioData, category: e.target.value})}>
-            <option value="" disabled>Select Category</option>
-            <option value="wedding-planning">Wedding Planning</option>
-            <option value="birthday-anniversary">Birthday & Anniversary</option>
-            <option value="corporate-events">Corporate Events</option>
-            <option value="decor-design">Decor & Design</option>
-            <option value="catering-coordination">Catering Coordination</option>
-            <option value="venue-selection">Venue Selection</option>
-            <option value="entertainment-logistics">Entertainment & Logistics</option>
-            <option value="photography-films">Photography & Films</option>
-          </select>
-          
-          <select required defaultValue="image" onChange={e => setPortfolioData({...portfolioData, media_type: e.target.value})}>
-            <option value="image">Image</option>
-            <option value="video">Video</option>
-          </select>
-          
-          <input type="file" required onChange={e => setPortfolioData({...portfolioData, file: e.target.files[0]})} />
-          <button type="submit" disabled={loading}>Save to Portfolio</button>
-        </form>
-      </section>
+                <label>Identifier (e.g., team-1, team-2)</label>
+                <input
+                  type="text"
+                  placeholder="Identifier (e.g., team-1)"
+                  value={teamData.identifier}
+                  required
+                  readOnly={isEditingTeam}
+                  style={isEditingTeam ? { backgroundColor: '#f5f5f5', cursor: 'not-allowed' } : {}}
+                  onChange={e => setTeamData({ ...teamData, identifier: e.target.value })}
+                />
 
-      <section className={styles.section}>
-        <h2>Testimonials</h2>
-        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'testimonials', { identifier: testimonialData.identifier, name: testimonialData.name, comment: testimonialData.comment, stars: testimonialData.stars })}>
-          <input type="text" placeholder="Identifier (e.g., test-1)" required onChange={e => setTestimonialData({...testimonialData, identifier: e.target.value})} />
-          <input type="text" placeholder="Name" required onChange={e => setTestimonialData({...testimonialData, name: e.target.value})} />
-          <textarea placeholder="Comment" required onChange={e => setTestimonialData({...testimonialData, comment: e.target.value})} />
-          <input type="number" min="1" max="5" placeholder="Stars (1-5)" required onChange={e => setTestimonialData({...testimonialData, stars: parseInt(e.target.value)})} />
-          <button type="submit" disabled={loading}>Save Testimonial</button>
-        </form>
+                <label>Full Name</label>
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  value={teamData.name}
+                  required
+                  onChange={e => setTeamData({ ...teamData, name: e.target.value })}
+                />
 
-        <h3>Watch Their Experience</h3>
-        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'experiences', { identifier: experienceData.identifier, title: experienceData.title }, { file: experienceData.file, bucket: 'testimonials', columnName: 'video_url' })}>
-          <input type="text" placeholder="Identifier" required onChange={e => setExperienceData({...experienceData, identifier: e.target.value})} />
-          <input type="text" placeholder="Title" required onChange={e => setExperienceData({...experienceData, title: e.target.value})} />
-          <input type="file" accept="video/*, image/*" required onChange={e => setExperienceData({...experienceData, file: e.target.files[0]})} />
-          <button type="submit" disabled={loading}>Save Experience Media</button>
-        </form>
+                <label>Role / Designation</label>
+                <input
+                  type="text"
+                  placeholder="Role (e.g., Founder, Head, Creative Director)"
+                  value={teamData.role}
+                  onChange={e => setTeamData({ ...teamData, role: e.target.value })}
+                />
 
-        <h3>Smiles We Created</h3>
-        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'smiles', { identifier: smileData.identifier }, { file: smileData.file, bucket: 'smiles', columnName: 'image_url' })}>
-          <input type="text" placeholder="Identifier" required onChange={e => setSmileData({...smileData, identifier: e.target.value})} />
-          <input type="file" accept="image/*" required onChange={e => setSmileData({...smileData, file: e.target.files[0]})} />
-          <button type="submit" disabled={loading}>Save Smile Image</button>
-        </form>
-      </section>
+                {teamFilePreview && (
+                  <div className={styles.previewBox}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={teamFilePreview} alt="Preview" className={styles.previewThumb} />
+                    <div className={styles.previewText}>
+                      <strong>{teamData.file ? 'Selected New Photo' : 'Current Photo'}</strong>
+                      <div style={{ fontSize: '0.78rem', color: '#666' }}>
+                        {teamData.file ? teamData.file.name : 'Saved in Cloudflare R2'}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <label>
+                  {teamData.photo_url || isEditingTeam
+                    ? 'Replace Photo (Optional — leave empty to keep current)'
+                    : 'Photo (Required for new member)'}
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  required={!teamData.photo_url && !isEditingTeam}
+                  onChange={e => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      setTeamData({ ...teamData, file });
+                      setTeamFilePreview(URL.createObjectURL(file));
+                    }
+                  }}
+                />
+
+                <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
+                  <button type="submit" disabled={loading} style={{ flex: 1 }}>
+                    {loading ? 'Saving to Database & R2...' : isEditingTeam ? 'Update Team Member' : 'Save Team Member'}
+                  </button>
+                  {isEditingTeam && (
+                    <button
+                      type="button"
+                      className={styles.cancelBtn}
+                      onClick={handleCancelTeamEdit}
+                      style={{ width: 'auto', padding: '0 16px', marginTop: '15px' }}
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 2. HOME PAGE MAIN & BANNER */}
+      {(activeTab === 'home' || activeTab === 'all') && (
+        <section className={styles.section} id="section-home">
+          <h2>Home Page Main & Banner</h2>
+          <form onSubmit={(e) => handleSubmit(
+            e, 'home_content', 
+            { identifier: homeData.identifier, banner_title: homeData.banner_title, banner_text: homeData.banner_text, founded: homeData.founded },
+            { file: homeData.logo, bucket: 'home', columnName: 'logo_url' },
+            { file: homeData.banner_video, bucket: 'home', columnName: 'banner_video_url' }
+          )}>
+            <label>Logo</label>
+            <input type="file" accept="image/*" onChange={e => setHomeData({...homeData, logo: e.target.files[0]})} />
+            <label>Banner Media (Video/Image)</label>
+            <input type="file" accept="video/*,image/*" onChange={e => setHomeData({...homeData, banner_video: e.target.files[0]})} />
+            <input type="text" placeholder="Title on Banner" onChange={e => setHomeData({...homeData, banner_title: e.target.value})} />
+            <textarea placeholder="Text under Title" onChange={e => setHomeData({...homeData, banner_text: e.target.value})} />
+            <input type="text" placeholder="Founded Date/Text" onChange={e => setHomeData({...homeData, founded: e.target.value})} />
+            <button type="submit" disabled={loading}>Save Home Data</button>
+          </form>
+
+          <h3>Our Expertise (Add items)</h3>
+          <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'expertise', { identifier: expertiseData.identifier, title: expertiseData.title }, { file: expertiseData.file, bucket: 'home', columnName: 'image_url' })}>
+            <input type="text" placeholder="Identifier (e.g., exp-1)" required onChange={e => setExpertiseData({...expertiseData, identifier: e.target.value})} />
+            <input type="text" placeholder="Title" required onChange={e => setExpertiseData({...expertiseData, title: e.target.value})} />
+            <input type="file" required onChange={e => setExpertiseData({...expertiseData, file: e.target.files[0]})} />
+            <button type="submit" disabled={loading}>Save Expertise Item</button>
+          </form>
+
+          <h3>Featured (Add items)</h3>
+          <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'featured', { identifier: featuredData.identifier, title: featuredData.title }, { file: featuredData.file, bucket: 'home', columnName: 'image_url' })}>
+            <input type="text" placeholder="Identifier (e.g., feat-1)" required onChange={e => setFeaturedData({...featuredData, identifier: e.target.value})} />
+            <input type="text" placeholder="Title" required onChange={e => setFeaturedData({...featuredData, title: e.target.value})} />
+            <input type="file" required onChange={e => setFeaturedData({...featuredData, file: e.target.files[0]})} />
+            <button type="submit" disabled={loading}>Save Featured Item</button>
+          </form>
+        </section>
+      )}
+
+      {/* 3. ABOUT US */}
+      {(activeTab === 'about' || activeTab === 'all') && (
+        <section className={styles.section} id="section-about">
+          <h2>About Us</h2>
+          <form onSubmit={(e) => handleSubmit(e, 'about_us', { identifier: aboutData.identifier, description: aboutData.description })}>
+            <textarea placeholder="About description" required onChange={e => setAboutData({...aboutData, description: e.target.value})} />
+            <button type="submit" disabled={loading}>Save About Text</button>
+          </form>
+        </section>
+      )}
+
+      {/* 4. SERVICES */}
+      {(activeTab === 'services' || activeTab === 'all') && (
+        <section className={styles.section} id="section-services">
+          <h2>Services</h2>
+          <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'services', { identifier: serviceData.identifier, title: serviceData.title, tag: serviceData.tag, desc: serviceData.desc }, { file: serviceData.file, bucket: 'services', columnName: 'image_url' })}>
+            <input type="text" placeholder="Identifier (e.g., serv-1)" required onChange={e => setServiceData({...serviceData, identifier: e.target.value})} />
+            <input type="text" placeholder="Service Title" required onChange={e => setServiceData({...serviceData, title: e.target.value})} />
+            <input type="text" placeholder="Category Tag (e.g., WEDDING, CORPORATE, BIRTHDAY)" onChange={e => setServiceData({...serviceData, tag: e.target.value})} />
+            <textarea placeholder="Service Description" onChange={e => setServiceData({...serviceData, desc: e.target.value})} />
+            <input type="file" accept="image/*" required onChange={e => setServiceData({...serviceData, file: e.target.files[0]})} />
+            <button type="submit" disabled={loading}>Save Service</button>
+          </form>
+        </section>
+      )}
+
+      {/* 5. PACKAGES */}
+      {(activeTab === 'packages' || activeTab === 'all') && (
+        <section className={styles.section} id="section-packages">
+          <h2>Packages</h2>
+          <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'packages', { identifier: packageData.identifier, pkg_name: packageData.pkg_name, f1: packageData.f1, f2: packageData.f2, f3: packageData.f3, f4: packageData.f4, price: packageData.price })}>
+            <input type="text" placeholder="Identifier (e.g., pkg-1)" required onChange={e => setPackageData({...packageData, identifier: e.target.value})} />
+            <input type="text" placeholder="Package Name" required onChange={e => setPackageData({...packageData, pkg_name: e.target.value})} />
+            <input type="text" placeholder="Feature 1" onChange={e => setPackageData({...packageData, f1: e.target.value})} />
+            <input type="text" placeholder="Feature 2" onChange={e => setPackageData({...packageData, f2: e.target.value})} />
+            <input type="text" placeholder="Feature 3" onChange={e => setPackageData({...packageData, f3: e.target.value})} />
+            <input type="text" placeholder="Feature 4" onChange={e => setPackageData({...packageData, f4: e.target.value})} />
+            <input type="text" placeholder="Price" required onChange={e => setPackageData({...packageData, price: e.target.value})} />
+            <button type="submit" disabled={loading}>Save Package</button>
+          </form>
+        </section>
+      )}
+
+      {/* 6. PORTFOLIO */}
+      {(activeTab === 'portfolio' || activeTab === 'all') && (
+        <section className={styles.section} id="section-portfolio">
+          <h2>Portfolio (Upload Media)</h2>
+          <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'portfolio', { identifier: portfolioData.identifier, category: portfolioData.category, media_type: portfolioData.media_type,title: portfolioData.title }, { file: portfolioData.file, bucket: 'portfolio', columnName: 'media_url' })}>
+            <input type="text" placeholder="Identifier (e.g., port-1)" required onChange={e => setPortfolioData({...portfolioData, identifier: e.target.value})} />
+            <input type="text" placeholder="Title of the image" required onChange={e => setPortfolioData({...portfolioData, title: e.target.value})} />
+            
+            <select required defaultValue="" onChange={e => setPortfolioData({...portfolioData, category: e.target.value})}>
+              <option value="" disabled>Select Category</option>
+              <option value="wedding-planning">Wedding Planning</option>
+              <option value="birthday-anniversary">Birthday & Anniversary</option>
+              <option value="corporate-events">Corporate Events</option>
+              <option value="decor-design">Decor & Design</option>
+              <option value="catering-coordination">Catering Coordination</option>
+              <option value="venue-selection">Venue Selection</option>
+              <option value="entertainment-logistics">Entertainment & Logistics</option>
+              <option value="photography-films">Photography & Films</option>
+            </select>
+            
+            <select required defaultValue="image" onChange={e => setPortfolioData({...portfolioData, media_type: e.target.value})}>
+              <option value="image">Image</option>
+              <option value="video">Video</option>
+            </select>
+            
+            <input type="file" required onChange={e => setPortfolioData({...portfolioData, file: e.target.files[0]})} />
+            <button type="submit" disabled={loading}>Save to Portfolio</button>
+          </form>
+        </section>
+      )}
+
+      {/* 7. TESTIMONIALS & MEDIA */}
+      {(activeTab === 'testimonials' || activeTab === 'all') && (
+        <section className={styles.section} id="section-testimonials">
+          <h2>Testimonials & Client Media</h2>
+          <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'testimonials', { identifier: testimonialData.identifier, name: testimonialData.name, comment: testimonialData.comment, stars: testimonialData.stars })}>
+            <input type="text" placeholder="Identifier (e.g., test-1)" required onChange={e => setTestimonialData({...testimonialData, identifier: e.target.value})} />
+            <input type="text" placeholder="Name" required onChange={e => setTestimonialData({...testimonialData, name: e.target.value})} />
+            <textarea placeholder="Comment" required onChange={e => setTestimonialData({...testimonialData, comment: e.target.value})} />
+            <input type="number" min="1" max="5" placeholder="Stars (1-5)" required onChange={e => setTestimonialData({...testimonialData, stars: parseInt(e.target.value)})} />
+            <button type="submit" disabled={loading}>Save Testimonial</button>
+          </form>
+
+          <h3>Watch Their Experience (Videos)</h3>
+          <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'experiences', { identifier: experienceData.identifier, title: experienceData.title }, { file: experienceData.file, bucket: 'testimonials', columnName: 'video_url' })}>
+            <input type="text" placeholder="Identifier" required onChange={e => setExperienceData({...experienceData, identifier: e.target.value})} />
+            <input type="text" placeholder="Title" required onChange={e => setExperienceData({...experienceData, title: e.target.value})} />
+            <input type="file" accept="video/*, image/*" required onChange={e => setExperienceData({...experienceData, file: e.target.files[0]})} />
+            <button type="submit" disabled={loading}>Save Experience Media</button>
+          </form>
+
+          <h3>Smiles We Created (Images)</h3>
+          <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'smiles', { identifier: smileData.identifier }, { file: smileData.file, bucket: 'smiles', columnName: 'image_url' })}>
+            <input type="text" placeholder="Identifier" required onChange={e => setSmileData({...smileData, identifier: e.target.value})} />
+            <input type="file" accept="image/*" required onChange={e => setSmileData({...smileData, file: e.target.files[0]})} />
+            <button type="submit" disabled={loading}>Save Smile Image</button>
+          </form>
+        </section>
+      )}
+
+      {/* 8. CONTACT INFORMATION */}
+      {(activeTab === 'contact' || activeTab === 'all') && (
+        <section className={styles.section} id="section-contact">
+          <h2>Contact Information</h2>
+          <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'contact_info', { identifier: contactData.identifier, email: contactData.email, phone: contactData.phone, location: contactData.location, insta: contactData.insta, fb: contactData.fb })}>
+            <input type="email" placeholder="Email" onChange={e => setContactData({...contactData, email: e.target.value})} />
+            <input type="tel" placeholder="Phone" onChange={e => setContactData({...contactData, phone: e.target.value})} />
+            <input type="text" placeholder="Location" onChange={e => setContactData({...contactData, location: e.target.value})} />
+            <input type="text" placeholder="Instagram URL" onChange={e => setContactData({...contactData, insta: e.target.value})} />
+            <input type="text" placeholder="Facebook URL" onChange={e => setContactData({...contactData, fb: e.target.value})} />
+            <button type="submit" disabled={loading}>Save Contact Info</button>
+          </form>
+        </section>
+      )}
     </div>
   );
 }
