@@ -32,13 +32,15 @@ export function getR2Client() {
       accessKeyId,
       secretAccessKey,
     },
+    requestChecksumCalculation: "WHEN_REQUIRED",
+    responseChecksumValidation: "WHEN_REQUIRED",
   });
 
   return cachedS3Client;
 }
 
 export function getR2BucketName() {
-  return process.env.R2_BUCKET_NAME || "rajhansevents-media";
+  return process.env.R2_BUCKET_NAME || "rajhansevent";
 }
 
 export function getR2PublicUrl() {

@@ -44,7 +44,9 @@ const nextConfig = {
       "font-src 'self' data: https:",
       "style-src 'self' 'unsafe-inline' https:",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:",
-      "connect-src 'self' https:",
+      "worker-src 'self' blob:",
+      "child-src 'self' blob:",
+      "connect-src 'self' https: https://*.r2.cloudflarestorage.com",
       "object-src 'none'",
       "upgrade-insecure-requests",
     ].join('; ');
