@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { createHmac, timingSafeEqual } from "node:crypto";
 
 // 1. WEBHOOK VERIFICATION (GET)
 export async function GET(request) {
@@ -21,7 +22,26 @@ export async function GET(request) {
 // 2. RECEIVE MESSAGES & REPLY (POST)
 export async function POST(request) {
   try {
-    const body = await request.json();
+    const signatureHeader = request.headers.get("x-hub-signature-256");
+    const appSecret = process.env.WA_APP_SECRET;
+
+    if (!appSecret) {
+      console.error("Webhook rejected: WA_APP_SECRET is not configured");
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    if (!signatureHeader) {
+      console.error("Webhook rejected: missing signature header");
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const rawBody = await request.text();
+    if (!isValidWhatsAppSignature(rawBody, signatureHeader, appSecret)) {
+      console.error("Webhook rejected: invalid signature");
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    const body = JSON.parse(rawBody);
 
     // Verify this is a WhatsApp event
     if (body.object === "whatsapp_business_account") {
@@ -49,9 +69,31 @@ export async function POST(request) {
     // Always return 200 OK immediately
     return NextResponse.json({ status: "success" }, { status: 200 });
   } catch (error) {
-    console.error("Webhook Error:", error);
+    console.error("Webhook error", {
+      message: error?.message,
+      name: error?.name,
+    });
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
+}
+
+function isValidWhatsAppSignature(rawBody, signatureHeader, appSecret) {
+  if (!signatureHeader.startsWith("sha256=")) {
+    return false;
+  }
+
+  const expectedSignature = `sha256=${createHmac("sha256", appSecret)
+    .update(rawBody)
+    .digest("hex")}`;
+
+  const signatureBuffer = Buffer.from(signatureHeader, "utf8");
+  const expectedBuffer = Buffer.from(expectedSignature, "utf8");
+
+  if (signatureBuffer.length !== expectedBuffer.length) {
+    return false;
+  }
+
+  return timingSafeEqual(signatureBuffer, expectedBuffer);
 }
 
 // 3. HELPER FUNCTION TO SEND REPLIES
@@ -80,7 +122,20 @@ async function sendWhatsAppMessage(phoneNumber, messageText) {
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
-    console.error("Failed to send WhatsApp message:", errorData);
+    let errorMessage;
+    let errorCode;
+    try {
+      const errorData = await response.json();
+      errorMessage = errorData?.error?.message;
+      errorCode = errorData?.error?.code;
+    } catch {
+      errorMessage = "Unable to parse API error response";
+    }
+
+    console.error("Failed to send WhatsApp message", {
+      status: response.status,
+      errorMessage,
+      errorCode,
+    });
   }
 }
