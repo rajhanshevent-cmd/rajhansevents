@@ -1,0 +1,32 @@
+.btn.btn-primary,
+.calendly-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 34px;
+  border-radius: 50px;
+
+  background: linear-gradient(135deg, #8B1E3F, #B68D40);
+  color: #fff;
+
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+
+  border: none;
+  cursor: pointer;
+
+  transition: all 0.35s ease;
+}
+
+.btn.btn-primary:hover,
+.calendly-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(139, 30, 63, 0.35);
+}
+
+.btn.btn-primary:active,
+.calendly-btn:active {
+  transform: translateY(0);
+}

@@ -1,0 +1,326 @@
+/* ========================================= */
+/* --- COLOR PALETTE --- */
+/* ========================================= */
+:root {
+  --primary-maroon: #A04040; /* Softened slightly for the elegant aesthetic */
+  --primary-maroon-dark: #800000;
+  --accent-gold: #D4AF37;
+  --accent-yellow: #E8C340; /* Added for the little tags */
+  --bg-ivory: #FDFBF7; /* Adjusted to match the airy background */
+  --text-dark: #4A0404;
+  --text-light: #FFFFF0;
+  --text-muted: #666666;
+}
+
+.services-page {
+  background-color: var(--bg-ivory);
+  font-family: var(--font-body), sans-serif;
+  color: var(--text-dark);
+}
+
+/* ========================================= */
+/* --- Header Area --- */
+/* ========================================= */
+.services-container {
+  padding: 5rem 5%;
+  text-align: left; /* Shifted from center to match the design */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.services-header-content {
+  max-width: 800px;
+  margin-bottom: 3rem;
+}
+
+.section-kicker {
+  display: inline-block;
+  color: var(--accent-gold);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.services-title {
+  font-family: var(--font-heading), serif;
+  font-size: 3.5rem;
+  color: var(--primary-maroon);
+  margin-bottom: 1rem;
+  font-weight: 400; 
+  line-height: 1.2;
+}
+
+.services-subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* ========================================= */
+/* ========================================= */
+/* --- Card Grid --- */
+/* ========================================= */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+.service-card {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(123, 26, 40, 0.1);
+  border-color: rgba(212, 175, 55, 0.5);
+}
+
+.card-image-wrapper {
+  position: relative;
+  height: 280px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-card:hover .card-image {
+  transform: scale(1.06);
+}
+
+.card-tag {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: var(--accent-yellow);
+  color: #222;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(6px);
+}
+
+.card-content {
+  padding: 2.2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-divider {
+  width: 36px;
+  height: 2px;
+  background-color: var(--accent-gold);
+  border: none;
+  margin: 0 0 1.2rem 0;
+}
+
+.card-title {
+  color: var(--primary-maroon-dark);
+  font-family: var(--font-heading), serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.card-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.card-quote-link {
+  color: var(--primary-maroon);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s ease;
+}
+
+.card-quote-link span {
+  transition: transform 0.25s ease;
+  display: inline-block;
+}
+
+.card-quote-link:hover {
+  color: var(--accent-gold);
+}
+
+.card-quote-link:hover span {
+  transform: translateX(5px);
+}
+
+.services-footer-link {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eaeaea;
+}
+
+.services-footer-link a {
+  color: var(--primary-maroon);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s ease;
+}
+
+.services-footer-link a span {
+  transition: transform 0.25s ease;
+}
+
+.services-footer-link a:hover {
+  color: var(--accent-gold);
+}
+
+.services-footer-link a:hover span {
+  transform: translateX(5px);
+}
+
+/* ========================================= */
+/* --- Extended Section (Our Process) --- */
+/* ========================================= */
+/* Retained exactly as you had it! */
+.process-section {
+  background: linear-gradient(
+    145deg,
+    #140002,
+    #30000a,
+    #5a0015,
+    #850022,
+    #b30033
+  ); 
+  color: var(--text-light); 
+  padding: 6rem 10%; 
+  text-align: center; 
+  margin-top: 4rem; 
+}
+
+.process-section .section-title {
+  font-family: var(--font-heading); 
+  font-size: 3rem; 
+  color: var(--accent-gold); 
+  margin-bottom: 4rem; 
+}
+
+.process-grid {
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  gap: 3rem; 
+  max-width: 1200px; 
+  margin: 0 auto; 
+}
+
+.process-card {
+  background: rgba(255, 255, 255, 0.03); 
+  border: 1px solid rgba(212, 175, 55, 0.2); 
+  padding: 3rem 2rem; 
+  border-radius: 12px; 
+  transition: transform 0.3s ease, border-color 0.3s ease; 
+}
+
+.process-card:hover {
+  transform: translateY(-5px); 
+  border-color: var(--accent-gold); 
+}
+
+.process-step {
+  display: block; 
+  font-family: var(--font-heading); 
+  font-size: 4rem; 
+  color: var(--accent-gold); 
+  opacity: 0.3; 
+  margin-bottom: 1rem; 
+  line-height: 1; 
+}
+
+.process-card h3 {
+  color: var(--text-light); 
+  font-family: var(--font-heading); 
+  font-size: 1.6rem; 
+  margin-bottom: 1rem; 
+}
+
+.process-card p {
+  font-size: 1.05rem; 
+  opacity: 0.9; 
+  line-height: 1.6; 
+}
+.brochure-section a {
+  font-family: var(--font-body), sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem 2.6rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #FFFDF9;
+  background: linear-gradient(135deg, var(--primary-maroon-dark), var(--primary-maroon));
+  border: 1.5px solid var(--accent-gold);
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(128, 0, 0, 0.22);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brochure-section a:hover {
+  background: linear-gradient(135deg, var(--accent-gold), #b68d40);
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.35);
+}
+/* ========================================= */
+/* --- MOBILE FIXES --- */
+/* ========================================= */
+@media (max-width: 768px) {
+  .services-container {
+    padding: 4rem 1.5rem; 
+  }
+  .services-title {
+    font-size: 2.5rem;
+  }
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  .process-section {
+    padding: 4rem 1.5rem; 
+  }
+  .process-section .section-title {
+    font-size: 2.2rem; 
+  }
+  .process-grid {
+    grid-template-columns: 1fr; 
+  }
+}

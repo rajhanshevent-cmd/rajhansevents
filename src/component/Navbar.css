@@ -1,0 +1,308 @@
+/* ========================================= */
+/* --- LUXURY NAVBAR STYLING --- */
+/* ========================================= */
+
+.navbar-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar-header.scrolled {
+  box-shadow: 0 6px 24px rgba(123, 26, 40, 0.08);
+  background-color: rgba(255, 255, 255, 0.98);
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0.8rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* Brand Logo */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.03);
+}
+
+.brand-logo-img {
+  width: auto;
+  height: 55px;
+  object-fit: contain;
+}
+
+/* Desktop Navigation */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+}
+
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: #2a2a2a;
+  font-weight: 500;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.5rem 0;
+  transition: color 0.25s ease;
+}
+
+.nav-link:hover {
+  color: #7b1a28; /* Brand maroon */
+}
+
+.nav-link.active {
+  color: #7b1a28;
+  font-weight: 600;
+}
+
+/* Gold active underline bar */
+.nav-link .active-indicator {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #D4AF37, #B68D40);
+  border-radius: 2px;
+  animation: expandIn 0.3s ease-out;
+}
+
+@keyframes expandIn {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.admin-nav-link {
+  color: #8B1E3F;
+  font-weight: 600;
+}
+
+/* Actions & Button */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.nav-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.6rem;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #7b1a28, #5c1328);
+  color: #D4AF37;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(123, 26, 40, 0.18);
+  transition: all 0.3s ease;
+}
+
+.nav-action-btn:hover {
+  background: linear-gradient(135deg, #D4AF37, #B68D40);
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Mobile Hamburger Toggle */
+.mobile-toggle-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: transparent;
+  cursor: pointer;
+  gap: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-toggle-btn:hover {
+  background-color: rgba(212, 175, 55, 0.1);
+}
+
+.burger-bar {
+  width: 22px;
+  height: 2px;
+  background-color: #7b1a28;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.mobile-toggle-btn.open .burger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-toggle-btn.open .burger-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-toggle-btn.open .burger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Drawer Overlay */
+.mobile-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 1050;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-drawer-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mobile Navigation Drawer */
+.mobile-nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(85vw, 360px);
+  background-color: #FFFDF9;
+  z-index: 1060;
+  box-shadow: -10px 0 35px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 1.5rem;
+}
+
+.mobile-nav-drawer.open {
+  transform: translateX(0);
+}
+
+.mobile-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  margin-bottom: 1.5rem;
+}
+
+.mobile-drawer-title {
+  font-family: var(--font-heading, serif);
+  color: #7b1a28;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.mobile-close-btn {
+  font-size: 2rem;
+  line-height: 1;
+  color: #7b1a28;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.mobile-nav-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  color: #2a2a2a;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  background-color: rgba(212, 175, 55, 0.12);
+  color: #7b1a28;
+  font-weight: 600;
+}
+
+.mobile-active-bullet {
+  color: #D4AF37;
+  font-size: 1.3rem;
+}
+
+.mobile-drawer-footer {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  text-align: center;
+}
+
+.mobile-drawer-cta {
+  display: block;
+  padding: 0.9rem;
+  background: linear-gradient(135deg, #7b1a28, #5c1328);
+  color: #D4AF37;
+  border-radius: 50px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.88rem;
+  box-shadow: 0 4px 15px rgba(123, 26, 40, 0.2);
+}
+
+.mobile-drawer-phone {
+  font-size: 0.82rem;
+  color: #777;
+  margin: 0;
+}
+
+/* Responsive Breakpoint */
+@media (max-width: 1024px) {
+  .desktop-nav {
+    display: none;
+  }
+  .nav-action-btn {
+    display: none;
+  }
+  .mobile-toggle-btn {
+    display: flex;
+  }
+}

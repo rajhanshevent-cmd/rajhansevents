@@ -1,0 +1,474 @@
+/* ==========================================================================
+   Footer — Luxury Light Theme (Ivory, Gold & Royal Maroon)
+   ========================================================================== */
+
+.site-footer {
+  background: linear-gradient(180deg, #FAF7F2 0%, #F5EFEB 100%);
+  color: #1F1F1F;
+  font-family: var(--font-base, sans-serif);
+  position: relative;
+  border-top: 1.5px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 -10px 35px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+}
+
+/* Subtle Warm Texture Glow */
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 75% 15%, rgba(212, 175, 55, 0.08) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+/* ========================================= */
+/* --- 1. Sleek Pre-Footer Concierge Bar --- */
+/* ========================================= */
+.footer-prebanner {
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 1.1rem 2rem;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+}
+
+.footer-prebanner-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.prebanner-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.prebanner-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--secondary-gold, #D4AF37);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+  flex-shrink: 0;
+}
+
+.prebanner-text p {
+  color: #3D0912;
+  font-size: 0.92rem;
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.prebanner-text strong {
+  color: var(--primary-maroon, #7b1a28);
+  font-weight: 700;
+}
+
+.prebanner-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.btn-prebanner-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, var(--primary-maroon, #7b1a28), #5c1328);
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(123, 26, 40, 0.22);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.btn-prebanner-primary:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, var(--secondary-gold, #D4AF37), var(--accent-gold, #B68D40));
+  color: #1a0509 !important;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+}
+
+.btn-prebanner-wa {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(37, 211, 102, 0.12);
+  border: 1.5px solid #25D366;
+  color: #128C7E;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 8px 18px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-prebanner-wa:hover {
+  background: #25D366;
+  color: #ffffff;
+  border-color: #25D366;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+}
+
+/* ========================================= */
+/* --- 2. Main Footer 4-Column Grid --- */
+/* ========================================= */
+.footer-main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3rem 2rem 2.2rem;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 1fr 1.25fr;
+  gap: 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Column Titles */
+.column-title {
+  font-family: var(--font-heading, serif);
+  font-size: 0.9rem;
+  letter-spacing: 1.8px;
+  color: var(--primary-maroon, #7b1a28);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.45rem;
+}
+
+.column-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 26px;
+  height: 2px;
+  background-color: var(--secondary-gold, #D4AF37);
+}
+
+/* Column 1: Brand */
+.footer-brand-link {
+  display: inline-block;
+  margin-bottom: 0.8rem;
+  transition: opacity 0.25s ease;
+}
+
+.footer-brand-link:hover {
+  opacity: 0.85;
+}
+
+.brand-tagline {
+  color: #555555;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+  max-width: 320px;
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(123, 26, 40, 0.25);
+  border-radius: 50%;
+  color: var(--primary-maroon, #7b1a28);
+  text-decoration: none;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-icons a:hover {
+  background: var(--primary-maroon, #7b1a28);
+  border-color: var(--primary-maroon, #7b1a28);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(123, 26, 40, 0.25);
+}
+
+/* Columns 2 & 3: Links */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-links li a {
+  color: #444444;
+  text-decoration: none;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.footer-links li a:hover {
+  color: var(--primary-maroon, #7b1a28);
+  font-weight: 600;
+  transform: translateX(4px);
+}
+
+/* Column 4: Direct Concierge & Newsletter */
+.contact-info {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.contact-link {
+  color: #333333;
+  text-decoration: none;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.45;
+  transition: all 0.2s ease;
+}
+
+.contact-link:hover {
+  color: var(--primary-maroon, #7b1a28);
+  font-weight: 600;
+  transform: translateX(3px);
+}
+
+.hours-item {
+  color: #666666;
+  font-size: 0.84rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.gold-icon {
+  color: var(--secondary-gold, #D4AF37);
+  margin-right: 8px;
+  font-size: 0.92rem;
+}
+
+/* Compact Newsletter Block */
+.footer-newsletter-block {
+  margin-top: 0.8rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+.newsletter-heading {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--primary-maroon, #7b1a28);
+  margin: 0 0 0.6rem;
+}
+
+.newsletter-form {
+  display: flex;
+  height: 38px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  max-width: 320px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.newsletter-form:focus-within {
+  border-color: var(--primary-maroon, #7b1a28);
+  box-shadow: 0 0 0 2px rgba(123, 26, 40, 0.15);
+}
+
+.newsletter-form input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 0 14px;
+  color: #1F1F1F;
+  font-size: 0.85rem;
+  outline: none;
+  font-family: inherit;
+}
+
+.newsletter-form input::placeholder {
+  color: #888888;
+}
+
+.newsletter-form button {
+  background: linear-gradient(135deg, var(--primary-maroon, #7b1a28), #5c1328);
+  color: #ffffff;
+  border: none;
+  padding: 0 16px;
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.newsletter-form button:hover {
+  background: linear-gradient(135deg, var(--secondary-gold, #D4AF37), var(--accent-gold, #B68D40));
+  color: #1a0509;
+}
+
+.newsletter-success {
+  color: #128C7E;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.35;
+  padding: 6px 12px;
+  background: rgba(37, 211, 102, 0.1);
+  border-radius: 6px;
+  border: 1px solid rgba(37, 211, 102, 0.3);
+}
+
+/* ========================================= */
+/* --- 3. Footer Bottom Bar --- */
+/* ========================================= */
+.footer-bottom {
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  background: #EFE8DF;
+  padding: 1rem 2rem;
+}
+
+.footer-bottom-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.copyright-text {
+  color: #666666;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #666666;
+  font-size: 0.82rem;
+}
+
+.footer-meta a {
+  color: #555555;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-meta a:hover {
+  color: var(--primary-maroon, #7b1a28);
+  font-weight: 600;
+}
+
+.meta-dot {
+  color: var(--secondary-gold, #D4AF37);
+}
+
+/* Back to Top Button */
+.back-to-top-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #ffffff;
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  color: var(--primary-maroon, #7b1a28);
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s ease;
+}
+
+.back-to-top-btn:hover {
+  background: var(--primary-maroon, #7b1a28);
+  color: #ffffff;
+  border-color: var(--primary-maroon, #7b1a28);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(123, 26, 40, 0.25);
+}
+
+.arrow-icon {
+  font-size: 0.85rem;
+}
+
+/* ========================================= */
+/* --- 4. Responsive Queries --- */
+/* ========================================= */
+@media (max-width: 1024px) {
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-prebanner {
+    padding: 0.9rem 1.25rem;
+  }
+  .footer-prebanner-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+  .footer-main {
+    grid-template-columns: 1fr;
+    padding: 2.2rem 1.25rem 1.8rem;
+    gap: 2rem;
+  }
+  .footer-bottom {
+    padding: 1rem 1.25rem;
+  }
+  .footer-bottom-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.8rem;
+  }
+}

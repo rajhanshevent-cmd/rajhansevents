@@ -1,0 +1,38 @@
+{
+  "name": "rajhansevents",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "db:migrate": "node scripts/migrate.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1128.0",
+    "@aws-sdk/s3-request-presigner": "^3.1128.0",
+    "@neondatabase/serverless": "^1.1.0",
+    "@next/bundle-analyzer": "^16.3.4",
+    "browser-image-compression": "^2.0.2",
+    "dotenv": "^17.4.2",
+    "jose": "^6.2.12",
+    "next": "16.3.4",
+    "react": "19.2.4",
+    "react-calendly": "^4.4.0",
+    "react-dom": "19.2.4",
+    "sharp": "^0.35.3"
+  },
+  "devDependencies": {
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.4"
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions",
+    "not dead"
+  ]
+}
