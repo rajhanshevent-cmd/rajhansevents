@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link'; 
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { openCalendlyModal } from '@/component/CalendlyModal';
 import './Navbar.css';
 
 function Navbar() {
@@ -182,13 +183,17 @@ function Navbar() {
 
         {/* Quick Action Button */}
         <div className="navbar-actions">
-          <Link 
-            href="/contact" 
+          <button 
+            type="button" 
             className="nav-action-btn"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={() => {
+              setMobileMenuOpen(false);
+              openCalendlyModal();
+            }}
+            aria-label="Book Consultation"
           >
             Book Consultation
-          </Link>
+          </button>
 
           {/* Mobile Hamburger Toggle */}
           <button 

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { BUSINESS_CONFIG } from "@/utils/constants";
 import { openEmailInquiry } from "@/utils/email";
 import WhatsAppIcon from "@/component/WhatsAppIcon";
+import { openCalendlyModal } from "@/component/CalendlyModal";
 import "@/app/contact/Contact.css";
 
 export default function ContactSection({ id = "contact", initialContact = null }) {
@@ -231,6 +232,32 @@ ${form.message}`;
                 <a href={`tel:${(contactData?.phone || BUSINESS_CONFIG.phone).replace(/\s+/g, '')}`} className="btn-call">
                   Call Now
                 </a>
+              </div>
+
+              <div style={{ marginTop: '1.2rem', paddingTop: '1.2rem', borderTop: '1px solid rgba(212, 175, 55, 0.2)' }}>
+                <button
+                  type="button"
+                  onClick={openCalendlyModal}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    padding: '12px 18px',
+                    borderRadius: '12px',
+                    background: 'linear-gradient(135deg, #2a1622 0%, #1c1826 100%)',
+                    color: '#e5c158',
+                    border: '1px solid rgba(212, 175, 55, 0.4)',
+                    fontSize: '0.88rem',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                  aria-label="Pick slot on consultation calendar"
+                >
+                  📅 Pick Slot on Calendar
+                </button>
               </div>
             </div>
 

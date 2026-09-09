@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { BUSINESS_CONFIG } from '@/utils/constants';
 import { getServiceYears } from '@/utils/date';
 import WhatsAppIcon from '@/component/WhatsAppIcon';
+import { openCalendlyModal } from '@/component/CalendlyModal';
 import './Footer.css';
 
 const Footer = () => {
@@ -91,12 +92,14 @@ const Footer = () => {
             <p><strong>Ready to orchestrate your royal celebration?</strong> Connect directly with Ranchi&apos;s premier event specialists.</p>
           </div>
           <div className="prebanner-actions">
-            <Link
-              href="/contact"
+            <button
+              type="button"
+              onClick={openCalendlyModal}
               className="btn-prebanner-primary"
+              aria-label="Book consultation on calendar"
             >
               BOOK CONSULTATION &rarr;
-            </Link>
+            </button>
             <a
               href={`https://wa.me/${waNumber}`}
               target="_blank"

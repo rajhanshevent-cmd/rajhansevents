@@ -171,6 +171,8 @@
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
+  cursor: pointer;
+  font-family: inherit;
   box-shadow: 0 4px 14px rgba(123, 26, 40, 0.18);
   transition: all 0.3s ease;
 }

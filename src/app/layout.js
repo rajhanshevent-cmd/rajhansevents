@@ -43,6 +43,7 @@ export const metadata = {
 };
 
 const ChatWidget = lazy(() => import('@/component/WhatsAppWidget'));
+const CalendlyModal = lazy(() => import('@/component/CalendlyModal'));
 
 export default function RootLayout({ children }) {
   return (
@@ -63,9 +64,8 @@ export default function RootLayout({ children }) {
         <main>{children}</main> {/* Ensures content is wrapped correctly[cite: 3] */}
         <Footer /> 
 
-        
-
         <Suspense fallback={null}>
+          <CalendlyModal />
           <ChatWidget aria-label="Chat with us on WhatsApp"/>
         </Suspense>
       </body>

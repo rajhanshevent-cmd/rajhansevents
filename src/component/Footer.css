@@ -92,6 +92,8 @@
   padding: 9px 20px;
   border-radius: 50px;
   text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
   box-shadow: 0 4px 14px rgba(123, 26, 40, 0.22);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   border: 1px solid rgba(212, 175, 55, 0.3);
