@@ -308,7 +308,7 @@ export default async function Home() {
         <div className="container team-section">
           <div className="elegant-section-header">
             <span className="section-kicker">— THE PEOPLE BEHIND THE MAGIC</span>
-            <h3 className="elegant-section-title" style={{ fontSize: '2.5rem' }}>Meet the Team</h3>
+            <h2 className="elegant-section-title">Meet the Team</h2>
           </div>
 
           <div className="team-grid">

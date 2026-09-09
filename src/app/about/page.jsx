@@ -63,8 +63,7 @@ export default async function About() {
 
       {/* --- Section 1: Brand Story --- */}
       <section className="container story-section">
-        {/* REDESIGNED HEADER TO FIX SPACING AND ALIGNMENT */}
-        <div className="elegant-section-header" style={{ textAlign: 'left', marginInline: '0', marginBottom: '3rem' }}>
+        <div className="elegant-section-header">
           <span className="section-kicker">— OUR STORY</span>
           <h1 className="elegant-section-title">{serviceYears.word} years of orchestrating royal experiences.</h1>
         </div>
@@ -157,8 +156,7 @@ export default async function About() {
       {/* --- Section 4: Team Photos --- */}
       <section className="container team-section">
 
-        {/* REDESIGNED HEADER */}
-        <div className="elegant-section-header" style={{ marginBottom: '4rem' }}>
+        <div className="elegant-section-header">
           <span className="section-kicker">— THE PEOPLE BEHIND THE MAGIC</span>
           <h2 className="elegant-section-title">Meet the Team</h2>
         </div>
