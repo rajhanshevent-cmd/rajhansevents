@@ -24,14 +24,14 @@ export default async function Services() {
     { identifier: 'srv-6', tag: 'CATERING', title: 'Catering & Culinary', desc: 'Multi-cuisine food counters and plated fine dining curated by award-winning chefs.', image_url: 'https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=800' }
   ];
 
-  const displayServices = servicesData && servicesData.length > 0 ? servicesData : fallbackServices; //[cite: 1]
+  const displayServices = servicesData && servicesData.length > 0 ? servicesData : fallbackServices;
 
-  // Replaced "Why Choose Us" with a text-only Planning Process section[cite: 1]
+  // Planning process steps
   const planningProcess = [
     { step: '01', title: 'Initial Consultation', desc: 'We sit down with you to understand your vision, preferences, and budget, ensuring we align completely with your dream.' },
     { step: '02', title: 'Design & Curation', desc: 'Our team crafts a meticulous plan, pulling together the best vendors, themes, and timelines tailored just for you.' },
     { step: '03', title: 'Flawless Execution', desc: 'On the big day, we handle every single detail behind the scenes so you can focus on making beautiful memories with your guests.' }
-  ]; //[cite: 1]
+  ];
 
   return (
     <div className="services-page">

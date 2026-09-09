@@ -61,7 +61,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Navbar /> 
-        <main>{children}</main> {/* Ensures content is wrapped correctly[cite: 3] */}
+        <main>{children}</main>
         <Footer /> 
 
         <Suspense fallback={null}>

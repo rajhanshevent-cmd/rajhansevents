@@ -231,14 +231,14 @@ const Footer = () => {
       <div className="footer-bottom">
         <div className="footer-bottom-container">
           <p className="copyright-text">
-            &copy; {new Date().getFullYear()} Raj Hansh Event Management. All rights reserved.
+            &copy; {new Date().getFullYear()} {BUSINESS_CONFIG.name}. All rights reserved.
           </p>
           <div className="footer-meta">
             <span>Jharkhand&apos;s Premier Event Specialists</span>
             <span className="meta-dot">•</span>
             <Link href="/privacy">Privacy Policy</Link>
             <span className="meta-dot">•</span>
-            <Link href="/terms">Terms of Service</Link>
+            <Link href="/terms">Terms &amp; Credits</Link>
           </div>
           <button
             type="button"
