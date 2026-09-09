@@ -1,22 +1,47 @@
 /* Admin Portal Luxury Styling */
 .admin-login-wrapper {
-  min-height: 100vh;
+  min-height: calc(100vh - 85px);
   background-color: #FDFBF7;
+  background-image: 
+    radial-gradient(circle at 50% 38%, rgba(212, 175, 55, 0.12) 0%, transparent 65%),
+    radial-gradient(circle at 10% 90%, rgba(123, 26, 40, 0.04) 0%, transparent 50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 100px 20px 60px;
+  padding: 24px 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .admin-login-wrapper {
+    min-height: calc(100dvh - 75px);
+    padding: 18px 16px;
+  }
 }
 
 .admin-login-card {
   width: 100%;
   max-width: 440px;
   background: #ffffff;
-  padding: 40px 32px;
-  border-radius: 16px;
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  box-shadow: 0 10px 35px rgba(123, 26, 40, 0.08);
+  padding: 38px 34px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 
+    0 16px 48px rgba(123, 26, 40, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.03);
   text-align: center;
+  animation: adminCardEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes adminCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .admin-badge {
