@@ -5,6 +5,8 @@ import HeroSlider from '@/app/HeroSlider';
 import PortfolioSection from '@/component/sections/PortfolioSection';
 import ContactSection from '@/component/sections/ContactSection';
 import VideoCard from '@/component/VideoCard';
+import SmartEmailButton from '@/component/SmartEmailButton';
+import { getServiceYears } from '@/utils/date';
 
 import './Home.css';
 import '@/app/about/About.css';
@@ -46,6 +48,8 @@ export default async function Home() {
     getAll('smiles', 'created_at ASC'),
     getSingle('contact_info', 'contact_main')
   ]);
+
+  const serviceYears = getServiceYears(homeData?.founded);
 
   // Fallback Home Expertise & Featured Events (Original Home Page Content Under Hero)
   const fallbackExpertise = [
@@ -138,7 +142,7 @@ export default async function Home() {
 
   return (
     <div className="home-page continuous-scroll-page">
-      
+
       {/* ============================================================ */}
       {/* 1. SECTION: HOME (Hero + Stats + Expertise + Featured Events) */}
       {/* ============================================================ */}
@@ -150,19 +154,19 @@ export default async function Home() {
         <div className="elegant-stats-band">
           <div className="container stats-flex-container">
             <div className="elegant-stat-item">
-              <h3>850+</h3>
+              <h3>21+</h3>
               <p>EVENTS CURATED</p>
             </div>
             <div className="elegant-stat-item">
-              <h3>220+</h3>
+              <h3>3+</h3>
               <p>WEDDINGS DELIVERED</p>
             </div>
             <div className="elegant-stat-item">
-              <h3>60+</h3>
+              <h3>1+</h3>
               <p>CORPORATE CLIENTS</p>
             </div>
             <div className="elegant-stat-item">
-              <h3>9</h3>
+              <h3>{serviceYears.label}</h3>
               <p>YEARS OF CRAFT</p>
             </div>
           </div>
@@ -175,21 +179,21 @@ export default async function Home() {
               <span className="section-kicker">— OUR EXPERTISE</span>
               <h2 className="elegant-section-title">End-to-end event planning, tailored to your vision.</h2>
             </div>
-            
+
             <div className="grid-3">
               {displayExpertise.map((item, index) => (
                 <div key={item.identifier || index} className="image-card relative overflow-hidden">
-                  <Image 
-                    src={item.image_url} 
-                    alt={item.title || "Our Expertise"} 
+                  <Image
+                    src={item.image_url}
+                    alt={item.title || "Our Expertise"}
                     fill
                     style={{ objectFit: 'cover' }}
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="card-overlay relative z-10"></div>
                   <div className="card-content relative z-10">
-                    <span className="card-kicker">Explore Our Services</span>
-                    <h3 className="card-title">{item.title}</h3>
+                    <span className="card-kicker image-card-kicker">Explore Our Services</span>
+                    <h3 className="card-title image-card-title">{item.title}</h3>
                   </div>
                 </div>
               ))}
@@ -204,21 +208,21 @@ export default async function Home() {
               <span className="section-kicker">— FEATURED EVENTS</span>
               <h2 className="elegant-section-title">A glimpse into the magic we create.</h2>
             </div>
-            
+
             <div className="grid-3">
               {displayFeatured.map((event, index) => (
                 <div key={event.identifier || index} className="image-card relative overflow-hidden">
-                  <Image 
-                    src={event.image_url} 
-                    alt={event.title || "Featured Event"} 
+                  <Image
+                    src={event.image_url}
+                    alt={event.title || "Featured Event"}
                     fill
                     style={{ objectFit: 'cover' }}
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="card-overlay relative z-10"></div>
                   <div className="card-content relative z-10">
-                    <span className="card-kicker">Ranchi, Jharkhand</span>
-                    <h3 className="card-title">{event.title}</h3>
+                    <span className="card-kicker image-card-kicker">Ranchi, Jharkhand</span>
+                    <h3 className="card-title image-card-title">{event.title}</h3>
                   </div>
                 </div>
               ))}
@@ -234,22 +238,21 @@ export default async function Home() {
         <div className="container story-section">
           <div className="elegant-section-header">
             <span className="section-kicker">— OUR STORY</span>
-            <h2 className="elegant-section-title">Nine years of orchestrating royal experiences.</h2>
+            <h2 className="elegant-section-title">{serviceYears.word} years of orchestrating royal experiences.</h2>
           </div>
-          
+
           <div className="story-content">
             <div className="story-image-wrapper">
-              <Image 
-                src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800" 
-                alt="Raj Hansh Event Decor" 
-                width={700}
-                height={500}
+              <Image
+                src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800"
+                alt="Raj Hansh Event Decor"
+                fill
                 className="story-image"
                 sizes="(max-width: 900px) 100vw, 55vw"
-                style={{ width: '100%', height: 'auto' }}
+                style={{ objectFit: 'cover' }}
               />
             </div>
-            
+
             <div className="story-text-wrapper">
               <div className="story-desc">
                 {aboutData?.description ? (
@@ -260,27 +263,27 @@ export default async function Home() {
                   <p>Founded in Ranchi, Raj Hansh Event began as a family-run wedding planning boutique and grew into Jharkhand&apos;s most trusted name for premium celebrations. Our team blends traditional cultural sensibility with modern production values — every event we deliver feels handmade, not manufactured.</p>
                 )}
               </div>
-              
+
               <div className="stats-grid">
                 <div className="stat-box">
                   <span className="stat-icon">📅</span>
-                  <h3>850+</h3>
+                  <h3>21+</h3>
                   <p>EVENTS</p>
                 </div>
                 <div className="stat-box">
                   <span className="stat-icon">👥</span>
-                  <h3>800+</h3>
+                  <h3>20+</h3>
                   <p>HAPPY CLIENTS</p>
                 </div>
                 <div className="stat-box">
                   <span className="stat-icon">🏆</span>
-                  <h3>12</h3>
+                  <h3>2</h3>
                   <p>AWARDS</p>
                 </div>
                 <div className="stat-box">
                   <span className="stat-icon">✨</span>
-                  <h3>{homeData?.founded ? `${Math.max(1, new Date().getFullYear() - (parseInt(homeData.founded.replace(/\D/g, '') || '2016', 10)))}` : '9'}</h3>
-                  <p>{homeData?.founded ? `SINCE ${homeData.founded.replace(/\D/g, '') || '2016'}` : 'YEARS'}</p>
+                  <h3>{serviceYears.label}</h3>
+                  <p>YEARS OF SERVICE</p>
                 </div>
               </div>
             </div>
@@ -307,14 +310,14 @@ export default async function Home() {
             <span className="section-kicker">— THE PEOPLE BEHIND THE MAGIC</span>
             <h3 className="elegant-section-title" style={{ fontSize: '2.5rem' }}>Meet the Team</h3>
           </div>
-          
+
           <div className="team-grid">
             {displayTeam.map(member => (
               <div key={member.identifier} className="team-card">
                 <div className="team-img-wrapper relative" style={{ position: 'relative' }}>
-                  <Image 
-                    src={member.photo_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800'} 
-                    alt={member.name} 
+                  <Image
+                    src={member.photo_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800'}
+                    alt={member.name}
                     fill
                     className="team-img"
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -341,22 +344,22 @@ export default async function Home() {
             <h2 className="services-title">Every detail, thoughtfully composed.</h2>
             <p className="services-subtitle" style={{ maxWidth: '750px', marginInline: 'auto' }}>From intimate ceremonies to landmark corporate galas — we bring your vision to life with quiet luxury and meticulous execution.</p>
           </div>
-          
+
           <div className="services-grid" style={{ marginTop: '3.5rem' }}>
             {displayServices.map((service, index) => (
               <div key={service.identifier || index} className="service-card">
                 <div className="card-image-wrapper">
                   <span className="card-tag">{service.tag || 'SERVICE'}</span>
-                  <Image 
-                    src={service.image_url} 
-                    alt={service.title} 
+                  <Image
+                    src={service.image_url}
+                    alt={service.title}
                     fill
                     className="card-image"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     style={{ objectFit: 'cover' }}
                   />
                 </div>
-                
+
                 <div className="card-content">
                   <hr className="card-divider" />
                   <h3 className="card-title">{service.title}</h3>
@@ -407,7 +410,7 @@ export default async function Home() {
             {displayPackages.map((pkg, index) => {
               const features = [pkg.f1, pkg.f2, pkg.f3, pkg.f4].filter(Boolean);
               const isFeatured = index === 1 || pkg.pkg_name?.toLowerCase() === 'gold';
-              
+
               return (
                 <div key={pkg.identifier || index} className={`pricing-card ${isFeatured ? 'featured-card' : ''}`}>
                   {isFeatured && (
@@ -434,9 +437,13 @@ export default async function Home() {
                   </ul>
 
                   <div className="pricing-action">
-                    <Link href="/contact" className={`pkg-btn ${isFeatured ? 'featured-btn' : ''}`}>
+                    <SmartEmailButton
+                      subject={`Booking Request: ${pkg.pkg_name} Package`}
+                      body={`Hello Raj Hansh Events,\n\nI am interested in reserving the ${pkg.pkg_name} Package (${pkg.price}).\n\nPlease let me know your availability and send over further booking details.\n\nThank you!`}
+                      className={`pkg-btn ${isFeatured ? 'featured-btn' : ''}`}
+                    >
                       BOOK THIS PACKAGE &rarr;
-                    </Link>
+                    </SmartEmailButton>
                   </div>
                 </div>
               );
@@ -481,10 +488,10 @@ export default async function Home() {
           <div className="google-trust-badge">
             <div className="google-badge-left">
               <svg width="24" height="24" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
-                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
-                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.15z"/>
-                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z" />
+                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.15z" />
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
               </svg>
               <div className="google-badge-score">
                 <strong>4.9</strong>
@@ -496,7 +503,7 @@ export default async function Home() {
               <span>Verified Google Reviews • Ranchi &amp; Jharkhand</span>
             </div>
           </div>
-          
+
           <div className="reviews-grid">
             {displayReviews.map(review => (
               <div key={review.identifier} className="review-card">
@@ -512,10 +519,10 @@ export default async function Home() {
                   </div>
                   <div className="google-logo-wrapper" title="Google Verified Review">
                     <svg width="22" height="22" viewBox="0 0 24 24">
-                      <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
-                      <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
-                      <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.15z"/>
-                      <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                      <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
+                      <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z" />
+                      <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.15z" />
+                      <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
                     </svg>
                   </div>
                 </div>
@@ -540,7 +547,7 @@ export default async function Home() {
               <span className="section-kicker">— WATCH THEIR EXPERIENCE</span>
               <h2 className="elegant-section-title">Hear directly from our happy clients.</h2>
             </div>
-            
+
             <div className="video-grid">
               {displayVideos.map((video, idx) => (
                 <VideoCard key={video.identifier || idx} video={video} index={idx} />
@@ -555,14 +562,14 @@ export default async function Home() {
             <span className="section-kicker">— SMILES WE&apos;VE CREATED</span>
             <h2 className="elegant-section-title">A picture is worth a thousand words.</h2>
           </div>
-          
+
           <div className="photo-grid">
             {displayPhotos.map(photo => (
               <div key={photo.identifier} className="photo-card squarish-card">
-                <Image 
-                  loading="lazy" 
-                  src={photo.image_url} 
-                  alt={photo.alt || photo.identifier} 
+                <Image
+                  loading="lazy"
+                  src={photo.image_url}
+                  alt={photo.alt || photo.identifier}
                   fill
                   className="client-image"
                   sizes="(max-width: 768px) 100vw, 33vw"

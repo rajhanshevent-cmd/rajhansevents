@@ -18,11 +18,16 @@
   padding: 5rem 2rem; 
   color: var(--text-dark); 
   font-family: var(--font-body), sans-serif; 
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .contact-container {
   max-width: 1280px; 
   margin: 0 auto; 
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ========================================= */
@@ -111,6 +116,8 @@
 .luxury-form select, 
 .luxury-form textarea {
   width: 100%; 
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 13px 16px; 
   border: 1px solid #e0d8cb; 
   border-radius: 8px; 
@@ -119,6 +126,7 @@
   font-size: 0.95rem; 
   color: var(--text-dark); 
   transition: all 0.25s ease;
+  min-height: 46px;
 }
 
 .luxury-form input:focus, 
@@ -197,15 +205,19 @@
 
 .contact-info-list li {
   display: flex; 
-  align-items: center; 
+  align-items: flex-start; 
   gap: 14px; 
   font-size: 0.95rem; 
   color: rgba(255, 255, 240, 0.9); 
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .contact-info-list a {
   transition: color 0.25s ease, transform 0.25s ease;
   display: inline-block;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .contact-info-list a:hover {
@@ -260,15 +272,19 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
 }
 
-/* --- Mobile View Fixes --- */
+/* --- Tablet View Fixes --- */
 @media screen and (max-width: 900px) {
   .contact-page {
-    padding: 3.5rem 1.5rem;
+    padding: 3.5rem 1.25rem;
   }
   .contact-grid {
     grid-template-columns: 1fr; 
+    gap: 32px;
   }
   .form-card {
+    padding: 2.5rem 1.8rem;
+  }
+  .direct-line-card {
     padding: 2.5rem 1.8rem;
   }
   .form-row {
@@ -279,5 +295,56 @@
   }
   .action-buttons {
     flex-direction: column; 
+  }
+}
+
+/* --- Android / Mobile View Fixes --- */
+@media screen and (max-width: 600px) {
+  html, body {
+    overflow-x: hidden;
+    word-wrap: break-word;
+  }
+  .contact-page {
+    padding: 2.5rem 1rem;
+  }
+  .form-card {
+    padding: 1.8rem 1.15rem;
+    border-radius: 12px;
+  }
+  .direct-line-card {
+    padding: 1.8rem 1.15rem;
+    border-radius: 12px;
+  }
+  .direct-line-card h2 {
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+  }
+  .luxury-form {
+    gap: 18px;
+  }
+  .form-row {
+    gap: 16px;
+  }
+  .luxury-form button.btn-primary {
+    width: 100%;
+    align-self: stretch;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 0.9rem;
+  }
+  .btn-whatsapp, .btn-call {
+    width: 100%;
+    text-align: center;
+    padding: 13px 18px;
+  }
+  .map-section {
+    height: 280px;
+    border-radius: 12px;
+  }
+  .elegant-section-header {
+    margin-bottom: 2.5rem;
+  }
+  .elegant-section-title {
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
   }
 }

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { BUSINESS_CONFIG } from "@/utils/constants";
 import "./CalendlyButton.css";
 
-export default function CalendlyButton() {
+export default function CalendlyButton({ className, text, children }) {
   const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
@@ -27,11 +27,11 @@ export default function CalendlyButton() {
     <button
       type="button"
       onClick={handleClick}
-      className="btn btn-primary"
+      className={className || "btn btn-primary"}
       disabled={loading}
-      aria-label="Book an Appointment"
+      aria-label={text || "Book Consultation"}
     >
-      {loading ? "Opening Calendar..." : "Book an Appointment"}
+      {loading ? "Opening Calendar..." : (children || text || "Book an Appointment")}
     </button>
   );
 }

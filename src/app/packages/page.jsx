@@ -1,5 +1,7 @@
 import { getAll } from '@/lib/db'; 
 import { BUSINESS_CONFIG } from '@/utils/constants';
+import SmartEmailButton from '@/component/SmartEmailButton';
+import WhatsAppIcon from '@/component/WhatsAppIcon';
 import './Packages.css'; 
 
 export const metadata = {
@@ -67,25 +69,23 @@ export default async function Packages() {
                   ))}
                 </ul>
                 <div className="pricing-action">
+                  <SmartEmailButton
+                    subject={`Booking Inquiry: ${pkg.pkg_name} Package`}
+                    body={`Hello Raj Hansh Events,\n\nI am interested in reserving the ${pkg.pkg_name} Package (${pkg.price}).\n\nPlease share availability, what's included, and formal proposal steps.\n\nThank you!`}
+                    className={`pkg-btn ${isFeatured ? 'featured-btn' : ''}`}
+                  >
+                    BOOK THIS PACKAGE &rarr;
+                  </SmartEmailButton>
                   <a
                     href={`https://wa.me/${BUSINESS_CONFIG.whatsappNumber}?text=${encodeURIComponent(
-                      `Hello Raj Hansh Events,
-
-I'm interested in your ${pkg.pkg_name} Package.
-
-Could you please share:
-• Complete package details
-• What's included
-• Pricing breakdown
-• Availability for my event
-
-Thank you!`
+                      `Hello Raj Hansh Events, I'm interested in your ${pkg.pkg_name} Package (${pkg.price}). Could you please share complete details?`
                     )}`} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className={`pkg-btn ${isFeatured ? 'featured-btn' : ''}`}
+                    className="pkg-wa-link"
+                    aria-label={`Chat on WhatsApp about ${pkg.pkg_name} Package`}
                   >
-                    SELECT THIS PACKAGE &rarr;
+                    <WhatsAppIcon size={16} /> Chat on WhatsApp
                   </a>
                 </div>
               </div>
@@ -96,7 +96,13 @@ Thank you!`
         <div className="custom-quote-section">
           <h3>Need a Custom Package?</h3> 
           <p className="text-muted" style={{ margin: '1rem 0' }}>We can tailor everything exactly to your requirements with transparent pricing.</p> 
-          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@rajhansh.com" target="_blank" rel="noreferrer" className="btn btn-primary">Contact Us for Custom Quote</a> 
+          <SmartEmailButton
+            subject="Custom Event Quotation Request"
+            body="Hello Raj Hansh Events,\n\nI would like to request a tailored quote for our upcoming celebration.\n\nEvent Type:\nTentative Date:\nLocation / Venue:\nEstimated Guests:\nSpecial Requirements:\n\nLooking forward to hearing from your concierge team."
+            className="btn btn-primary"
+          >
+            Contact Us for Custom Quote &rarr;
+          </SmartEmailButton>
         </div>
       </section>
 

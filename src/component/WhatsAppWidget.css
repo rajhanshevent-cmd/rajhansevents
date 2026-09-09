@@ -11,11 +11,14 @@
   flex-direction: column;
   align-items: flex-end;
   font-family: var(--font-body, 'Poppins', sans-serif);
+  box-sizing: border-box;
 }
 
 /* Branded Chat Window */
 .wa-chat-window {
   width: 360px;
+  max-width: calc(100vw - 36px);
+  box-sizing: border-box;
   background-color: #FFFDF9;
   border-radius: 18px;
   box-shadow: 0 16px 45px rgba(123, 26, 40, 0.18), 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -196,13 +199,19 @@
   padding: 12px 14px;
   background-color: #ffffff;
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 10px;
   border-top: 1px solid rgba(212, 175, 55, 0.2);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .wa-chat-footer input {
-  flex: 1;
-  padding: 10px 16px;
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
   border-radius: 25px;
   border: 1px solid #e0d8cb;
   outline: none;
@@ -222,13 +231,16 @@
   background: linear-gradient(135deg, #7b1a28, #5c1328);
   color: #D4AF37;
   border: none;
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 

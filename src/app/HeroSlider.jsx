@@ -32,29 +32,29 @@ export default function HeroSlider({ homeData }) {
     const timer = setInterval(() => {
       nextSlide();
     }, 4500);
-    
+
     return () => clearInterval(timer);
   }, [isPaused, nextSlide]);
 
   return (
-    <section 
+    <section
       className="hero"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       aria-label="Raj Hansh Events Hero Showcase"
     >
       <div className="hero-overlay" />
-      
+
       {/* Slides Loop for Fade & Zoom */}
       {slides.map((slide, index) => (
         <div key={index} className={`hero-slide ${index === currentSlide ? 'active' : ''}`}>
           {slide.type === 'video' ? (
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline 
-              crossOrigin="anonymous" 
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              crossOrigin="anonymous"
               className="hero-media"
               poster={homeData?.thumbnail_url || 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1600'}
               preload="metadata"
@@ -62,9 +62,9 @@ export default function HeroSlider({ homeData }) {
               <source src={slide.src} type="video/mp4" />
             </video>
           ) : (
-            <Image 
-              src={slide.src} 
-              alt={`Celebration showcase slide ${index + 1}`} 
+            <Image
+              src={slide.src}
+              alt={`Celebration showcase slide ${index + 1}`}
               fill
               priority={index === 0}
               loading={index === 0 ? "eager" : "lazy"}
@@ -77,40 +77,40 @@ export default function HeroSlider({ homeData }) {
       ))}
 
       {/* Prev / Next Controls */}
-      <button 
+      <button
         type="button"
-        className="hero-nav-arrow hero-prev" 
+        className="hero-nav-arrow hero-prev"
         onClick={prevSlide}
         aria-label="Previous slide"
       >
         &#10094;
       </button>
-      <button 
+      <button
         type="button"
-        className="hero-nav-arrow hero-next" 
+        className="hero-nav-arrow hero-next"
         onClick={nextSlide}
         aria-label="Next slide"
       >
         &#10095;
       </button>
-      
+
       {/* Hero Content Block */}
       <div className="hero-content">
         <div className="logo-wrapper">
-          <Image 
-            src="/vblogo.png" 
-            alt="Raj Hansh Monogram" 
-            width={130} 
+          <Image
+            src="/vblogo.png"
+            alt="Raj Hansh Monogram"
+            width={130}
             height={130}
             priority
             className="hero-brand-logo"
           />
         </div>
-        
-        <span className="hero-kicker-pill">LUXURY CELEBRATIONS &middot; RANCHI</span>
+
+        <span className="hero-kicker-pill">LUXURY CELEBRATIONS</span>
         <h1>{homeData?.banner_title || "Raj Hansh Events"}</h1>
-        <p>{homeData?.banner_text || "Turning your most precious milestones into unforgettable royal memories since 2016."}</p>
-        
+        <p>{homeData?.banner_text || "Creating royal experience."}</p>
+
         <div className="hero-cta-group">
           <CalendlyButton />
           <Link href="/services" className="hero-secondary-btn">
@@ -121,8 +121,8 @@ export default function HeroSlider({ homeData }) {
         {/* Thin-Line Slider Controls */}
         <div className="hero-controls" role="tablist" aria-label="Slide Selector">
           {slides.map((_, index) => (
-            <button 
-              key={index} 
+            <button
+              key={index}
               type="button"
               role="tab"
               aria-selected={index === currentSlide}
@@ -135,12 +135,12 @@ export default function HeroSlider({ homeData }) {
       </div>
 
       {/* Subtle Scroll Down Indicator */}
-      <button 
+      <button
         type="button"
         onClick={() => {
           document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
         }}
-        className="scroll-down-hint" 
+        className="scroll-down-hint"
         aria-label="Scroll down to services"
         style={{ background: 'none', border: 'none', cursor: 'pointer' }}
       >

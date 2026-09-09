@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { BUSINESS_CONFIG } from "@/utils/constants";
+import { openEmailInquiry } from "@/utils/email";
+import WhatsAppIcon from "@/component/WhatsAppIcon";
 import "@/app/contact/Contact.css";
 
 export default function ContactSection({ id = "contact", initialContact = null }) {
@@ -64,38 +66,20 @@ ${form.message}`;
 
     const subject = `Celebration Enquiry: ${form.eventType} by ${form.name}`;
     const targetEmail = contactData?.email || BUSINESS_CONFIG.email;
-    const url = `mailto:${targetEmail}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
 
-    setMailtoUrl(url);
+    const { isMobile, mailtoUrl: generatedMailto, webGmailUrl } = openEmailInquiry({
+      to: targetEmail,
+      subject,
+      body
+    });
 
-    // Detect mobile phone vs desktop
-    const isMobilePhone = typeof window !== 'undefined' && (
-      /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-      (window.matchMedia && window.matchMedia('(max-width: 768px)').matches && 'ontouchstart' in window)
-    );
-
-    if (isMobilePhone) {
-      // On phone: use a synthetic anchor click to cleanly launch the native mail app
-      const mailLink = document.createElement('a');
-      mailLink.href = url;
-      mailLink.target = '_top';
-      document.body.appendChild(mailLink);
-      mailLink.click();
-      document.body.removeChild(mailLink);
-      setSubmittedStatus({
-        type: 'phone',
-        message: 'Opening your mobile mail app with your event details pre-filled...'
-      });
-    } else {
-      // On desktop: route to mailto: client
-      window.location.href = url;
-      setSubmittedStatus({
-        type: 'desktop',
-        message: 'Launching your desktop mail application...'
-      });
-    }
+    setMailtoUrl(isMobile ? generatedMailto : webGmailUrl);
+    setSubmittedStatus({
+      type: isMobile ? 'phone' : 'desktop',
+      message: isMobile 
+        ? 'Opening your mobile mail app with your event details pre-filled...' 
+        : 'Opening Gmail composer with your event details pre-filled...'
+    });
   };
 
   return (
@@ -242,7 +226,7 @@ ${form.message}`;
               
               <div className="action-buttons">
                 <a href={`https://wa.me/${(contactData?.phone || BUSINESS_CONFIG.whatsappNumber).replace(/\D/g,'')}`} target="_blank" rel="noreferrer" className="btn-whatsapp">
-                  WhatsApp
+                  <WhatsAppIcon size={18} style={{ marginRight: '6px' }} /> WhatsApp
                 </a>
                 <a href={`tel:${(contactData?.phone || BUSINESS_CONFIG.phone).replace(/\s+/g, '')}`} className="btn-call">
                   Call Now

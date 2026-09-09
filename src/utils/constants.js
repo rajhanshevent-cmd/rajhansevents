@@ -4,6 +4,7 @@ export const BUSINESS_CONFIG = {
   whatsappNumber: "919006089331",
   email: "rajhanshevent@gmail.com",
   location: "Ranchi, Jharkhand 834001, India",
-  hours: "Mon – Sun • 9:00 AM to 9:00 PM",
-  calendlyUrl: "https://calendly.com/rajhanshevent/30min"
+  hours: "Mon – Sat • 10:00 AM to 8:00 PM",
+  calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL || process.env.CALENDLY_URL || "https://calendly.com/rajhanshevent/30min",
+  foundedYear: 2016
 };

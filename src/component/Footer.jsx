@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BUSINESS_CONFIG } from '@/utils/constants';
+import { getServiceYears } from '@/utils/date';
+import WhatsAppIcon from '@/component/WhatsAppIcon';
 import './Footer.css';
 
 const Footer = () => {
@@ -19,7 +21,7 @@ const Footer = () => {
       try {
         const res = await fetch('/api/footer');
         const data = await res.json();
-        
+
         if (!isMounted) return;
         if (data.contact) setContactData(data.contact);
         if (data.home) setHomeData(data.home);
@@ -77,6 +79,7 @@ const Footer = () => {
   const waNumber = (contactData?.phone || BUSINESS_CONFIG.whatsappNumber).replace(/\D/g, '');
   const emailAddress = contactData?.email || BUSINESS_CONFIG.email;
   const officeAddress = contactData?.location || BUSINESS_CONFIG.location;
+  const serviceYears = getServiceYears(homeData?.founded);
 
   return (
     <footer className="site-footer">
@@ -88,19 +91,19 @@ const Footer = () => {
             <p><strong>Ready to orchestrate your royal celebration?</strong> Connect directly with Ranchi&apos;s premier event specialists.</p>
           </div>
           <div className="prebanner-actions">
-            <Link 
-              href="/contact" 
+            <Link
+              href="/contact"
               className="btn-prebanner-primary"
             >
               BOOK CONSULTATION &rarr;
             </Link>
-            <a 
-              href={`https://wa.me/${waNumber}`} 
-              target="_blank" 
+            <a
+              href={`https://wa.me/${waNumber}`}
+              target="_blank"
               rel="noopener noreferrer"
               className="btn-prebanner-wa"
             >
-              WhatsApp
+              <WhatsAppIcon size={16} style={{ marginRight: '6px' }} /> WhatsApp
             </a>
           </div>
         </div>
@@ -108,37 +111,35 @@ const Footer = () => {
 
       {/* Main Footer Architectural Grid */}
       <div className="footer-main">
-        
+
         {/* Column 1: Brand Heritage */}
         <div className="footer-column brand-column">
           <Link href="/" className="footer-brand-link">
-            <Image 
-              src={homeData?.logo_url || '/logo.png'} 
-              width={140} 
-              height={40} 
-              alt="Raj Hansh Events" 
+            <Image
+              src={homeData?.logo_url || '/logo.png'}
+              width={140}
+              height={40}
+              alt="Raj Hansh Events"
               className="footer-logo-img"
               style={{ width: 'auto', height: '40px', objectFit: 'contain' }}
             />
           </Link>
           <p className="brand-tagline">
-            Nine years of orchestrating royal weddings, landmark galas, and bespoke celebrations in Ranchi &amp; Jharkhand.
+            {serviceYears.word} years of orchestrating royal weddings, landmark galas, and bespoke celebrations in Jharkhand &amp; Bihar.
           </p>
           <div className="social-icons" aria-label="Social Media Links">
             <a href={contactData?.fb || "https://facebook.com"} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
               </svg>
             </a>
             <a href={contactData?.insta || "https://instagram.com"} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
               </svg>
             </a>
             <a href={`https://wa.me/${waNumber}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.882 2.796.882 3.183 0 5.769-2.587 5.77-5.766.001-3.182-2.585-5.769-5.77-5.769zm10.191 5.767c0 5.631-4.579 10.209-10.21 10.209-1.794 0-3.486-.467-4.962-1.284l-5.698 1.493 1.523-5.556c-.908-1.527-1.432-3.312-1.432-5.219 0-5.631 4.58-10.209 10.21-10.209 5.632 0 10.21 4.578 10.21 10.209z"/>
-              </svg>
+              <WhatsAppIcon size={16} color="currentColor" />
             </a>
           </div>
         </div>
@@ -186,10 +187,10 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a 
-                href={`https://maps.google.com/?q=${encodeURIComponent(officeAddress)}`} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href={`https://maps.google.com/?q=${encodeURIComponent(officeAddress)}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="contact-link"
               >
                 <span className="gold-icon">📍</span> {officeAddress}
@@ -208,12 +209,12 @@ const Footer = () => {
               </div>
             ) : (
               <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
-                <input 
-                  type="email" 
-                  placeholder="Your email address" 
+                <input
+                  type="email"
+                  placeholder="Your email address"
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
-                  required 
+                  required
                 />
                 <button type="submit" aria-label="Subscribe to newsletter">JOIN</button>
               </form>
@@ -236,10 +237,10 @@ const Footer = () => {
             <span className="meta-dot">•</span>
             <Link href="/terms">Terms of Service</Link>
           </div>
-          <button 
-            type="button" 
-            className="back-to-top-btn" 
-            onClick={scrollToTop} 
+          <button
+            type="button"
+            className="back-to-top-btn"
+            onClick={scrollToTop}
             aria-label="Back to top"
           >
             <span>Top</span>

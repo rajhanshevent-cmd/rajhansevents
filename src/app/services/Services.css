@@ -134,12 +134,13 @@
   margin: 0 0 1.2rem 0;
 }
 
-.card-title {
+.service-card .card-title {
   color: var(--primary-maroon-dark);
   font-family: var(--font-heading), serif;
   font-size: 1.5rem;
   font-weight: 400;
   margin-bottom: 1rem;
+  text-shadow: none !important;
 }
 
 .card-desc {

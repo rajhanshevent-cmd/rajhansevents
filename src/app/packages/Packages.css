@@ -248,6 +248,32 @@
   box-shadow: 0 8px 25px rgba(255, 255, 255, 0.45);
 }
 
+.pkg-wa-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.pkg-wa-link:hover {
+  color: #128C7E;
+  text-decoration: underline;
+}
+
+.pricing-card.featured-card .pkg-wa-link {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.pricing-card.featured-card .pkg-wa-link:hover {
+  color: var(--secondary-gold);
+}
+
 .btn-primary {
   background: linear-gradient(135deg, var(--primary-maroon), var(--primary-maroon-dark)); 
   color: var(--secondary-gold); 
@@ -287,6 +313,17 @@
   background: linear-gradient(180deg, var(--primary-maroon) 0%, var(--primary-maroon-dark) 100%); 
   padding: 6.5rem 0; 
   margin: 6rem 0; 
+}
+
+.process-section .elegant-section-title,
+.process-section .elegant-section-title.text-light {
+  color: #FFFDF9 !important;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+
+.process-section .section-kicker.text-gold {
+  color: #F3E5AB !important;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
 }
 
 .process-grid {
