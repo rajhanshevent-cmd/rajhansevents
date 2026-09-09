@@ -103,21 +103,22 @@
   position: sticky;
   top: 70px;
   z-index: 30;
-  background: rgba(255, 253, 249, 0.95);
+  background: rgba(255, 253, 249, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  padding: 8px 0 12px;
+  padding: 8px 12px 10px;
   margin: 0 -38px 24px -38px;
-  padding-left: 38px;
-  padding-right: 38px;
   border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .tabBarStickyWrapper {
     margin: 0 -18px 20px -18px;
-    padding-left: 18px;
-    padding-right: 18px;
+    padding: 6px 8px 8px;
     top: 60px;
   }
 }
@@ -125,18 +126,41 @@
 .tabBar {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 8px;
   overflow-x: auto;
-  padding-bottom: 4px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  scroll-behavior: smooth;
+  flex: 1;
+  min-width: 0;
+  padding: 4px 2px 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.5) transparent;
 }
 
 .tabBar::-webkit-scrollbar {
-  display: none;
+  height: 4px;
+  display: block;
+}
+
+.tabBar::-webkit-scrollbar-track {
+  background: rgba(212, 175, 55, 0.08);
+  border-radius: 4px;
+}
+
+.tabBar::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.45);
+  border-radius: 4px;
+}
+
+.tabBar::-webkit-scrollbar-thumb:hover {
+  background: #7b1a28;
 }
 
 .tabBtn {
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -151,6 +175,32 @@
   border: 1px solid rgba(212, 175, 55, 0.3);
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
+}
+
+.tabScrollArrow {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  color: #7b1a28;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.tabScrollArrow:hover {
+  background: #7b1a28;
+  color: #ffffff;
+  border-color: #7b1a28;
+  transform: scale(1.06);
 }
 
 .tabBtn:hover {

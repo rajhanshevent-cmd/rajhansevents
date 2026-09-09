@@ -441,7 +441,29 @@ export default function ManagePage() {
 
       {/* Fluid Sticky Category Navigation Tabs */}
       <div className={styles.tabBarStickyWrapper}>
-        <nav className={styles.tabBar} aria-label="CMS Sections Navigation">
+        <button
+          type="button"
+          className={styles.tabScrollArrow}
+          onClick={() => {
+            const el = document.getElementById('cms-tab-bar');
+            if (el) el.scrollBy({ left: -220, behavior: 'smooth' });
+          }}
+          aria-label="Scroll tabs left"
+          title="Scroll tabs left"
+        >
+          &#10094;
+        </button>
+
+        <nav
+          id="cms-tab-bar"
+          className={styles.tabBar}
+          aria-label="CMS Sections Navigation"
+          onWheel={(e) => {
+            if (e.deltaY !== 0) {
+              e.currentTarget.scrollLeft += e.deltaY;
+            }
+          }}
+        >
           {TABS.map(tab => (
             <button
               key={tab.id}
@@ -466,6 +488,19 @@ export default function ManagePage() {
             </button>
           ))}
         </nav>
+
+        <button
+          type="button"
+          className={styles.tabScrollArrow}
+          onClick={() => {
+            const el = document.getElementById('cms-tab-bar');
+            if (el) el.scrollBy({ left: 220, behavior: 'smooth' });
+          }}
+          aria-label="Scroll tabs right"
+          title="Scroll tabs right"
+        >
+          &#10095;
+        </button>
       </div>
 
       {/* Fluid Animated Content Area */}
