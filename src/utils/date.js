@@ -1,4 +1,4 @@
-import { BUSINESS_CONFIG } from './constants';
+import { BUSINESS_CONFIG } from './constants.js';
 
 const NUMBER_WORDS = {
   1: 'One',

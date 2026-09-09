@@ -874,7 +874,7 @@ export default function ManagePage() {
                 </div>
                 <div className={styles.fieldGroup}>
                   <label>Founded Year / Text</label>
-                  <input type="text" placeholder="e.g. Established 2017" value={homeData.founded || ''} onChange={e => setHomeData({...homeData, founded: e.target.value})} />
+                  <input type="text" placeholder="e.g. Established 2023" value={homeData.founded || ''} onChange={e => setHomeData({...homeData, founded: e.target.value})} />
                 </div>
               </div>
 
