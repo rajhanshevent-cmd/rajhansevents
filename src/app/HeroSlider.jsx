@@ -22,21 +22,35 @@ export default function HeroSlider({ homeData }) {
     );
   };
 
-  const [mediaError, setMediaError] = useState(false);
+  const [failedSlides, setFailedSlides] = useState({});
 
-  // Dynamically detect media type (image or video) from custom Cloudflare asset
-  const bannerMedia = homeData?.banner_video_url;
-  const isCustomVideo = bannerMedia ? isVideoMedia(bannerMedia) : true;
-  const firstSlideSrc = (!mediaError && bannerMedia) ? bannerMedia : '/hero.mp4';
-  const firstSlideType = (!mediaError && bannerMedia) ? (isCustomVideo ? 'video' : 'image') : 'video';
-
-  // Define slides with curated fallback media
-  const slides = [
-    { type: firstSlideType, src: firstSlideSrc },
+  // Curated default fallback slides
+  const defaultFallbackSlides = [
+    { type: 'video', src: '/hero.mp4' },
     { type: 'image', src: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1600' },
     { type: 'image', src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1600' },
     { type: 'image', src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=1600' }
   ];
+
+  // 4 customizable hero media slots (Slide 1 also supports legacy banner_video_url)
+  const slideSlots = [
+    homeData?.slide_1_url || homeData?.banner_video_url,
+    homeData?.slide_2_url,
+    homeData?.slide_3_url,
+    homeData?.slide_4_url,
+  ];
+
+  const slides = slideSlots.map((customUrl, index) => {
+    if (customUrl && !failedSlides[index]) {
+      const isVideo = isVideoMedia(customUrl);
+      return {
+        type: isVideo ? 'video' : 'image',
+        src: customUrl,
+        isCustom: true,
+      };
+    }
+    return defaultFallbackSlides[index];
+  });
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
@@ -81,7 +95,7 @@ export default function HeroSlider({ homeData }) {
               poster={homeData?.thumbnail_url || 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1600'}
               preload="metadata"
               onError={() => {
-                if (index === 0 && !mediaError) setMediaError(true);
+                setFailedSlides(prev => ({ ...prev, [index]: true }));
               }}
             >
               <source src={slide.src} />
@@ -98,7 +112,7 @@ export default function HeroSlider({ homeData }) {
               className="hero-media"
               style={{ objectFit: 'cover' }}
               onError={() => {
-                if (index === 0 && !mediaError) setMediaError(true);
+                setFailedSlides(prev => ({ ...prev, [index]: true }));
               }}
             />
           )}

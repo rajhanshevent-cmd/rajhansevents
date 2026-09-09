@@ -103,12 +103,20 @@ export default function ManagePage() {
   const [homeData, setHomeData] = useState({
     identifier: 'home_main',
     logo: null,
+    logo_url: '',
+    slide_1_file: null,
+    slide_1_url: '',
+    slide_2_file: null,
+    slide_2_url: '',
+    slide_3_file: null,
+    slide_3_url: '',
+    slide_4_file: null,
+    slide_4_url: '',
     banner_video: null,
+    banner_video_url: '',
     banner_title: '',
     banner_text: '',
     founded: '',
-    banner_video_url: '',
-    logo_url: '',
   });
   const [expertiseData, setExpertiseData] = useState({ identifier: '', title: '', file: null });
   const [featuredData, setFeaturedData] = useState({ identifier: '', title: '', file: null });
@@ -145,8 +153,8 @@ export default function ManagePage() {
     }
   };
 
-  // Universal Submit Handler
-  const handleSubmit = async (e, table, payload, fileData = null, secondaryFileData = null) => {
+  // Universal Submit Handler supporting variable file arguments
+  const handleSubmit = async (e, table, payload, ...fileArgs) => {
     e.preventDefault();
     setLoading(true);
 
@@ -176,8 +184,21 @@ export default function ManagePage() {
         }
       };
 
-      await processFileUpload(fileData);
-      await processFileUpload(secondaryFileData);
+      for (const arg of fileArgs) {
+        if (!arg) continue;
+        if (Array.isArray(arg)) {
+          for (const item of arg) {
+            await processFileUpload(item);
+          }
+        } else {
+          await processFileUpload(arg);
+        }
+      }
+
+      // Synchronize legacy banner_video_url with slide_1_url if slide 1 is updated
+      if (finalPayload.slide_1_url) {
+        finalPayload.banner_video_url = finalPayload.slide_1_url;
+      }
 
       const res = await fetch('/api/cms/upsert', {
         method: 'POST',
@@ -212,6 +233,10 @@ export default function ManagePage() {
           banner_text: home.banner_text || '',
           founded: home.founded || '',
           banner_video_url: home.banner_video_url || '',
+          slide_1_url: home.slide_1_url || home.banner_video_url || '',
+          slide_2_url: home.slide_2_url || '',
+          slide_3_url: home.slide_3_url || '',
+          slide_4_url: home.slide_4_url || '',
           logo_url: home.logo_url || '',
         }));
       }
@@ -259,6 +284,10 @@ export default function ManagePage() {
               banner_text: home.banner_text || '',
               founded: home.founded || '',
               banner_video_url: home.banner_video_url || '',
+              slide_1_url: home.slide_1_url || home.banner_video_url || '',
+              slide_2_url: home.slide_2_url || '',
+              slide_3_url: home.slide_3_url || '',
+              slide_4_url: home.slide_4_url || '',
               logo_url: home.logo_url || '',
             }));
           }
@@ -643,57 +672,166 @@ export default function ManagePage() {
                 ...(homeData.banner_title !== undefined ? { banner_title: homeData.banner_title } : {}),
                 ...(homeData.banner_text !== undefined ? { banner_text: homeData.banner_text } : {}),
                 ...(homeData.founded !== undefined ? { founded: homeData.founded } : {}),
-                ...(homeData.banner_video_url !== undefined ? { banner_video_url: homeData.banner_video_url } : {}),
+                ...(homeData.slide_1_url !== undefined ? { slide_1_url: homeData.slide_1_url, banner_video_url: homeData.slide_1_url } : {}),
+                ...(homeData.slide_2_url !== undefined ? { slide_2_url: homeData.slide_2_url } : {}),
+                ...(homeData.slide_3_url !== undefined ? { slide_3_url: homeData.slide_3_url } : {}),
+                ...(homeData.slide_4_url !== undefined ? { slide_4_url: homeData.slide_4_url } : {}),
                 ...(homeData.logo_url !== undefined ? { logo_url: homeData.logo_url } : {})
               };
+
+              const fileUploads = [
+                homeData.logo ? { file: homeData.logo, bucket: 'home', columnName: 'logo_url' } : null,
+                homeData.slide_1_file ? { file: homeData.slide_1_file, bucket: 'home', columnName: 'slide_1_url' } : null,
+                homeData.slide_2_file ? { file: homeData.slide_2_file, bucket: 'home', columnName: 'slide_2_url' } : null,
+                homeData.slide_3_file ? { file: homeData.slide_3_file, bucket: 'home', columnName: 'slide_3_url' } : null,
+                homeData.slide_4_file ? { file: homeData.slide_4_file, bucket: 'home', columnName: 'slide_4_url' } : null,
+              ].filter(Boolean);
+
               await handleSubmit(
                 e, 'home_content', 
                 payload,
-                homeData.logo ? { file: homeData.logo, bucket: 'home', columnName: 'logo_url' } : null,
-                homeData.banner_video ? { file: homeData.banner_video, bucket: 'home', columnName: 'banner_video_url' } : null
+                fileUploads
               );
               await loadHomeData();
             }}>
-              <div className={styles.formGrid}>
-                <div className={styles.fieldGroup}>
-                  <label>Logo File</label>
-                  <input type="file" accept="image/*" onChange={e => setHomeData({...homeData, logo: e.target.files[0]})} />
-                  {homeData.logo_url && (
-                    <div style={{ marginTop: '6px', fontSize: '0.82rem', color: '#666' }}>
-                      Current:{' '}
-                      <a href={homeData.logo_url} target="_blank" rel="noreferrer" style={{ color: '#0055DC', textDecoration: 'underline' }}>
-                        {homeData.logo_url.split('/').pop()}
-                      </a>
-                    </div>
-                  )}
+              {/* BRAND LOGO */}
+              <div className={styles.fieldGroup} style={{ marginBottom: '20px' }}>
+                <label>Header Brand Logo File</label>
+                <input type="file" accept="image/*" onChange={e => setHomeData({...homeData, logo: e.target.files[0]})} />
+                {homeData.logo_url && (
+                  <div style={{ marginTop: '6px', fontSize: '0.82rem', color: '#666' }}>
+                    Current Logo:{' '}
+                    <a href={homeData.logo_url} target="_blank" rel="noreferrer" style={{ color: '#0055DC', textDecoration: 'underline' }}>
+                      {homeData.logo_url.split('/').pop()}
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              {/* 4 HERO SHOWCASE SLIDES */}
+              <div style={{ marginTop: '24px', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '1.25rem' }}>🎬</span>
+                  <h3 style={{ fontSize: '1.15rem', color: '#7b1a28', fontWeight: 700, margin: 0 }}>
+                    Hero Showcase Media (4 Slides)
+                  </h3>
                 </div>
-                <div className={styles.fieldGroup}>
-                  <label>Banner Media (Video or Image File)</label>
-                  <input type="file" accept="video/*,image/*" onChange={e => setHomeData({...homeData, banner_video: e.target.files[0]})} />
-                  {homeData.banner_video_url && (
-                    <div style={{ marginTop: '6px', fontSize: '0.82rem', color: '#666' }}>
-                      Current:{' '}
-                      <a href={homeData.banner_video_url} target="_blank" rel="noreferrer" style={{ color: '#0055DC', textDecoration: 'underline' }}>
-                        {homeData.banner_video_url.split('/').pop()}
-                      </a>
+                <p style={{ fontSize: '0.84rem', color: '#666', marginBottom: '16px', lineHeight: 1.5 }}>
+                  Configure all 4 hero slideshow slots. Upload custom MP4/WebM videos or WebP/JPG/PNG images directly to Cloudflare R2, or paste direct URLs.
+                </p>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+                  {/* SLIDE 1 */}
+                  <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                      <strong style={{ fontSize: '0.95rem', color: '#0B192C' }}>Slide 1 (Primary)</strong>
+                      <span style={{ fontSize: '0.72rem', background: '#e0f2fe', color: '#0369a1', padding: '3px 8px', borderRadius: '10px', fontWeight: 700 }}>SLOT 1</span>
                     </div>
-                  )}
+                    <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>Upload Video or Image</label>
+                    <input type="file" accept="video/*,image/*" onChange={e => setHomeData({...homeData, slide_1_file: e.target.files[0]})} />
+                    
+                    <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginTop: '10px', marginBottom: '4px' }}>Or Direct Media URL</label>
+                    <input
+                      type="url"
+                      placeholder="https://pub-...r2.dev/home/..."
+                      value={homeData.slide_1_url || ''}
+                      onChange={e => setHomeData({...homeData, slide_1_url: e.target.value, banner_video_url: e.target.value})}
+                      style={{ fontSize: '0.82rem', padding: '8px 10px', width: '100%', boxSizing: 'border-box' }}
+                    />
+                    {(homeData.slide_1_url || homeData.banner_video_url) && (
+                      <div style={{ marginTop: '6px', fontSize: '0.78rem', color: '#666' }}>
+                        Active:{' '}
+                        <a href={homeData.slide_1_url || homeData.banner_video_url} target="_blank" rel="noreferrer" style={{ color: '#0055DC', textDecoration: 'underline', wordBreak: 'break-all' }}>
+                          {(homeData.slide_1_url || homeData.banner_video_url).split('/').pop()}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* SLIDE 2 */}
+                  <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                      <strong style={{ fontSize: '0.95rem', color: '#0B192C' }}>Slide 2</strong>
+                      <span style={{ fontSize: '0.72rem', background: '#fef3c7', color: '#92400e', padding: '3px 8px', borderRadius: '10px', fontWeight: 700 }}>SLOT 2</span>
+                    </div>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>Upload Video or Image</label>
+                    <input type="file" accept="video/*,image/*" onChange={e => setHomeData({...homeData, slide_2_file: e.target.files[0]})} />
+                    
+                    <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginTop: '10px', marginBottom: '4px' }}>Or Direct Media URL</label>
+                    <input
+                      type="url"
+                      placeholder="https://pub-...r2.dev/home/..."
+                      value={homeData.slide_2_url || ''}
+                      onChange={e => setHomeData({...homeData, slide_2_url: e.target.value})}
+                      style={{ fontSize: '0.82rem', padding: '8px 10px', width: '100%', boxSizing: 'border-box' }}
+                    />
+                    {homeData.slide_2_url && (
+                      <div style={{ marginTop: '6px', fontSize: '0.78rem', color: '#666' }}>
+                        Active:{' '}
+                        <a href={homeData.slide_2_url} target="_blank" rel="noreferrer" style={{ color: '#0055DC', textDecoration: 'underline', wordBreak: 'break-all' }}>
+                          {homeData.slide_2_url.split('/').pop()}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* SLIDE 3 */}
+                  <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                      <strong style={{ fontSize: '0.95rem', color: '#0B192C' }}>Slide 3</strong>
+                      <span style={{ fontSize: '0.72rem', background: '#f3e8ff', color: '#6b21a8', padding: '3px 8px', borderRadius: '10px', fontWeight: 700 }}>SLOT 3</span>
+                    </div>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>Upload Video or Image</label>
+                    <input type="file" accept="video/*,image/*" onChange={e => setHomeData({...homeData, slide_3_file: e.target.files[0]})} />
+                    
+                    <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginTop: '10px', marginBottom: '4px' }}>Or Direct Media URL</label>
+                    <input
+                      type="url"
+                      placeholder="https://pub-...r2.dev/home/..."
+                      value={homeData.slide_3_url || ''}
+                      onChange={e => setHomeData({...homeData, slide_3_url: e.target.value})}
+                      style={{ fontSize: '0.82rem', padding: '8px 10px', width: '100%', boxSizing: 'border-box' }}
+                    />
+                    {homeData.slide_3_url && (
+                      <div style={{ marginTop: '6px', fontSize: '0.78rem', color: '#666' }}>
+                        Active:{' '}
+                        <a href={homeData.slide_3_url} target="_blank" rel="noreferrer" style={{ color: '#0055DC', textDecoration: 'underline', wordBreak: 'break-all' }}>
+                          {homeData.slide_3_url.split('/').pop()}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* SLIDE 4 */}
+                  <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                      <strong style={{ fontSize: '0.95rem', color: '#0B192C' }}>Slide 4</strong>
+                      <span style={{ fontSize: '0.72rem', background: '#dcfce7', color: '#166534', padding: '3px 8px', borderRadius: '10px', fontWeight: 700 }}>SLOT 4</span>
+                    </div>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginBottom: '4px' }}>Upload Video or Image</label>
+                    <input type="file" accept="video/*,image/*" onChange={e => setHomeData({...homeData, slide_4_file: e.target.files[0]})} />
+                    
+                    <label style={{ fontSize: '0.8rem', fontWeight: 600, display: 'block', marginTop: '10px', marginBottom: '4px' }}>Or Direct Media URL</label>
+                    <input
+                      type="url"
+                      placeholder="https://pub-...r2.dev/home/..."
+                      value={homeData.slide_4_url || ''}
+                      onChange={e => setHomeData({...homeData, slide_4_url: e.target.value})}
+                      style={{ fontSize: '0.82rem', padding: '8px 10px', width: '100%', boxSizing: 'border-box' }}
+                    />
+                    {homeData.slide_4_url && (
+                      <div style={{ marginTop: '6px', fontSize: '0.78rem', color: '#666' }}>
+                        Active:{' '}
+                        <a href={homeData.slide_4_url} target="_blank" rel="noreferrer" style={{ color: '#0055DC', textDecoration: 'underline', wordBreak: 'break-all' }}>
+                          {homeData.slide_4_url.split('/').pop()}
+                        </a>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              <div className={styles.fieldGroup}>
-                <label>Direct Media URL (Cloudflare R2 / CDN)</label>
-                <input 
-                  type="url" 
-                  placeholder="https://pub-5d8c780110a84ca79435d4e9a0a0bb30.r2.dev/home/..." 
-                  value={homeData.banner_video_url || ''} 
-                  onChange={e => setHomeData({...homeData, banner_video_url: e.target.value})} 
-                />
-                <span style={{ fontSize: '0.78rem', color: '#777', marginTop: '4px', display: 'block' }}>
-                  Upload a file above to host directly on Cloudflare R2, or paste a direct Cloudflare/CDN asset URL.
-                </span>
-              </div>
-
+              {/* BANNER TEXT & METADATA */}
               <div className={styles.formGrid}>
                 <div className={styles.fieldGroup}>
                   <label>Banner Title</label>
