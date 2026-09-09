@@ -9,6 +9,8 @@ export const metadata = {
   description: "Read real stories, reviews, and video testimonials from our clients across Ranchi and Jharkhand.", 
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function Testimonials() {
   // Fetch all testimonials data from Neon PostgreSQL in parallel
   const [

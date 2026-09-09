@@ -149,3 +149,168 @@
   background: rgba(212, 175, 55, 0.25);
   margin: 35px 0;
 }
+
+/* --- Team Member Management UI --- */
+.teamListGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 18px 0 24px 0;
+}
+
+.teamItemCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #ffffff;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.teamItemCard:hover {
+  transform: translateY(-2px);
+  border-color: #D4AF37;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.15);
+}
+
+.teamPhotoThumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #D4AF37;
+  flex-shrink: 0;
+  background: #f0f0f0;
+}
+
+.teamMeta {
+  flex: 1;
+  min-width: 0;
+}
+
+.teamName {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #7b1a28;
+  margin: 0 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.teamRole {
+  font-size: 0.82rem;
+  color: #666;
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #7b1a28;
+  background: rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 12px;
+  padding: 2px 8px;
+  letter-spacing: 0.5px;
+}
+
+.cardActions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.editBtn {
+  background: #7b1a28;
+  color: #D4AF37;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editBtn:hover {
+  background: #D4AF37;
+  color: #7b1a28;
+}
+
+.deleteBtn {
+  background: #fff;
+  color: #c53030;
+  border: 1px solid rgba(197, 48, 48, 0.4);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.deleteBtn:hover {
+  background: #c53030;
+  color: #fff;
+}
+
+.modeNotice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(212, 175, 55, 0.15);
+  border-left: 4px solid #D4AF37;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+  color: #7b1a28;
+  font-weight: 600;
+}
+
+.cancelBtn {
+  background: #e2e8f0;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cancelBtn:hover {
+  background: #cbd5e1;
+}
+
+.previewBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+}
+
+.previewThumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #D4AF37;
+}
+
+.previewText {
+  font-size: 0.85rem;
+  color: #555;
+}

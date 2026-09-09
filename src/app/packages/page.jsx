@@ -7,6 +7,8 @@ export const metadata = {
   description: "Transparent, luxury event planning and wedding packages tailored to your vision and celebration size in Ranchi." 
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function Packages() {
   // Fetch packages from Neon PostgreSQL
   const packagesData = await getAll('packages', 'created_at ASC'); 

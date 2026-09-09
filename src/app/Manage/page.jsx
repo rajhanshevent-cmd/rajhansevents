@@ -57,7 +57,10 @@ export default function ManagePage() {
   const [featuredData, setFeaturedData] = useState({ identifier: '', title: '', file: null });
   const [contactData, setContactData] = useState({ identifier: 'contact_main', email: '', phone: '', location: '', insta: '', fb: '' });
   const [aboutData, setAboutData] = useState({ identifier: 'about_main', description: '' });
-  const [teamData, setTeamData] = useState({ identifier: '', name: '', role: '', file: null });
+  const [teamList, setTeamList] = useState([]);
+  const [teamData, setTeamData] = useState({ identifier: '', name: '', role: '', photo_url: '', file: null });
+  const [isEditingTeam, setIsEditingTeam] = useState(false);
+  const [teamFilePreview, setTeamFilePreview] = useState('');
   const [serviceData, setServiceData] = useState({ identifier: '', title: '', tag: '', desc: '', file: null });
   const [packageData, setPackageData] = useState({ identifier: '', pkg_name: '', f1: '', f2: '', f3: '', f4: '', price: '' });
   const [portfolioData, setPortfolioData] = useState({ identifier: '', file: null, category: '', media_type: 'image', title : '' });
@@ -152,6 +155,115 @@ export default function ManagePage() {
       setLoading(false);
     }
   };
+
+  // Team Management Handlers
+  const loadTeamList = async () => {
+    try {
+      const res = await fetch('/api/cms/list?table=team');
+      const data = await res.json();
+      if (data.success && Array.isArray(data.data)) {
+        setTeamList(data.data);
+      }
+    } catch (err) {
+      console.error('Failed to load team list:', err);
+    }
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchTeam() {
+      try {
+        const res = await fetch('/api/cms/list?table=team');
+        const data = await res.json();
+        if (isMounted && data.success && Array.isArray(data.data)) {
+          setTeamList(data.data);
+        }
+      } catch (err) {
+        console.error('Failed to load team list:', err);
+      }
+    }
+    fetchTeam();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const handleEditTeamMember = (member) => {
+    setIsEditingTeam(true);
+    setTeamData({
+      identifier: member.identifier,
+      name: member.name || '',
+      role: member.role || '',
+      photo_url: member.photo_url || '',
+      file: null
+    });
+    setTeamFilePreview(member.photo_url || '');
+  };
+
+  const handleCancelTeamEdit = () => {
+    setIsEditingTeam(false);
+    setTeamData({
+      identifier: '',
+      name: '',
+      role: '',
+      photo_url: '',
+      file: null
+    });
+    setTeamFilePreview('');
+  };
+
+  const handleDeleteTeamMember = async (identifier, name) => {
+    if (!confirm(`Are you sure you want to delete team member "${name || identifier}"?`)) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await fetch('/api/cms/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ table: 'team', identifier })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to delete record');
+      }
+      alert(`Deleted "${name || identifier}" successfully!`);
+      await loadTeamList();
+      if (teamData.identifier === identifier) {
+        handleCancelTeamEdit();
+      }
+    } catch (err) {
+      alert(`Error deleting team member: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleTeamSubmit = async (e) => {
+    e.preventDefault();
+    if (!teamData.identifier.trim()) {
+      alert('Identifier is required (e.g. team-1)');
+      return;
+    }
+    if (!teamData.name.trim()) {
+      alert('Name is required');
+      return;
+    }
+
+    const payload = {
+      identifier: teamData.identifier.trim(),
+      name: teamData.name.trim(),
+      role: teamData.role.trim(),
+      ...(teamData.photo_url ? { photo_url: teamData.photo_url } : {})
+    };
+
+    const fileData = teamData.file ? { file: teamData.file, bucket: 'team', columnName: 'photo_url' } : null;
+
+    await handleSubmit(e, 'team', payload, fileData);
+    await loadTeamList();
+    handleCancelTeamEdit();
+  };
+
 
   if (checkingAuth) {
     return (
@@ -292,14 +404,165 @@ export default function ManagePage() {
           <button type="submit" disabled={loading}>Save About Text</button>
         </form>
 
-        <h3>Team</h3>
-        <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'team', { identifier: teamData.identifier, name: teamData.name, role: teamData.role }, { file: teamData.file, bucket: 'team', columnName: 'photo_url' })}>
-          <input type="text" placeholder="Identifier (e.g., team-1)" required onChange={e => setTeamData({...teamData, identifier: e.target.value})} />
-          <input type="text" placeholder="Name" required onChange={e => setTeamData({...teamData, name: e.target.value})} />
-          <input type="text" placeholder="Role (e.g., Founder, Creative Director)" onChange={e => setTeamData({...teamData, role: e.target.value})} />
-          <input type="file" accept="image/*" required onChange={e => setTeamData({...teamData, file: e.target.files[0]})} />
-          <button type="submit" disabled={loading}>Save Team Member</button>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginTop: '25px', borderBottom: '1px solid rgba(212, 175, 55, 0.3)', paddingBottom: '8px' }}>
+          <h3 style={{ margin: 0, border: 'none', padding: 0 }}>Team Members ({teamList.length})</h3>
+          {!isEditingTeam && (
+            <button
+              type="button"
+              onClick={() => {
+                const nextId = `team-${teamList.length + 1}`;
+                setTeamData({ identifier: nextId, name: '', role: '', photo_url: '', file: null });
+                setTeamFilePreview('');
+              }}
+              style={{
+                background: 'rgba(212, 175, 55, 0.2)',
+                color: '#7b1a28',
+                border: '1px solid #D4AF37',
+                borderRadius: '6px',
+                padding: '4px 12px',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              + New Member (Auto ID)
+            </button>
+          )}
+        </div>
+
+        {/* Existing Team Members List */}
+        {teamList.length > 0 ? (
+          <div className={styles.teamListGrid}>
+            {teamList.map((member) => (
+              <div key={member.identifier} className={styles.teamItemCard}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={member.photo_url || '/logo.png'}
+                  alt={member.name || 'Team member'}
+                  className={styles.teamPhotoThumb}
+                  onError={(e) => { e.currentTarget.src = '/logo.png'; }}
+                />
+                <div className={styles.teamMeta}>
+                  <div className={styles.teamName}>{member.name || 'Unnamed'}</div>
+                  <div className={styles.teamRole}>{member.role || 'No role'}</div>
+                  <span className={styles.badge}>{member.identifier}</span>
+                </div>
+                <div className={styles.cardActions}>
+                  <button
+                    type="button"
+                    className={styles.editBtn}
+                    onClick={() => handleEditTeamMember(member)}
+                    title="Edit details"
+                  >
+                    ✏️ Edit
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.deleteBtn}
+                    onClick={() => handleDeleteTeamMember(member.identifier, member.name)}
+                    title="Delete member"
+                  >
+                    🗑️ Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p style={{ color: '#888', fontStyle: 'italic', margin: '14px 0' }}>
+            No team members in database yet. Add one below.
+          </p>
+        )}
+
+        {/* Team Member Form */}
+        <form className={styles.group} onSubmit={handleTeamSubmit}>
+          {isEditingTeam ? (
+            <div className={styles.modeNotice}>
+              <span>✏️ Editing Team Member: <strong>{teamData.name || teamData.identifier}</strong></span>
+              <button type="button" className={styles.cancelBtn} onClick={handleCancelTeamEdit}>
+                Cancel Edit
+              </button>
+            </div>
+          ) : (
+            <div style={{ fontWeight: 600, color: '#7b1a28', marginBottom: '10px' }}>
+              Add / Update Team Member
+            </div>
+          )}
+
+          <label>Identifier (Unique Key, e.g., team-1, team-2)</label>
+          <input
+            type="text"
+            placeholder="Identifier (e.g., team-1)"
+            value={teamData.identifier}
+            required
+            readOnly={isEditingTeam}
+            style={isEditingTeam ? { backgroundColor: '#f5f5f5', cursor: 'not-allowed' } : {}}
+            onChange={e => setTeamData({ ...teamData, identifier: e.target.value })}
+          />
+
+          <label>Full Name</label>
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={teamData.name}
+            required
+            onChange={e => setTeamData({ ...teamData, name: e.target.value })}
+          />
+
+          <label>Role / Designation</label>
+          <input
+            type="text"
+            placeholder="Role (e.g., Founder, Head, Creative Director)"
+            value={teamData.role}
+            onChange={e => setTeamData({ ...teamData, role: e.target.value })}
+          />
+
+          {teamFilePreview && (
+            <div className={styles.previewBox}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={teamFilePreview} alt="Preview" className={styles.previewThumb} />
+              <div className={styles.previewText}>
+                <strong>{teamData.file ? 'Selected New Photo' : 'Current Photo'}</strong>
+                <div>{teamData.file ? teamData.file.name : 'Photo saved in database / Cloudflare R2'}</div>
+              </div>
+            </div>
+          )}
+
+          <label>
+            {teamData.photo_url || isEditingTeam
+              ? 'Replace Photo (Optional — leave empty to keep current)'
+              : 'Photo (Required for new member)'}
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            required={!teamData.photo_url && !isEditingTeam}
+            onChange={e => {
+              const file = e.target.files[0];
+              if (file) {
+                setTeamData({ ...teamData, file });
+                setTeamFilePreview(URL.createObjectURL(file));
+              }
+            }}
+          />
+
+          <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
+            <button type="submit" disabled={loading}>
+              {loading ? 'Saving to Database & R2...' : isEditingTeam ? 'Update Team Member' : 'Save Team Member'}
+            </button>
+            {isEditingTeam && (
+              <button
+                type="button"
+                className={styles.cancelBtn}
+                onClick={handleCancelTeamEdit}
+                style={{ width: 'auto', padding: '0 20px', marginTop: '15px', height: 'auto' }}
+              >
+                Cancel
+              </button>
+            )}
+          </div>
         </form>
+
 
         <h3>Services</h3>
         <form className={styles.group} onSubmit={(e) => handleSubmit(e, 'services', { identifier: serviceData.identifier, title: serviceData.title, tag: serviceData.tag, desc: serviceData.desc }, { file: serviceData.file, bucket: 'services', columnName: 'image_url' })}>

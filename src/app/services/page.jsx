@@ -8,6 +8,8 @@ export const metadata = {
   description: "From luxury weddings to professional corporate events, explore our comprehensive event management and decor services.",
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function Services() {
   // Fetch live services data from Neon PostgreSQL
   const servicesData = await getAll('services', 'created_at ASC');

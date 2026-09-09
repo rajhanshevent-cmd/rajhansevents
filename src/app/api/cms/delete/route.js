@@ -1,28 +1,26 @@
 import { NextResponse } from "next/server";
-import { upsert } from "@/lib/db";
+import { deleteRecord } from "@/lib/db";
 import { getSession } from "@/lib/session";
 import { revalidatePath } from "next/cache";
 
 export async function POST(request) {
-  // 1. Enforce admin session
   const session = await getSession();
   if (!session.authenticated) {
     return NextResponse.json({ error: "Unauthorized access." }, { status: 401 });
   }
 
   try {
-    const { table, payload, conflictKey = "identifier" } = await request.json();
+    const { table, identifier } = await request.json();
 
-    if (!table || !payload) {
+    if (!table || !identifier) {
       return NextResponse.json(
-        { error: "table and payload are required." },
+        { error: "table and identifier are required." },
         { status: 400 }
       );
     }
 
-    const record = await upsert(table, payload, conflictKey);
+    const deleted = await deleteRecord(table, identifier);
 
-    // Invalidate caches across the site so live pages immediately display the new data
     try {
       revalidatePath("/", "layout");
       revalidatePath("/");
@@ -33,16 +31,15 @@ export async function POST(request) {
       revalidatePath("/testimonials");
       revalidatePath("/contact");
     } catch (e) {
-      console.warn("[CMS Revalidate Warning]:", e.message);
+      console.warn("[CMS Revalidate Warning on Delete]:", e.message);
     }
 
-    return NextResponse.json({ success: true, data: record });
+    return NextResponse.json({ success: true, data: deleted });
   } catch (error) {
-    console.error("[CMS Upsert Error]:", error);
+    console.error("[CMS Delete Error]:", error);
     return NextResponse.json(
-      { error: error.message || "Failed to update record." },
+      { error: error.message || "Failed to delete record." },
       { status: 500 }
     );
   }
 }
-

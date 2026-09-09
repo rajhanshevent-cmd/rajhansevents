@@ -149,3 +149,23 @@ export async function insert(table, data) {
     throw error;
   }
 }
+
+/**
+ * Delete a record from a table by an identifier column.
+ */
+export async function deleteRecord(table, identifier, idColumn = "identifier") {
+  validateTable(table);
+  const sql = getClient();
+  if (!sql) throw new Error("DATABASE_URL is not configured.");
+
+  const queryText = `DELETE FROM ${table} WHERE "${idColumn}" = $1 RETURNING *;`;
+
+  try {
+    const result = await sql.query(queryText, [identifier]);
+    return result[0] || null;
+  } catch (error) {
+    console.error(`[Neon DB Error] deleteRecord("${table}", "${identifier}"):`, error);
+    throw error;
+  }
+}
+

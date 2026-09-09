@@ -8,6 +8,8 @@ export const metadata = {
   description: "Learn about the heritage, team, and bespoke planning philosophy behind Raj Hansh Events, Ranchi's premier celebration curators.", 
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function About() {
   // Fetch all necessary data from Neon PostgreSQL in parallel for maximum speed
   const [

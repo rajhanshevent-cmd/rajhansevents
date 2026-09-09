@@ -17,6 +17,8 @@ export const metadata = {
   description: "Transform your special occasions into unforgettable memories with Raj Hansh Events. Expert wedding, corporate, and luxury celebration planning in Ranchi, Jharkhand.",
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   // Fetch all necessary data from Neon PostgreSQL in parallel
   const [
