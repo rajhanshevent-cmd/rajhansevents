@@ -392,6 +392,17 @@
   margin: 0;
 }
 
+/* Hide mobile drawer and overlay completely on desktop devices */
+@media (min-width: 1025px) {
+  .mobile-drawer-overlay,
+  .mobile-nav-drawer {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateX(100%) !important;
+  }
+}
+
 /* Responsive Breakpoint */
 @media (max-width: 1024px) {
   .navbar-container {

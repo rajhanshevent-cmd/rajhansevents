@@ -52,6 +52,17 @@ function Navbar() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [mobileMenuOpen]);
 
+  // Close mobile drawer when resizing up to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1024) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Real-time Scrollspy when on the continuous homepage
   useEffect(() => {
     if (pathname !== '/') return;
