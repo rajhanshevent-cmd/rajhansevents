@@ -1,56 +1,210 @@
-/* Container for the login box */
-.admin-login-container {
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 30px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+/* Admin Portal Luxury Styling */
+.admin-login-wrapper {
+  min-height: 100vh;
+  background-color: #FDFBF7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px 60px;
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  padding: 40px 32px;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 10px 35px rgba(123, 26, 40, 0.08);
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-family: sans-serif;
 }
 
-/* Form inputs */
-.admin-login-container input {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box; /* Ensures padding doesn't break width */
+.admin-badge {
+  display: inline-block;
+  color: #D4AF37;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
-/* Primary Login Button */
-.admin-login-container button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
+.admin-title {
+  font-family: var(--font-heading, serif);
+  font-size: 2rem;
+  color: #7b1a28;
+  margin: 0 0 10px;
+  font-weight: 500;
 }
 
-.admin-login-container button:disabled {
-  background-color: #aaa;
-}
-
-/* Divider Styling */
-.divider {
-  margin: 20px 0;
+.admin-subtitle {
   color: #666;
-  font-size: 0.9em;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin-bottom: 24px;
 }
 
-/* Google Button Styling */
-.google-btn {
-  background-color: #db4437 !important; /* Google Red */
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
 }
 
-/* Logout Button Styling */
-.logout-btn {
-  background-color: #6c757d !important;
-  margin-top: 15px;
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #444;
+  letter-spacing: 0.5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #e0d7c7;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #faf8f5;
+  color: #222;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #7b1a28;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(123, 26, 40, 0.1);
+}
+
+.admin-submit-btn {
+  width: 100%;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, #7b1a28, #9c2438);
+  color: #FFFDF9;
+  border: 1px solid #D4AF37;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 6px;
+}
+
+.admin-submit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #9c2438, #7b1a28);
+  box-shadow: 0 4px 16px rgba(123, 26, 40, 0.25);
+  transform: translateY(-1px);
+}
+
+.admin-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 24px 0 18px;
+  color: #999;
+  font-size: 0.78rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.admin-divider::before,
+.admin-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e8e0d4;
+}
+
+.admin-divider span {
+  padding: 0 12px;
+}
+
+.google-auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1.5px solid #d4af37;
+  border-radius: 8px;
+  color: #333;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.google-auth-btn:hover {
+  background: #fdfaf5;
+  border-color: #7b1a28;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+
+.admin-alert-error {
+  background: #fff5f5;
+  border: 1px solid #feb2b2;
+  color: #9b2c2c;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.admin-active-box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.open-cms-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #7b1a28, #9c2438);
+  color: #D4AF37;
+  border: 1px solid #D4AF37;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+}
+
+.open-cms-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(123, 26, 40, 0.2);
+}
+
+.admin-signout-btn {
+  padding: 11px 20px;
+  background: transparent;
+  color: #666;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.admin-signout-btn:hover {
+  background: #f0f0f0;
+  color: #222;
 }
