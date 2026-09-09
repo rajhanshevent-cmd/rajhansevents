@@ -5,5 +5,5 @@ export const BUSINESS_CONFIG = {
   email: "rajhanshevent@gmail.com",
   location: "Ranchi, Jharkhand 834001, India",
   hours: "Mon – Sun • 9:00 AM to 9:00 PM",
-  calendlyUrl: "https://calendly.com/rajhanshevents/consultation"
+  calendlyUrl: "https://calendly.com/rajhanshevent/30min"
 };
