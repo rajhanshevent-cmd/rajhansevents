@@ -181,6 +181,7 @@
   height: 56px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: top center;
   border: 2px solid #D4AF37;
   flex-shrink: 0;
   background: #f0f0f0;
@@ -307,6 +308,7 @@
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: top center;
   border: 2px solid #D4AF37;
 }
 

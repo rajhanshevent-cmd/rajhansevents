@@ -310,7 +310,7 @@ export default async function Home() {
           
           <div className="team-grid">
             {displayTeam.map(member => (
-              <div key={member.identifier} className="team-card squarish-card">
+              <div key={member.identifier} className="team-card">
                 <div className="team-img-wrapper relative" style={{ position: 'relative' }}>
                   <Image 
                     src={member.photo_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800'} 
@@ -318,7 +318,7 @@ export default async function Home() {
                     fill
                     className="team-img"
                     sizes="(max-width: 768px) 100vw, 33vw"
-                    style={{ objectFit: 'cover' }}
+                    style={{ objectFit: 'cover', objectPosition: 'top center' }}
                   />
                 </div>
                 <div className="team-info">
