@@ -30,6 +30,28 @@ function Navbar() {
     setMobileMenuOpen(false);
   }
 
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [mobileMenuOpen]);
+
+  // Handle escape key to close mobile drawer
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
+
   // Real-time Scrollspy when on the continuous homepage
   useEffect(() => {
     if (pathname !== '/') return;
@@ -130,94 +152,101 @@ function Navbar() {
   ];
 
   return (
-    <header className={`navbar-header ${scrolled ? 'scrolled' : ''}`}>
-      <div className="navbar-container">
-        {/* Brand Logo */}
-        <Link 
-          href="/" 
-          className="navbar-brand" 
-          aria-label="Raj Hansh Events Home"
-          onClick={(e) => handleNavClick(e, { id: 'home', href: '/' })}
-        >
-          <Image 
-            src="/logo.png" 
-            width={85} 
-            height={85} 
-            alt="Raj Hansh Events" 
-            priority
-            className="brand-logo-img"
-          />
-        </Link>
+    <>
+      <header className={`navbar-header ${scrolled ? 'scrolled' : ''}`}>
+        <div className="navbar-container">
+          {/* Brand Logo */}
+          <Link 
+            href="/" 
+            className="navbar-brand" 
+            aria-label="Raj Hansh Events Home"
+            onClick={(e) => handleNavClick(e, { id: 'home', href: '/' })}
+          >
+            <Image 
+              src="/logo.png" 
+              width={85} 
+              height={85} 
+              alt="Raj Hansh Events" 
+              priority
+              className="brand-logo-img"
+            />
+          </Link>
 
-        {/* Desktop Navigation Links with Clean URLs */}
-        <nav className="desktop-nav" aria-label="Main Navigation">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href;
+          {/* Desktop Navigation Links with Clean URLs */}
+          <nav className="desktop-nav" aria-label="Main Navigation">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
 
-            return (
+              return (
+                <Link 
+                  key={link.id} 
+                  href={link.href}
+                  className={`nav-link ${isActive ? 'active' : ''}`}
+                  onClick={(e) => handleNavClick(e, link)}
+                >
+                  {link.label}
+                  {isActive && <span className="active-indicator" />}
+                </Link>
+              );
+            })}
+
+            {/* Manage CMS tab: ONLY visible when authenticated as admin */}
+            {isAdmin && (
               <Link 
-                key={link.id} 
-                href={link.href}
-                className={`nav-link ${isActive ? 'active' : ''}`}
-                onClick={(e) => handleNavClick(e, link)}
+                href="/Manage" 
+                className={`nav-link admin-nav-link ${pathname === '/Manage' ? 'active' : ''}`}
+                title="Admin CMS Dashboard"
               >
-                {link.label}
-                {isActive && <span className="active-indicator" />}
+                <span className="admin-nav-icon">⚙️</span>
+                <span>Manage CMS</span>
+                {pathname === '/Manage' && <span className="active-indicator" />}
               </Link>
-            );
-          })}
+            )}
+          </nav>
 
-          {/* Manage CMS tab: ONLY visible when authenticated as admin */}
-          {isAdmin && (
-            <Link 
-              href="/Manage" 
-              className={`nav-link admin-nav-link ${pathname === '/Manage' ? 'active' : ''}`}
-              title="Admin CMS Dashboard"
+          {/* Quick Action Button */}
+          <div className="navbar-actions">
+            <button 
+              type="button" 
+              className="nav-action-btn"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openCalendlyModal();
+              }}
+              aria-label="Book Consultation"
             >
-              <span className="admin-nav-icon">⚙️</span>
-              <span>Manage CMS</span>
-              {pathname === '/Manage' && <span className="active-indicator" />}
-            </Link>
-          )}
-        </nav>
+              Book Consultation
+            </button>
 
-        {/* Quick Action Button */}
-        <div className="navbar-actions">
-          <button 
-            type="button" 
-            className="nav-action-btn"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              openCalendlyModal();
-            }}
-            aria-label="Book Consultation"
-          >
-            Book Consultation
-          </button>
-
-          {/* Mobile Hamburger Toggle */}
-          <button 
-            type="button"
-            className={`mobile-toggle-btn ${mobileMenuOpen ? 'open' : ''}`}
-            onClick={() => setMobileMenuOpen((prev) => !prev)}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileMenuOpen}
-          >
-            <span className="burger-bar" />
-            <span className="burger-bar" />
-            <span className="burger-bar" />
-          </button>
+            {/* Mobile Hamburger Toggle */}
+            <button 
+              type="button"
+              className={`mobile-toggle-btn ${mobileMenuOpen ? 'open' : ''}`}
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+            >
+              <span className="burger-bar" />
+              <span className="burger-bar" />
+              <span className="burger-bar" />
+            </button>
+          </div>
         </div>
-      </div>
+      </header>
 
       {/* Mobile Drawer Overlay */}
       <div 
         className={`mobile-drawer-overlay ${mobileMenuOpen ? 'visible' : ''}`}
         onClick={() => setMobileMenuOpen(false)}
+        aria-hidden="true"
       />
 
       {/* Mobile Navigation Drawer */}
-      <div className={`mobile-nav-drawer ${mobileMenuOpen ? 'open' : ''}`}>
+      <aside 
+        className={`mobile-nav-drawer ${mobileMenuOpen ? 'open' : ''}`}
+        aria-label="Mobile Navigation"
+        aria-hidden={!mobileMenuOpen}
+      >
         <div className="mobile-drawer-header">
           <span className="mobile-drawer-title">Raj Hansh Events</span>
           <button 
@@ -274,8 +303,8 @@ function Navbar() {
           </Link>
           <p className="mobile-drawer-phone">Direct Line: +91 90060 89331</p>
         </div>
-      </div>
-    </header>
+      </aside>
+    </>
   );
 }
 
