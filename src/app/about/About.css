@@ -1,8 +1,19 @@
 /* ========================================= */
 /* --- COLOR PALETTE & BASE --- */
 /* ========================================= */
+:root {
+  --primary-maroon: #7b1a28;
+  --primary-maroon-dark: #5c1328;
+  --secondary-gold: #D4AF37;
+  --secondary-gold-light: #F4E8C1;
+  --bg-ivory: #FDFBF7;
+  --bg-white: #ffffff;
+  --text-dark: #1A1A1A;
+  --text-muted: #666666;
+}
+
 .about-page {
-  background-color: var(--bg-ivory);
+  background-color: var(--bg-ivory, #FDFBF7);
   font-family: var(--font-body), sans-serif;
   color: var(--text-dark);
   padding-bottom: 5rem;
@@ -207,9 +218,10 @@
 }
 
 .promise-box {
-  background: linear-gradient(145deg, var(--primary-maroon), #5c1328);
-  color: var(--bg-white);
-  border: 1.5px solid var(--secondary-gold);
+  background: #7b1a28;
+  background: linear-gradient(145deg, var(--primary-maroon, #7b1a28), #5c1328);
+  color: var(--bg-white, #ffffff);
+  border: 1.5px solid var(--secondary-gold, #D4AF37);
   box-shadow: 0 12px 35px rgba(128, 0, 0, 0.2);
 }
 
@@ -237,7 +249,8 @@
 /* --- 3. Working Process --- */
 /* ========================================= */
 .process-section {
-  background: linear-gradient(180deg, var(--primary-maroon) 0%, var(--primary-maroon-dark) 100%);
+  background: #7b1a28;
+  background: linear-gradient(180deg, var(--primary-maroon, #7b1a28) 0%, var(--primary-maroon-dark, #5c1328) 100%);
   padding: 6rem 0;
   margin-bottom: 6rem;
 }
@@ -308,13 +321,14 @@
 /* --- 4. Team Section --- */
 /* ========================================= */
 .team-section {
-  padding-bottom: 4rem;
+  padding-bottom: 2.5rem;
 }
 
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2.5rem;
+  margin-bottom: 4rem;
 }
 
 .team-card {
@@ -385,16 +399,22 @@
 /* ========================================= */
 .cta-section {
   text-align: center;
-  padding: 4rem 0;
+  padding: 2.5rem 0 5rem;
+  margin-top: 1rem;
+  position: relative;
+  z-index: 2;
+  clear: both;
 }
 
 .cta-button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  background: linear-gradient(135deg, var(--primary-maroon), #5c1328);
-  color: #FFFDF9;
-  border: 1.5px solid var(--secondary-gold);
+  background-color: #7b1a28;
+  background: linear-gradient(135deg, var(--primary-maroon, #7b1a28), #5c1328);
+  color: #FFFDF9 !important;
+  border: 1.5px solid var(--secondary-gold, #D4AF37);
   padding: 1.2rem 3.2rem;
   font-family: var(--font-body), sans-serif;
   font-size: 0.9rem;
@@ -406,6 +426,7 @@
   cursor: pointer;
   box-shadow: 0 8px 25px rgba(128, 0, 0, 0.2);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 0 auto;
 }
 
 .cta-button span {

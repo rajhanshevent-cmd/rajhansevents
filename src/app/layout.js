@@ -1,3 +1,4 @@
+import './globals.css';
 import { 
   Playfair_Display, 
   Cormorant_Garamond, 

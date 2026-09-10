@@ -48,7 +48,6 @@ const nextConfig = {
       "child-src 'self' blob:",
       "connect-src 'self' https: https://*.r2.cloudflarestorage.com",
       "object-src 'none'",
-      "upgrade-insecure-requests",
     ].join('; ');
 
     return [

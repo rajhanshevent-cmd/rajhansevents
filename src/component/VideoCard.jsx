@@ -58,7 +58,7 @@ export default function VideoCard({ video, index }) {
       <div className="video-caption">
         <div className="video-caption-meta">
           <span className="video-category-tag">{categoryLabel}</span>
-          <span className="video-stars-rating">★★★★★ 5.0</span>
+          <span className="video-stars-rating">★ 5.0 • Client Story</span>
         </div>
         <h3 className="video-title">{video.title}</h3>
         <p className="video-desc">

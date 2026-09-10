@@ -50,3 +50,35 @@ export function getServiceYears(foundedInput) {
     since: `SINCE ${foundedYear}`
   };
 }
+
+/**
+ * Formats a date string, timestamp, or Date object into an organic relative time string (e.g., "2 weeks ago").
+ * @param {string|Date|number} [dateInput]
+ * @returns {string}
+ */
+export function getRelativeTime(dateInput) {
+  if (!dateInput) return 'Recently';
+  if (typeof dateInput === 'string' && (dateInput.includes('ago') || dateInput.includes('Recently'))) {
+    return dateInput;
+  }
+  const date = new Date(dateInput);
+  if (isNaN(date.getTime())) {
+    return typeof dateInput === 'string' ? dateInput : 'Recently';
+  }
+  const now = new Date();
+  const diffInDays = Math.max(0, Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)));
+  if (diffInDays <= 0) return 'Today';
+  if (diffInDays === 1) return 'Yesterday';
+  if (diffInDays < 7) return `${diffInDays} days ago`;
+  if (diffInDays < 30) {
+    const weeks = Math.floor(diffInDays / 7);
+    return `${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`;
+  }
+  if (diffInDays < 365) {
+    const months = Math.floor(diffInDays / 30);
+    return `${months} ${months === 1 ? 'month' : 'months'} ago`;
+  }
+  const years = Math.floor(diffInDays / 365);
+  return `${years} ${years === 1 ? 'year' : 'years'} ago`;
+}
+
