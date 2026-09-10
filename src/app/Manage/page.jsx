@@ -19,6 +19,29 @@ const TABS = [
   { id: 'all', label: 'Show All', icon: '📑' },
 ];
 
+// Compression helper tailored for WebP and dynamic sizing
+const compressImage = async (file, isThumbnail = false) => {
+  if (!file || !file.type.startsWith('image/')) return file;
+  const options = {
+    maxSizeMB: isThumbnail ? 0.1 : 1.5,
+    maxWidthOrHeight: isThumbnail ? 600 : 1920,
+    useWebWorker: true,
+    fileType: 'image/webp',
+  };
+  try {
+    const compressedBlob = await imageCompression(file, options);
+    const baseName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+    const fileName = isThumbnail ? `thumb_${baseName}.webp` : `${baseName}.webp`;
+    return new File([compressedBlob], fileName, {
+      type: 'image/webp',
+      lastModified: file.lastModified || Date.now(),
+    });
+  } catch (error) {
+    console.error('Error compressing image:', error);
+    return file;
+  }
+};
+
 export default function ManagePage() {
   const router = useRouter();
   const [checkingAuth, setCheckingAuth] = useState(true);
@@ -242,26 +265,6 @@ export default function ManagePage() {
     }
 
     return candidate;
-  };
-
-  // Compression helper tailored for WebP and dynamic sizing
-  const compressImage = async (file, isThumbnail = false) => {
-    if (!file || !file.type.startsWith('image/')) return file;
-    const options = {
-      maxSizeMB: isThumbnail ? 0.1 : 1.5,
-      maxWidthOrHeight: isThumbnail ? 600 : 1920,
-      useWebWorker: true,
-      fileType: 'image/webp',
-    };
-    try {
-      const compressedBlob = await imageCompression(file, options);
-      const baseName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
-      const fileName = isThumbnail ? `thumb_${baseName}.webp` : `${baseName}.webp`;
-      return new File([compressedBlob], fileName, { type: 'image/webp', lastModified: Date.now() });
-    } catch (error) {
-      console.error('Error compressing image:', error);
-      return file;
-    }
   };
 
   // Universal Submit Handler supporting variable file arguments
@@ -1111,10 +1114,11 @@ export default function ManagePage() {
     try {
       const uploadedImages = [];
       for (const file of expertiseGalleryUploadFiles) {
-        const fileUploadRes = await uploadFileToR2(file, 'home');
-        if (fileUploadRes && fileUploadRes.url) {
+        const compressedFile = await compressImage(file, false);
+        const fileUrl = await uploadToR2(compressedFile, 'home');
+        if (fileUrl) {
           uploadedImages.push({
-            image_url: fileUploadRes.url,
+            image_url: fileUrl,
             caption: file.name.replace(/\.[^/.]+$/, ''),
             alt_text: expertiseData.title || 'Expertise photo',
           });

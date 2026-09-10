@@ -72,3 +72,4 @@ export const uploadToR2 = async (file, folder = "general") => {
 
 // Drop-in alias for existing imports
 export const uploadImage = uploadToR2;
+export const uploadFileToR2 = uploadToR2;
