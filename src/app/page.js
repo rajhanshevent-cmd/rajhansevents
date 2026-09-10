@@ -115,10 +115,12 @@ export default async function Home() {
   const fallbackReviews = [
     { identifier: 'rev-1', name: 'Anjali & Kunal Mehta', comment: "Raj Hansh Event Management turned our wedding at Radisson Blu Ranchi into an absolute fairytale. From the royal mandap decor to the seamless guest hospitality, every single detail was executed with perfection.", stars: 5, platform: 'Google Review', date: '3 weeks ago' },
     { identifier: 'rev-2', name: 'Vikramaditya Singh', comment: "Exceptional corporate gala management for our annual conclave at BNR Chanakya. Managing over 600 attendees and high-profile delegates with zero hiccups was truly impressive.", stars: 5, platform: 'Google Review', date: '1 month ago' },
-    { identifier: 'rev-3', name: 'Neha & Rohit Agarwal', comment: "From the vibrant Haldi decor to the grand reception at Morabadi ground, the detailing and personal attention from the Raj Hansh team was unmatched. Highly recommended in Ranchi!", stars: 5, platform: 'Google Review', date: '2 months ago' },
+    { identifier: 'rev-3', name: 'Neha & Rohit Agarwal', comment: "From the vibrant Haldi decor to the grand reception at Morabadi ground, the detailing and personal attention from the Raj Hansh team was unmatched. Minor delay during sound check, but resolved quickly. Highly recommended in Ranchi!", stars: 4, platform: 'Google Review', date: '2 months ago' },
     { identifier: 'rev-4', name: 'Dr. Priya & Amit Srivastava', comment: "We entrusted them with our daughter's 1st birthday celebration on Kanke Road. The fairytale floral theme and kids entertainment zone had all our guests in awe. Thank you team!", stars: 5, platform: 'Google Review', date: '3 months ago' },
     { identifier: 'rev-5', name: 'S. K. Choudhary', comment: "Organized our parents' golden anniversary celebration. Elegant, refined, and deeply respectful of our family traditions. Truly royal hospitality.", stars: 5, platform: 'Google Review', date: '4 months ago' },
-    { identifier: 'rev-6', name: 'Pooja & Rahul Verma', comment: "Outstanding coordination for our 3-day wedding festivities in Jharkhand. Every vendor, timeline, and aesthetic cue was flawlessly synchronized.", stars: 5, platform: 'Google Review', date: '5 months ago' }
+    { identifier: 'rev-6', name: 'Manish Tiwari & Family', comment: "Decor was breathtaking and the catering arrangement was top notch for our family engagement. Entrance lighting was slightly bright at first but they adjusted it right away on request. Very cooperative crew.", stars: 4, platform: 'Google Review', date: '5 months ago' },
+    { identifier: 'rev-7', name: 'Pooja & Rahul Verma', comment: "Outstanding coordination for our 3-day wedding festivities in Jharkhand. Every vendor, timeline, and aesthetic cue was flawlessly synchronized.", stars: 5, platform: 'Google Review', date: '6 months ago' },
+    { identifier: 'rev-8', name: 'Shalini Gupta', comment: "Booked them for our brand launch cocktail dinner in Ranchi. The staging, ambient lighting, and RSVP desk management were world-class.", stars: 5, platform: 'Google Review', date: '7 months ago' }
   ];
   const fallbackVideos = [
     { identifier: 'vid-1', video_url: 'https://www.w3schools.com/html/mov_bbb.mp4', title: 'The Sharma Wedding' },
@@ -457,7 +459,10 @@ export default async function Home() {
               </svg>
               <div className="google-badge-score">
                 <strong>{averageRating}</strong>
-                <span className="badge-stars">★★★★★</span>
+                <span className="badge-stars">
+                  {"★".repeat(Math.round(Number(averageRating) || 5))}
+                  {"☆".repeat(5 - Math.round(Number(averageRating) || 5))}
+                </span>
               </div>
             </div>
             <div className="google-badge-divider" />
@@ -494,7 +499,7 @@ export default async function Home() {
                     {"★".repeat(Math.round(review.stars || 5))}{"☆".repeat(5 - Math.round(review.stars || 5))}
                   </div>
                   <span className="review-date">
-                    {getRelativeTime(review.created_at || review.date)}
+                    {Number(review.stars || 5).toFixed(1)} ★ • {getRelativeTime(review.created_at || review.date)}
                   </span>
                 </div>
 
