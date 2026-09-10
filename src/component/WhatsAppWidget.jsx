@@ -50,7 +50,7 @@ export default function WhatsAppWidget() {
               <div className="wa-chat-title">
                 <strong>Raj Hansh Events</strong>
                 <p>
-                  <span className="wa-status-text">Online</span> &bull; Typically replies in 5 mins
+                  <span className="wa-status-text">Online</span> &bull; {BUSINESS_CONFIG.whatsappPhone || "+91 99050 02293"}
                 </p>
               </div>
             </div>

@@ -3994,10 +3994,10 @@ export default function ManagePage() {
                   />
                 </div>
                 <div className={styles.fieldGroup}>
-                  <label>Phone Number</label>
+                  <label>Direct Phone Number (Call)</label>
                   <input
                     type="tel"
-                    placeholder="+91 99050 02293"
+                    placeholder="+91 90060 89331"
                     value={contactData.phone || ''}
                     onChange={e => setContactData({...contactData, phone: e.target.value})}
                   />

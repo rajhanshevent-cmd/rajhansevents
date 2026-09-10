@@ -230,8 +230,8 @@ export default function CalendlyModal({
         <div className="calendly-modal-footer">
           <div className="calendly-modal-footer-contact">
             <span className="footer-label">Prefer instant contact?</span>
-            <a href={`tel:${cleanPhone}`} className="footer-link">
-              📞 {BUSINESS_CONFIG.phone || "+91 99050 02293"}
+            <a href={`tel:${cleanPhone}`} className="footer-link" title="Call Direct Line">
+              📞 {BUSINESS_CONFIG.phone || "+91 90060 89331"} (Call)
             </a>
           </div>
 
@@ -240,8 +240,9 @@ export default function CalendlyModal({
             target="_blank"
             rel="noopener noreferrer"
             className="calendly-modal-wa-btn"
+            title="Chat on WhatsApp"
           >
-            <WhatsAppIcon size={14} style={{ marginRight: "6px" }} /> Chat on WhatsApp
+            <WhatsAppIcon size={14} style={{ marginRight: "6px" }} /> WhatsApp: {BUSINESS_CONFIG.whatsappPhone || "+91 99050 02293"}
           </a>
         </div>
       </div>

@@ -1,6 +1,8 @@
 export const BUSINESS_CONFIG = {
   name: "Raj Hansh Events",
-  phone: "+91 99050 02293",
+  phone: "+91 90060 89331",
+  secondaryPhone: "+91 99050 02293",
+  whatsappPhone: "+91 99050 02293",
   whatsappNumber: "919905002293",
   email: "rajhanshevent@gmail.com",
   location: "Maa Aamdmai Nagar, Kathitand, Ratu, Ranchi, Jharkhand 835222",

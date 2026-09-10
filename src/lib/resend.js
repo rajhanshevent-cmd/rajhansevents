@@ -34,9 +34,11 @@ export const EMAIL_CONFIG = {
     process.env.NEXT_PUBLIC_CALENDLY_URL ||
     process.env.CALENDLY_URL ||
     "https://calendly.com/rajhanshevent/30min",
-  phone: "+91 99343 05886",
-  cleanPhone: "919934305886",
-  address: "Maa Bamdei Nagar, Kathitand, Ratu, Ranchi, Jharkhand 835222",
+  phone: "+91 90060 89331",
+  cleanPhone: "919006089331",
+  whatsappPhone: "+91 99050 02293",
+  whatsappCleanPhone: "919905002293",
+  address: "Maa Aamdmai Nagar, Kathitand, Ratu, Ranchi, Jharkhand 835222",
   websiteUrl: process.env.NEXT_PUBLIC_APP_URL || "https://rajhanshevent.com",
 };
 
@@ -331,7 +333,7 @@ function renderClientAcknowledgementHtml({
                 <table role="presentation" cellspacing="0" cellpadding="0" align="center">
                   <tr>
                     <td style="padding:0 6px;">
-                      <a href="https://wa.me/${EMAIL_CONFIG.cleanPhone}?text=${encodeURIComponent(
+                      <a href="https://wa.me/${EMAIL_CONFIG.whatsappCleanPhone}?text=${encodeURIComponent(
                         `Hello Raj Hansh Events, I recently submitted an enquiry for my ${eventType || "event"}. My name is ${name}.`
                       )}" target="_blank" style="display:inline-block;background:#25D366;color:#ffffff;text-decoration:none;padding:12px 22px;border-radius:6px;font-size:13.5px;font-weight:700;">
                         💬 WhatsApp Us Directly
@@ -365,7 +367,8 @@ function renderClientAcknowledgementHtml({
               <p style="margin:0 0 6px 0;color:#D4AF37;font-weight:700;letter-spacing:1px;">RAJ HANSH EVENTS</p>
               <p style="margin:0 0 6px 0;">${EMAIL_CONFIG.address}</p>
               <p style="margin:0 0 6px 0;">
-                Direct Line: <a href="tel:${EMAIL_CONFIG.cleanPhone}" style="color:#ffffff;text-decoration:none;">${EMAIL_CONFIG.phone}</a> | 
+                Direct Call: <a href="tel:${EMAIL_CONFIG.cleanPhone}" style="color:#ffffff;text-decoration:none;">${EMAIL_CONFIG.phone}</a> | 
+                WhatsApp: <a href="https://wa.me/${EMAIL_CONFIG.whatsappCleanPhone}" style="color:#25D366;text-decoration:none;">${EMAIL_CONFIG.whatsappPhone}</a> | 
                 Email: <a href="mailto:${EMAIL_CONFIG.adminEmail}" style="color:#ffffff;text-decoration:none;">${EMAIL_CONFIG.adminEmail}</a>
               </p>
               <p style="margin:10px 0 0 0;font-size:11px;color:#718096;">
