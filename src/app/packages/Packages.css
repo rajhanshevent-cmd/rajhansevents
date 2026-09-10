@@ -71,6 +71,7 @@
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));  
   gap: 2.5rem; 
   align-items: stretch;
+  padding-top: 1.2rem;
 }
 
 .pricing-card {
@@ -84,6 +85,7 @@
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease; 
   display: flex; 
   flex-direction: column; 
+  overflow: visible !important;
 }
 
 .pricing-card:hover {
@@ -94,32 +96,38 @@
 
 /* Featured / Recommended Card */
 .pricing-card.featured-card {
-  background: linear-gradient(180deg, #7b1a28 0%, #5c1328 100%); 
-  color: #FFFDF9; 
-  border: 1.5px solid var(--secondary-gold); 
+  background: linear-gradient(180deg, #7b1a28 0%, #5c1328 100%) !important; 
+  color: #FFFDF9 !important; 
+  border: 1.5px solid var(--secondary-gold) !important; 
   transform: scale(1.03); 
-  box-shadow: 0 16px 40px rgba(123, 26, 40, 0.25); 
+  box-shadow: 0 16px 40px rgba(123, 26, 40, 0.25) !important; 
+  overflow: visible !important;
+  cursor: default;
 }
 
 .pricing-card.featured-card:hover {
-  transform: scale(1.03) translateY(-8px); 
-  box-shadow: 0 24px 50px rgba(123, 26, 40, 0.35); 
+  transform: scale(1.03) translateY(-8px) !important; 
+  box-shadow: 0 24px 50px rgba(123, 26, 40, 0.35) !important; 
 }
 
-.package-ribbon {
+.package-ribbon,
+.package-popular-ribbon {
   position: absolute;
   top: -14px;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(135deg, #D4AF37, #B68D40);
   color: #ffffff;
-  padding: 5px 22px;
+  padding: 6px 24px;
   border-radius: 50px;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.45);
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .pricing-card h3 {

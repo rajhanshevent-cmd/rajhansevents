@@ -57,11 +57,20 @@ export default async function Packages() {
             const features = [pkg.f1, pkg.f2, pkg.f3, pkg.f4].filter(Boolean); 
             const isFeatured = index === 1 || pkg.pkg_name?.toLowerCase() === 'gold';
             
+            const defaultPkgPrices = {
+              silver: '₹1,50,000',
+              gold: '₹2,50,000',
+              platinum: '₹4,00,000'
+            };
+            const packagePrice = (pkg.price && pkg.price !== 'Custom Quote') 
+              ? pkg.price 
+              : (defaultPkgPrices[pkg.pkg_name?.toLowerCase()] || pkg.price || '₹1,50,000');
+
             return (
               <div key={pkg.identifier || index} className={`pricing-card ${isFeatured ? 'featured-card' : ''}`}>
                 {isFeatured && <span className="package-ribbon">MOST POPULAR</span>}
                 <h3>{pkg.pkg_name}</h3> 
-                <div className="price">{pkg.price}</div> 
+                <div className="price">{packagePrice}</div> 
                 <p className="text-muted" style={{ marginBottom: '1rem' }}>Starting From</p> 
                 <ul>
                   {features.map((feature, i) => (
@@ -71,14 +80,14 @@ export default async function Packages() {
                 <div className="pricing-action">
                   <SmartEmailButton
                     subject={`Booking Inquiry: ${pkg.pkg_name} Package`}
-                    body={`Hello Raj Hansh Events,\n\nI am interested in reserving the ${pkg.pkg_name} Package (${pkg.price}).\n\nPlease share availability, what's included, and formal proposal steps.\n\nThank you!`}
+                    body={`Hello Raj Hansh Events,\n\nI am interested in reserving the ${pkg.pkg_name} Package (${packagePrice}).\n\nPlease share availability, what's included, and formal proposal steps.\n\nThank you!`}
                     className={`pkg-btn ${isFeatured ? 'featured-btn' : ''}`}
                   >
                     BOOK THIS PACKAGE &rarr;
                   </SmartEmailButton>
                   <a
                     href={`https://wa.me/${BUSINESS_CONFIG.whatsappNumber}?text=${encodeURIComponent(
-                      `Hello Raj Hansh Events, I'm interested in your ${pkg.pkg_name} Package (${pkg.price}). Could you please share complete details?`
+                      `Hello Raj Hansh Events, I'm interested in your ${pkg.pkg_name} Package (${packagePrice}). Could you please share complete details?`
                     )}`} 
                     target="_blank" 
                     rel="noopener noreferrer" 

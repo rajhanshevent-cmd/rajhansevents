@@ -65,10 +65,8 @@ const Footer = () => {
     }
   };
 
-  const primaryPhone = contactData?.phone || BUSINESS_CONFIG.phone;
-  const phoneRaw = primaryPhone.replace(/\s+/g, '');
+  const phoneRaw = (contactData?.phone || BUSINESS_CONFIG.phone || "+91 90060 89331").replace(/\s+/g, '');
   const waNumber = (BUSINESS_CONFIG.whatsappNumber || "919905002293").replace(/\D/g, '');
-  const waPhone = BUSINESS_CONFIG.whatsappPhone || "+91 99050 02293";
   const emailAddress = contactData?.email || BUSINESS_CONFIG.email;
   const officeAddress = contactData?.location || BUSINESS_CONFIG.location;
   const serviceYears = getServiceYears(homeData?.founded);
@@ -96,9 +94,8 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-prebanner-wa"
-              title={`WhatsApp: ${waPhone}`}
             >
-              <WhatsAppIcon size={16} style={{ marginRight: '6px' }} /> WhatsApp: {waPhone}
+              <WhatsAppIcon size={16} style={{ marginRight: '6px' }} /> WhatsApp
             </a>
           </div>
         </div>
@@ -172,13 +169,8 @@ const Footer = () => {
           <h3 className="column-title">DIRECT CONCIERGE</h3>
           <ul className="contact-info">
             <li>
-              <a href={`tel:${phoneRaw}`} className="contact-link" title="Call Direct Line">
-                <span className="gold-icon">📞</span> {primaryPhone} (Direct Call)
-              </a>
-            </li>
-            <li>
-              <a href={`https://wa.me/${waNumber}`} target="_blank" rel="noopener noreferrer" className="contact-link" title="Chat on WhatsApp">
-                <span className="gold-icon"><WhatsAppIcon size={14} color="currentColor" /></span> {waPhone} (WhatsApp)
+              <a href={`tel:${phoneRaw}`} className="contact-link">
+                <span className="gold-icon">📞</span> {contactData?.phone || BUSINESS_CONFIG.phone}
               </a>
             </li>
             <li>

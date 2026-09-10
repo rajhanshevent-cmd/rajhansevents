@@ -361,17 +361,24 @@ export default async function Home() {
               const features = [pkg.f1, pkg.f2, pkg.f3, pkg.f4].filter(Boolean);
               const isFeatured = index === 1 || pkg.pkg_name?.toLowerCase() === 'gold';
 
+              const defaultPkgPrices = {
+                silver: '₹1,50,000',
+                gold: '₹2,50,000',
+                platinum: '₹4,00,000'
+              };
+              const packagePrice = (pkg.price && pkg.price !== 'Custom Quote') 
+                ? pkg.price 
+                : (defaultPkgPrices[pkg.pkg_name?.toLowerCase()] || pkg.price || '₹1,50,000');
+
               return (
                 <div key={pkg.identifier || index} className={`pricing-card ${isFeatured ? 'featured-card' : ''}`}>
                   {isFeatured && (
-                    <div className="package-popular-ribbon">
-                      <span>MOST POPULAR</span>
-                    </div>
+                    <span className="package-ribbon">MOST POPULAR</span>
                   )}
 
                   <div className="card-header">
                     <h3 className="pkg-name">{pkg.pkg_name}</h3>
-                    <p className="pkg-price">{pkg.price}</p>
+                    <p className="pkg-price">{packagePrice}</p>
                     <span className="pkg-subtitle">Customizable for your guest count</span>
                   </div>
 
@@ -389,7 +396,7 @@ export default async function Home() {
                   <div className="pricing-action">
                     <SmartEmailButton
                       subject={`Booking Request: ${pkg.pkg_name} Package`}
-                      body={`Hello Raj Hansh Events,\n\nI am interested in reserving the ${pkg.pkg_name} Package (${pkg.price}).\n\nPlease let me know your availability and send over further booking details.\n\nThank you!`}
+                      body={`Hello Raj Hansh Events,\n\nI am interested in reserving the ${pkg.pkg_name} Package (${packagePrice}).\n\nPlease let me know your availability and send over further booking details.\n\nThank you!`}
                       className={`pkg-btn ${isFeatured ? 'featured-btn' : ''}`}
                     >
                       BOOK THIS PACKAGE &rarr;

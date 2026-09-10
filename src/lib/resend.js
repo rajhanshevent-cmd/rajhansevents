@@ -36,7 +36,6 @@ export const EMAIL_CONFIG = {
     "https://calendly.com/rajhanshevent/30min",
   phone: "+91 90060 89331",
   cleanPhone: "919006089331",
-  whatsappPhone: "+91 99050 02293",
   whatsappCleanPhone: "919905002293",
   address: "Maa Aamdmai Nagar, Kathitand, Ratu, Ranchi, Jharkhand 835222",
   websiteUrl: process.env.NEXT_PUBLIC_APP_URL || "https://rajhanshevent.com",
@@ -367,8 +366,7 @@ function renderClientAcknowledgementHtml({
               <p style="margin:0 0 6px 0;color:#D4AF37;font-weight:700;letter-spacing:1px;">RAJ HANSH EVENTS</p>
               <p style="margin:0 0 6px 0;">${EMAIL_CONFIG.address}</p>
               <p style="margin:0 0 6px 0;">
-                Direct Call: <a href="tel:${EMAIL_CONFIG.cleanPhone}" style="color:#ffffff;text-decoration:none;">${EMAIL_CONFIG.phone}</a> | 
-                WhatsApp: <a href="https://wa.me/${EMAIL_CONFIG.whatsappCleanPhone}" style="color:#25D366;text-decoration:none;">${EMAIL_CONFIG.whatsappPhone}</a> | 
+                Direct Line: <a href="tel:${EMAIL_CONFIG.cleanPhone}" style="color:#ffffff;text-decoration:none;">${EMAIL_CONFIG.phone}</a> | 
                 Email: <a href="mailto:${EMAIL_CONFIG.adminEmail}" style="color:#ffffff;text-decoration:none;">${EMAIL_CONFIG.adminEmail}</a>
               </p>
               <p style="margin:10px 0 0 0;font-size:11px;color:#718096;">

@@ -240,11 +240,8 @@ export default function TermsOfService() {
               <div className="legal-contact-item">
                 <div className="legal-contact-icon">📞</div>
                 <div className="legal-contact-content">
-                  <strong>Direct Line &amp; WhatsApp</strong>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '3px' }}>
-                    <a href="tel:+919006089331">Direct Call: +91 90060 89331</a>
-                    <a href="https://wa.me/919905002293" target="_blank" rel="noopener noreferrer">WhatsApp: +91 99050 02293</a>
-                  </div>
+                  <strong>Phone</strong>
+                  <a href="tel:+919006089331">+91 90060 89331</a>
                 </div>
               </div>
 

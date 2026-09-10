@@ -89,21 +89,19 @@ export default function ContactSection({ id = "contact", initialContact = null }
         message: `Thank you, ${clientName}! Your enquiry has been received and a confirmation email was dispatched to ${clientEmail}. Our royal event curator will reach out to you within 24 hours.`,
       });
     } catch (err) {
-      console.error("Enquiry submission exception:", err);
+      console.error("[Enquiry Form Error]:", err);
       setSubmittedStatus({
         success: false,
         message:
           err.message ||
-          "Network connectivity error. Please try again or reach out directly via WhatsApp (+91 99050 02293) or Call (+91 90060 89331).",
+          "We could not submit your enquiry automatically. Please contact our concierge directly via WhatsApp or Phone.",
       });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const primaryPhone = contactData?.phone || BUSINESS_CONFIG.phone || "+91 90060 89331";
-  const targetPhone = primaryPhone.replace(/\s+/g, "");
-  const waPhone = BUSINESS_CONFIG.whatsappPhone || "+91 99050 02293";
+  const targetPhone = (contactData?.phone || BUSINESS_CONFIG.phone || "+91 90060 89331").replace(/\s+/g, "");
   const targetWaNumber = (BUSINESS_CONFIG.whatsappNumber || "919905002293").replace(/\D/g, "");
 
   return (
@@ -433,20 +431,8 @@ export default function ContactSection({ id = "contact", initialContact = null }
                   <a
                     href={`tel:${targetPhone}`}
                     style={{ color: 'inherit', textDecoration: 'none' }}
-                    title="Direct Phone Call"
                   >
-                    📞 {primaryPhone} (Direct Call)
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`https://wa.me/${targetWaNumber}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{ color: 'inherit', textDecoration: 'none' }}
-                    title="Chat on WhatsApp"
-                  >
-                    💬 {waPhone} (WhatsApp)
+                    📞 {contactData?.phone || BUSINESS_CONFIG.phone}
                   </a>
                 </li>
                 <li>
@@ -466,16 +452,11 @@ export default function ContactSection({ id = "contact", initialContact = null }
                   target="_blank"
                   rel="noreferrer"
                   className="btn-whatsapp"
-                  title={`WhatsApp: ${waPhone}`}
                 >
-                  <WhatsAppIcon size={18} style={{ marginRight: '6px' }} /> WhatsApp: {waPhone}
+                  <WhatsAppIcon size={18} style={{ marginRight: '6px' }} /> WhatsApp
                 </a>
-                <a 
-                  href={`tel:${targetPhone}`} 
-                  className="btn-call"
-                  title={`Call: ${primaryPhone}`}
-                >
-                  📞 Call: {primaryPhone}
+                <a href={`tel:${targetPhone}`} className="btn-call">
+                  Call Now
                 </a>
               </div>
 

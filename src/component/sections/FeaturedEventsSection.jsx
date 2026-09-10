@@ -46,7 +46,7 @@ export default function FeaturedEventsSection({ initialData = [] }) {
           {displayFeatured.map((event, index) => (
             <div
               key={event.identifier || event.id || index}
-              className="featured-card"
+              className="featured-card featured-event-card"
               onClick={() => setSelectedEvent(event)}
               role="button"
               tabIndex={0}

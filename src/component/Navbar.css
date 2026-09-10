@@ -22,110 +22,6 @@
   background-color: rgba(255, 255, 255, 0.98);
 }
 
-/* ========================================= */
-/* --- LUXURY TOP CONTACT BAR --- */
-/* ========================================= */
-.luxury-top-bar {
-  background: linear-gradient(90deg, #1a0509 0%, #300a12 50%, #1a0509 100%);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-  color: #f8f6f0;
-  padding: 0.38rem 1.8rem;
-  font-family: inherit;
-}
-
-.luxury-top-bar-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.2rem;
-}
-
-.top-bar-tagline {
-  color: #D4AF37;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 0.72rem;
-}
-
-.top-bar-contacts {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.top-bar-contact-item {
-  display: inline-flex;
-  align-items: center;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 0.78rem;
-  letter-spacing: 0.3px;
-  transition: all 0.2s ease;
-}
-
-.top-bar-contact-item .top-bar-icon {
-  margin-right: 4px;
-  font-size: 0.8rem;
-}
-
-.top-bar-contact-item strong {
-  color: #F3E5AB;
-  margin-left: 3px;
-  font-weight: 600;
-}
-
-.top-bar-contact-item:hover {
-  color: #D4AF37;
-}
-
-.top-bar-contact-item:hover strong {
-  color: #ffffff;
-}
-
-.top-bar-sep {
-  color: rgba(212, 175, 55, 0.45);
-  font-size: 0.75rem;
-}
-
-.top-bar-wa {
-  color: #25D366;
-}
-
-.top-bar-wa strong {
-  color: #ffffff;
-}
-
-.top-bar-wa:hover {
-  color: #48e684;
-}
-
-@media (max-width: 960px) {
-  .top-bar-tagline {
-    display: none;
-  }
-  .luxury-top-bar-content {
-    justify-content: center;
-  }
-  .luxury-top-bar {
-    padding: 0.3rem 0.8rem;
-  }
-  .top-bar-contact-item {
-    font-size: 0.74rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .top-bar-contacts {
-    gap: 0.4rem;
-  }
-  .top-bar-contact-item {
-    font-size: 0.70rem;
-  }
-}
-
 .navbar-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -490,42 +386,10 @@
   transform: translateY(-2px);
 }
 
-.mobile-drawer-phones {
-  margin-top: 0.85rem;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
 .mobile-drawer-phone {
   font-size: 0.82rem;
-  color: #666;
+  color: #777;
   margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.mobile-phone-link {
-  color: #7b1a28;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.mobile-phone-link:hover {
-  text-decoration: underline;
-}
-
-.mobile-wa-link {
-  color: #128C7E;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.mobile-wa-link:hover {
-  color: #25D366;
-  text-decoration: underline;
 }
 
 /* Hide mobile drawer and overlay completely on desktop devices */

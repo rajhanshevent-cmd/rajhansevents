@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { openCalendlyModal } from '@/component/CalendlyModal';
 import { BUSINESS_CONFIG } from '@/utils/constants';
-import WhatsAppIcon from '@/component/WhatsAppIcon';
 import './Navbar.css';
 
 function Navbar() {
@@ -167,30 +166,6 @@ function Navbar() {
   return (
     <>
       <header className={`navbar-header ${scrolled ? 'scrolled' : ''}`}>
-        {/* Luxury Top Contact Bar: Both Phone Numbers Directly Shown as Text */}
-        <div className="luxury-top-bar">
-          <div className="luxury-top-bar-content">
-            <span className="top-bar-tagline">Ranchi&apos;s Royal Wedding &amp; Luxury Event Specialists</span>
-            <div className="top-bar-contacts">
-              <a href="tel:+919006089331" className="top-bar-contact-item" title="Call Direct Line: +91 90060 89331">
-                <span className="top-bar-icon">📞</span>
-                <span>Call: <strong>+91 90060 89331</strong></span>
-              </a>
-              <span className="top-bar-sep">•</span>
-              <a 
-                href={`https://wa.me/${BUSINESS_CONFIG.whatsappNumber || "919905002293"}`} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="top-bar-contact-item top-bar-wa"
-                title="Chat on WhatsApp: +91 99050 02293"
-              >
-                <WhatsAppIcon size={13} style={{ marginRight: '4px' }} />
-                <span>WhatsApp: <strong>+91 99050 02293</strong></span>
-              </a>
-            </div>
-          </div>
-        </div>
-
         <div className="navbar-container">
           {/* Brand Logo */}
           <Link 
@@ -338,14 +313,7 @@ function Navbar() {
           >
             Plan Your Celebration
           </Link>
-          <div className="mobile-drawer-phones">
-            <p className="mobile-drawer-phone">
-              Direct Line: <a href="tel:+919006089331" className="mobile-phone-link">+91 90060 89331</a>
-            </p>
-            <p className="mobile-drawer-phone">
-              WhatsApp: <a href={`https://wa.me/${BUSINESS_CONFIG.whatsappNumber || "919905002293"}`} target="_blank" rel="noopener noreferrer" className="mobile-wa-link">+91 99050 02293</a>
-            </p>
-          </div>
+          <p className="mobile-drawer-phone">Direct Line: {BUSINESS_CONFIG.phone}</p>
         </div>
       </aside>
     </>
