@@ -156,7 +156,7 @@ function Navbar() {
   const navLinks = [
     { id: 'home', href: '/', label: 'Home' },
     { id: 'about', href: '/about', label: 'About Us' },
-    { id: 'services', href: '/services', label: 'Our Services' },
+    { id: 'services', href: '/services', label: 'Services' },
     { id: 'packages', href: '/packages', label: 'Packages' },
     { id: 'portfolio', href: '/portfolio', label: 'Portfolio' },
     { id: 'testimonials', href: '/testimonials', label: 'Testimonials' },

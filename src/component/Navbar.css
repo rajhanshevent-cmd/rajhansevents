@@ -23,13 +23,13 @@
 }
 
 .navbar-container {
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0.8rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 /* Brand Logo */
@@ -54,7 +54,8 @@
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: 2.2rem;
+  gap: clamp(0.9rem, 1.7vw, 1.9rem);
+  flex-wrap: nowrap;
 }
 
 .nav-link {
@@ -62,10 +63,11 @@
   text-decoration: none;
   color: #2a2a2a;
   font-weight: 500;
-  font-size: 0.88rem;
+  font-size: clamp(0.82rem, 0.88vw, 0.88rem);
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   padding: 0.5rem 0;
+  white-space: nowrap;
   transition: color 0.25s ease;
 }
 

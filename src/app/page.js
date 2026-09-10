@@ -387,10 +387,7 @@ export default async function Home() {
                   <div className="card-header">
                     <h3 className="pkg-name">{pkg.pkg_name}</h3>
                     <p className="pkg-price">{packagePrice}</p>
-                    <span className="pkg-subtitle">Customizable for your guest count</span>
                   </div>
-
-                  <hr className="pricing-divider" />
 
                   <ul className="features-list">
                     {features.map((feature, fIndex) => (
