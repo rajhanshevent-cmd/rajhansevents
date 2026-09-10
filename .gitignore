@@ -24,6 +24,7 @@
 # misc
 .DS_Store
 Thumbs.db
+/[0-9a-f]*-*.png
 *.pem
 *.zip
 *.tar

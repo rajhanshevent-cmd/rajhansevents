@@ -291,17 +291,19 @@
   font-size: clamp(2.8rem, 5.5vw, 4.8rem);
   font-weight: 400;
   color: #FFFDF9;
-  line-height: 1.15;
-  margin-bottom: 1.2rem;
+  line-height: 1.12;
+  margin: 0 0 0.35rem 0;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .hero-content p {
   font-size: clamp(1.05rem, 2vw, 1.25rem);
-  color: rgba(255, 255, 240, 0.9);
+  color: rgba(255, 255, 240, 0.92);
   max-width: 720px;
-  line-height: 1.7;
+  line-height: 1.45;
+  margin-top: 0;
   margin-bottom: 2.2rem;
+  letter-spacing: 0.5px;
 }
 
 /* Hero CTA Group */
@@ -543,6 +545,117 @@
 }
 
 /* ========================================= */
+/* --- FEATURED EVENTS CARDS (TITLE BENEATH) --- */
+/* ========================================= */
+.featured-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.featured-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(123, 26, 40, 0.14);
+  border-color: var(--secondary-gold);
+}
+
+.featured-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #f4ede4;
+}
+
+.featured-image-wrapper img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.featured-card:hover .featured-image-wrapper img {
+  transform: scale(1.07);
+}
+
+/* Floating zoom badge on image */
+.featured-zoom-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7b1a28;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+  transition: all 0.25s ease;
+  z-index: 3;
+}
+
+.featured-card:hover .featured-zoom-badge {
+  background: #7b1a28;
+  color: #ffffff;
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(123, 26, 40, 0.3);
+}
+
+/* Card details container positioned beneath the card image */
+.featured-card-info {
+  padding: 1.5rem 1.6rem 1.6rem;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex-grow: 1;
+}
+
+.featured-card-kicker {
+  font-family: var(--font-base);
+  color: #9c6c16;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.featured-card-title {
+  font-family: var(--font-heading);
+  color: #1a1a1a;
+  font-size: 1.55rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0.2rem 0;
+  transition: color 0.25s ease;
+}
+
+.featured-card:hover .featured-card-title {
+  color: #7b1a28;
+}
+
+.featured-card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #7b1a28;
+  margin-top: 0.4rem;
+  transition: gap 0.25s ease;
+}
+
+.featured-card:hover .featured-card-action {
+  gap: 10px;
+}
+
+/* ========================================= */
 /* --- TESTIMONIAL CARDS --- */
 /* ========================================= */
 .testimonial-card {
@@ -680,6 +793,7 @@
 
     .hero-content h1 {
       font-size: 2.4rem;
+      margin-bottom: 0.25rem;
     }
 
     .grid-3 {

@@ -13,8 +13,6 @@ const Footer = () => {
   const [contactData, setContactData] = useState(null);
   const [homeData, setHomeData] = useState(null);
   const [servicesList, setServicesList] = useState([]);
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterSuccess, setNewsletterSuccess] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -48,15 +46,6 @@ const Footer = () => {
   const displayServices = servicesList.length > 0
     ? servicesList.map(s => s.title)
     : fallbackServices;
-
-  const handleNewsletterSubmit = (e) => {
-    e.preventDefault();
-    if (newsletterEmail.trim()) {
-      setNewsletterSuccess(true);
-      setNewsletterEmail('');
-      setTimeout(() => setNewsletterSuccess(false), 5000);
-    }
-  };
 
   const scrollToTop = () => {
     if (typeof window !== 'undefined') {
@@ -191,7 +180,7 @@ const Footer = () => {
             </li>
             <li>
               <a
-                href={`https://maps.google.com/?q=${encodeURIComponent(officeAddress)}`}
+                href={BUSINESS_CONFIG.mapsUrl || "https://maps.app.goo.gl/CeZKUvDzapYfJzWv9?g_st=ac"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-link"
@@ -203,26 +192,6 @@ const Footer = () => {
               <span className="gold-icon">🕒</span> {BUSINESS_CONFIG.hours}
             </li>
           </ul>
-
-          <div className="footer-newsletter-block">
-            <h4 className="newsletter-heading">VIP Event Inspiration</h4>
-            {newsletterSuccess ? (
-              <div className="newsletter-success">
-                <span>✓</span> Thank you! We look forward to inspiring your next celebration.
-              </div>
-            ) : (
-              <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  required
-                />
-                <button type="submit" aria-label="Subscribe to newsletter">JOIN</button>
-              </form>
-            )}
-          </div>
         </div>
 
       </div>

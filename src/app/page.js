@@ -6,6 +6,8 @@ import PortfolioSection from '@/component/sections/PortfolioSection';
 import ContactSection from '@/component/sections/ContactSection';
 import VideoCard from '@/component/VideoCard';
 import SmartEmailButton from '@/component/SmartEmailButton';
+import ExpertiseSection from '@/component/sections/ExpertiseSection';
+import FeaturedEventsSection from '@/component/sections/FeaturedEventsSection';
 import { getServiceYears } from '@/utils/date';
 
 import './Home.css';
@@ -172,63 +174,11 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* Services/Expertise Section (Restored Home Page Section Under Hero) */}
-        <div className="home-expertise-section bg-light">
-          <div className="container">
-            <div className="elegant-section-header">
-              <span className="section-kicker">— OUR EXPERTISE</span>
-              <h2 className="elegant-section-title">End-to-end event planning, tailored to your vision.</h2>
-            </div>
+        {/* Services/Expertise Section */}
+        <ExpertiseSection initialData={displayExpertise} />
 
-            <div className="grid-3">
-              {displayExpertise.map((item, index) => (
-                <div key={item.identifier || index} className="image-card relative overflow-hidden">
-                  <Image
-                    src={item.image_url}
-                    alt={item.title || "Our Expertise"}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="card-overlay relative z-10"></div>
-                  <div className="card-content relative z-10">
-                    <span className="card-kicker image-card-kicker">Explore Our Services</span>
-                    <h3 className="card-title image-card-title">{item.title}</h3>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Featured Events (Restored Home Page Section Under Hero) */}
-        <div className="home-featured-section">
-          <div className="container">
-            <div className="elegant-section-header">
-              <span className="section-kicker">— FEATURED EVENTS</span>
-              <h2 className="elegant-section-title">A glimpse into the magic we create.</h2>
-            </div>
-
-            <div className="grid-3">
-              {displayFeatured.map((event, index) => (
-                <div key={event.identifier || index} className="image-card relative overflow-hidden">
-                  <Image
-                    src={event.image_url}
-                    alt={event.title || "Featured Event"}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="card-overlay relative z-10"></div>
-                  <div className="card-content relative z-10">
-                    <span className="card-kicker image-card-kicker">Ranchi, Jharkhand</span>
-                    <h3 className="card-title image-card-title">{event.title}</h3>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        {/* Featured Events Section with Title Beneath & Image Zoom */}
+        <FeaturedEventsSection initialData={displayFeatured} />
       </section>
 
       {/* ============================================================ */}
@@ -244,7 +194,7 @@ export default async function Home() {
           <div className="story-content">
             <div className="story-image-wrapper">
               <Image
-                src="https://pub-5d8c780110a84ca79435d4e9a0a0bb30.r2.dev/jp221.jpg.jpeg"
+                src={aboutData?.image_url || "https://pub-5d8c780110a84ca79435d4e9a0a0bb30.r2.dev/jp221.jpg.jpeg"}
                 alt="Raj Hansh Event Decor"
                 fill
                 className="story-image"
@@ -392,7 +342,7 @@ export default async function Home() {
         </div>
 
         <div className="brochure-section" style={{ textAlign: 'center', margin: '60px 0 20px' }}>
-          <a href="/brochure.pdf" download><span>📄</span> Download Brochure</a>
+          <a href={aboutData?.brochure_url || "/brochure.pdf"} download target="_blank" rel="noopener noreferrer"><span>📄</span> Download Brochure</a>
         </div>
       </section>
 

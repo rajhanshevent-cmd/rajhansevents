@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import '@/app/legal.css';
 
 export const metadata = {
   title: 'Terms of Service & Copyright | Raj Hansh Events',
@@ -8,145 +9,265 @@ export const metadata = {
 
 export default function TermsOfService() {
   return (
-    <main style={{ backgroundColor: '#FDFBF7', minHeight: '100vh', padding: '120px 20px 80px' }}>
-      <div style={{ maxWidth: '860px', margin: '0 auto', backgroundColor: '#ffffff', padding: '48px 36px', borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.04)', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+    <main className="legal-page">
+      <div className="legal-container">
         
-        <div style={{ textAlign: 'center', marginBottom: '44px' }}>
-          <span style={{ color: '#D4AF37', fontSize: '0.82rem', fontWeight: '700', letterSpacing: '3px', textTransform: 'uppercase' }}>
-            LEGAL, COPYRIGHT &amp; CREDITS
-          </span>
-          <h1 style={{ fontFamily: 'var(--font-heading, serif)', fontSize: '2.5rem', color: '#7b1a28', marginTop: '10px', marginBottom: '8px' }}>
-            Terms of Service &amp; Copyright Notice
-          </h1>
-          <p style={{ color: '#666', fontSize: '0.9rem' }}>
-            Effective Date: January 1, 2025 &bull; Last Updated: March 2026
-          </p>
+        {/* Top Switcher Navigation */}
+        <div className="legal-tabs-wrapper">
+          <nav className="legal-tabs" aria-label="Legal Documents Navigation">
+            <Link href="/terms" className="legal-tab-btn active">
+              <span>📜</span> Terms of Service
+            </Link>
+            <Link href="/privacy" className="legal-tab-btn">
+              <span>🛡️</span> Privacy Policy
+            </Link>
+          </nav>
         </div>
 
-        <div style={{ color: '#333', fontSize: '1rem', lineHeight: '1.8' }}>
-          
+        {/* Hero Header */}
+        <header className="legal-header">
+          <span className="legal-kicker">
+            <span>⚖️</span> LEGAL, COPYRIGHT &amp; CREDITS
+          </span>
+          <h1 className="legal-title">
+            Terms of Service &amp; Copyright Notice
+          </h1>
+          <div className="legal-meta-bar">
+            <span className="legal-meta-item">
+              <span>📅</span> Effective: January 1, 2025
+            </span>
+            <span>&bull;</span>
+            <span className="legal-meta-item">
+              <span>🛡️</span> Last Reviewed: March 2026
+            </span>
+            <span>&bull;</span>
+            <span className="legal-meta-item">
+              <span>📍</span> Ranchi, Jharkhand
+            </span>
+          </div>
+        </header>
+
+        {/* Table of Contents Quick Jump Pills */}
+        <nav className="legal-toc-wrapper" aria-label="Table of contents">
+          <div className="legal-toc-label">
+            <span>📑</span> Quick Navigation
+          </div>
+          <div className="legal-toc-pills">
+            <a href="#acceptance" className="legal-toc-link">1. Acceptance</a>
+            <a href="#bookings" className="legal-toc-link">2. Bookings &amp; Proposals</a>
+            <a href="#copyright" className="legal-toc-link">3. Brand Copyright</a>
+            <a href="#credits" className="legal-toc-link">4. Media &amp; Credits</a>
+            <a href="#client-media" className="legal-toc-link">5. Client Media Rights</a>
+            <a href="#takedown" className="legal-toc-link">6. Copyright Claims</a>
+            <a href="#jurisdiction" className="legal-toc-link">7. Governing Law</a>
+            <a href="#contact" className="legal-toc-link">8. Contact Details</a>
+          </div>
+        </nav>
+
+        {/* Main Document Card */}
+        <article className="legal-card">
+
           {/* Section 1 */}
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              1. Acceptance of Terms
-            </h2>
+          <section id="acceptance" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">01</span>
+              <h2 className="legal-section-title">Acceptance of Terms</h2>
+            </div>
             <p>
-              Welcome to <strong>Raj Hansh Events</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;). By accessing our website, browsing our portfolio, or booking our event management services, you agree to comply with and be bound by these Terms of Service. If you do not agree with any part of these terms, please refrain from using this website or engaging our services.
+              Welcome to <strong>Raj Hansh Events</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;). By accessing our website, browsing our portfolio galleries, or engaging our wedding planning and event management services, you acknowledge that you have read, understood, and agreed to be bound by these Terms of Service.
+            </p>
+            <p>
+              If you do not agree with any provision of these terms, please discontinue using this website and contact our team directly for custom contractual arrangements.
             </p>
           </section>
 
           {/* Section 2 */}
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              2. Event Services, Proposals &amp; Bookings
-            </h2>
+          <section id="bookings" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">02</span>
+              <h2 className="legal-section-title">Event Services, Proposals &amp; Bookings</h2>
+            </div>
             <p>
-              All event quotations, themes, packages, and consultation estimates provided through this website are preliminary projections based on your stated event specifications. A booking is legally confirmed only upon the mutual execution of our formal Event Planning Contract and receipt of the required booking deposit.
+              All event quotations, concept themes, packages, and budget estimates generated through this website or preliminary consultations serve as exploratory estimates tailored to your specifications.
+            </p>
+            <p>
+              An event booking is legally confirmed and scheduled on our production calendar only upon the mutual execution of our formal <strong>Event Planning Agreement</strong> and receipt of the required advance booking commitment.
             </p>
           </section>
 
           {/* Section 3 */}
-          <section id="copyright" style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              3. Proprietary Intellectual Property &amp; Brand Copyright
-            </h2>
+          <section id="copyright" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">03</span>
+              <h2 className="legal-section-title">Proprietary Intellectual Property &amp; Brand Copyright</h2>
+            </div>
             <p>
-              All original content on this website—including but not limited to the brand name &ldquo;Raj Hansh Events&rdquo;, logos, stage and decor designs, written editorial copy, graphic illustrations, layout compilations, and custom production concepts—is the exclusive intellectual property of <strong>Raj Hansh Events</strong> and is protected under the Indian Copyright Act, 1957, trademark laws, and applicable international copyright conventions.
+              All original visual assets, brand identity marks, stage and mandap designs, floral curation blueprints, photographic compositions, written editorial copy, and bespoke production concepts showcased on this platform are the exclusive intellectual property of <strong>Raj Hansh Events</strong>.
             </p>
-            <p style={{ marginTop: '10px' }}>
-              No material, decor styling concept, or graphic asset from this website may be copied, reproduced, republished, downloaded, posted, broadcast, or distributed for commercial purposes without prior explicit written permission from Raj Hansh Events.
-            </p>
+            
+            <div className="legal-callout">
+              <div className="legal-callout-title">
+                <span>🛡️</span> Statutory Copyright Protection
+              </div>
+              <p>
+                Protected under the Indian Copyright Act, 1957, trademark laws, and applicable international intellectual property treaties. No decor styling blueprint, media file, or graphic element may be copied, republished, or exploited for commercial purposes without prior express written consent from Raj Hansh Events.
+              </p>
+            </div>
           </section>
 
           {/* Section 4 */}
-          <section id="credits" style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              4. Media, Stock Photography &amp; Asset Credits
-            </h2>
+          <section id="credits" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">04</span>
+              <h2 className="legal-section-title">Media, Stock Photography &amp; Asset Credits</h2>
+            </div>
             <p>
-              To present concept moodboards and illustrate diverse celebration possibilities, select demonstration visuals on this website are sourced under permissive, royalty-free open commercial licenses:
+              To illustrate creative themes and showcase aspirational possibilities, select concept visuals on this platform are curated under permissive, royalty-free open commercial licenses:
             </p>
-            <ul style={{ paddingLeft: '24px', marginTop: '10px' }}>
-              <li>
-                <strong>Illustrative Photography:</strong> Sourced under the <em>Unsplash License</em> (free commercial and non-commercial use). Copyright remains with their respective contributing photographers. We extend sincere appreciation to the global creative community for these visual inspirations.
+            <ul className="legal-list">
+              <li className="legal-list-item">
+                <span className="legal-bullet">✦</span>
+                <div>
+                  <strong>Illustrative Moodboard Photography:</strong> Permissively sourced under the <em>Unsplash License</em> (free commercial and editorial use). Full artistic copyright remains with respective contributing photographers. We extend sincere appreciation to the global visual community.
+                </div>
               </li>
-              <li>
-                <strong>Client &amp; Celebration Showcase:</strong> Real celebration photos and videos produced during Raj Hansh Events engagements belong to Raj Hansh Events and are presented with the appreciation of our clients.
+              <li className="legal-list-item">
+                <span className="legal-bullet">✦</span>
+                <div>
+                  <strong>Client Celebration Portfolio:</strong> Live wedding, birthday, and gala photographs produced during verified Raj Hansh Events engagements belong to Raj Hansh Events and are presented with the kind consent of our clients.
+                </div>
               </li>
-              <li>
-                <strong>Typography:</strong> Google Fonts (Playfair Display, Cormorant Garamond, Nunito Sans, and Poppins) distributed under the <em>SIL Open Font License (OFL)</em>.
+              <li className="legal-list-item">
+                <span className="legal-bullet">✦</span>
+                <div>
+                  <strong>Typography:</strong> Google Fonts (Playfair Display, Cormorant Garamond, Nunito Sans, and Poppins) distributed under the open <em>SIL Open Font License (OFL)</em>.
+                </div>
               </li>
-              <li>
-                <strong>Icons:</strong> Brand and social media iconography (e.g., WhatsApp, Google) are the registered trademarks of their respective owners and are referenced strictly for identification and communication purposes.
+              <li className="legal-list-item">
+                <span className="legal-bullet">✦</span>
+                <div>
+                  <strong>Brand Iconography:</strong> Social media and communication trademarks (e.g., WhatsApp, Meta, Google) belong to their respective owners and are referenced solely for customer communication purposes.
+                </div>
               </li>
             </ul>
           </section>
 
           {/* Section 5 */}
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              5. Client Event Media &amp; Privacy Rights
-            </h2>
+          <section id="client-media" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">05</span>
+              <h2 className="legal-section-title">Client Event Media &amp; Privacy Rights</h2>
+            </div>
             <p>
-              We take immense pride in the celebrations we curate. Photographs and videography captured during public celebrations and private events managed by Raj Hansh Events may be featured in our portfolio to showcase decor artistry, lighting installations, and event production quality.
+              We take immense pride in the celebrations we orchestrate. High-definition photographs and cinematic footage captured during celebrations managed by Raj Hansh Events may be highlighted in our portfolio to exhibit decor artistry, lighting architecture, and bespoke execution.
             </p>
-            <p style={{ marginTop: '10px' }}>
-              We deeply respect our clients&apos; privacy. If you or a family member is featured in any photograph or video on this website and wish to have it modified, replaced, or removed, simply send us an email at <a href="mailto:rajhanshevent@gmail.com" style={{ color: '#7b1a28', textDecoration: 'underline' }}>rajhanshevent@gmail.com</a>, and we will honor your request promptly.
-            </p>
+
+            <div className="legal-callout">
+              <div className="legal-callout-title">
+                <span>🤍</span> Complete Privacy Guarantee for Clients &amp; Families
+              </div>
+              <p>
+                We deeply respect our clients&apos; personal privacy. If you or a family member appears in any photograph or video on this website and wish to have it removed or replaced, simply email us at <a href="mailto:rajhanshevent@gmail.com">rajhanshevent@gmail.com</a>. We will honor your request promptly within 24–48 hours without hesitation.
+              </p>
+            </div>
           </section>
 
           {/* Section 6 */}
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              6. Copyright Infringement Claims &amp; Takedown Procedure
-            </h2>
+          <section id="takedown" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">06</span>
+              <h2 className="legal-section-title">Copyright Infringement Claims &amp; Takedown Procedure</h2>
+            </div>
             <p>
-              Raj Hansh Events respects the intellectual property rights of others. If you believe that any material on this website infringes upon a copyright that you own or control, or lacks proper attribution, please notify us immediately with the following details:
+              Raj Hansh Events respects the intellectual property rights of creators. If you believe any material on this platform infringes upon a copyright you own or control, please notify our legal desk with the following details:
             </p>
-            <ul style={{ paddingLeft: '24px', marginTop: '10px' }}>
-              <li>A description of the copyrighted work claimed to have been infringed;</li>
-              <li>The exact URL or location on our site where the disputed material is located;</li>
-              <li>Your full name, contact address, telephone number, and email address;</li>
-              <li>A statement confirming your ownership or authorization to act on the copyright owner&apos;s behalf.</li>
+            <ul className="legal-list">
+              <li className="legal-list-item">
+                <span className="legal-bullet">✓</span>
+                <span>A clear description of the copyrighted work claimed to have been infringed.</span>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✓</span>
+                <span>The specific webpage URL or asset location where the material appears.</span>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✓</span>
+                <span>Your full legal name, physical address, direct telephone number, and email address.</span>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✓</span>
+                <span>A statement confirming your good-faith belief that the disputed use is not authorized by the copyright owner.</span>
+              </li>
             </ul>
-            <p style={{ marginTop: '10px' }}>
-              Direct all copyright inquiries to: <a href="mailto:rajhanshevent@gmail.com" style={{ color: '#7b1a28', textDecoration: 'underline' }}>rajhanshevent@gmail.com</a>. Valid claims will be addressed within 48 business hours.
+            <p>
+              Please transmit all intellectual property inquiries to <a href="mailto:rajhanshevent@gmail.com">rajhanshevent@gmail.com</a>. Legitimate inquiries will be addressed within 48 business hours.
             </p>
           </section>
 
           {/* Section 7 */}
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              7. Governing Law &amp; Jurisdiction
-            </h2>
+          <section id="jurisdiction" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">07</span>
+              <h2 className="legal-section-title">Governing Law &amp; Jurisdiction</h2>
+            </div>
             <p>
-              These Terms of Service and any contractual agreements with Raj Hansh Events shall be governed by and construed in accordance with the laws of the Republic of India. Any disputes arising in connection with our website or services shall be subject to the exclusive jurisdiction of the competent courts in Ranchi, Jharkhand, India.
+              These Terms of Service and any contractual agreements entered into with Raj Hansh Events shall be governed by, interpreted, and construed under the laws of the Republic of India.
+            </p>
+            <p>
+              Any disputes or legal proceedings arising out of or related to this website or our management services shall fall under the exclusive jurisdiction of the competent courts in <strong>Ranchi, Jharkhand, India</strong>.
             </p>
           </section>
 
           {/* Section 8 */}
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              8. Contact Us
-            </h2>
+          <section id="contact" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">08</span>
+              <h2 className="legal-section-title">Official Contact Information</h2>
+            </div>
             <p>
-              For any questions concerning these Terms, copyright permissions, or celebration bookings, reach us at:
+              For legal inquiries, copyright questions, or event consultation scheduling, our executive desk is at your service:
             </p>
-            <p style={{ marginTop: '8px' }}>
-              <strong>Raj Hansh Events</strong><br />
-              Email: <a href="mailto:rajhanshevent@gmail.com" style={{ color: '#7b1a28', textDecoration: 'underline' }}>rajhanshevent@gmail.com</a><br />
-              Direct Line: +91 90060 89331<br />
-              Location: Ranchi, Jharkhand 834001, India
-            </p>
+            
+            <div className="legal-contact-grid">
+              <div className="legal-contact-item">
+                <div className="legal-contact-icon">📧</div>
+                <div className="legal-contact-content">
+                  <strong>Official Email</strong>
+                  <a href="mailto:rajhanshevent@gmail.com">rajhanshevent@gmail.com</a>
+                </div>
+              </div>
+
+              <div className="legal-contact-item">
+                <div className="legal-contact-icon">📞</div>
+                <div className="legal-contact-content">
+                  <strong>Phone / WhatsApp</strong>
+                  <a href="https://wa.me/919905002293" target="_blank" rel="noopener noreferrer">+91 99050 02293</a>
+                </div>
+              </div>
+
+              <div className="legal-contact-item" style={{ gridColumn: '1 / -1' }}>
+                <div className="legal-contact-icon">📍</div>
+                <div className="legal-contact-content">
+                  <strong>Registered Office Location</strong>
+                  <a href="https://maps.app.goo.gl/CeZKUvDzapYfJzWv9?g_st=ac" target="_blank" rel="noopener noreferrer">
+                    Maa Aamdmai Nagar, Kathitand, Ratu, Ranchi, Jharkhand 835222
+                  </a>
+                </div>
+              </div>
+            </div>
           </section>
 
-          <div style={{ textAlign: 'center', marginTop: '40px', paddingTop: '24px', borderTop: '1px solid rgba(212, 175, 55, 0.2)' }}>
-            <Link href="/" style={{ color: '#7b1a28', fontWeight: '600', textDecoration: 'none' }}>
-              &larr; Return to Home Page
+          {/* Footer Navigation Actions */}
+          <footer className="legal-footer-nav">
+            <Link href="/" className="legal-back-btn">
+              <span>&larr;</span> Return to Home
             </Link>
-          </div>
+            <Link href="/contact" className="legal-action-btn">
+              Plan Your Celebration <span>&rarr;</span>
+            </Link>
+          </footer>
 
-        </div>
+        </article>
       </div>
     </main>
   );

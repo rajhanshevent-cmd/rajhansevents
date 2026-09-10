@@ -71,7 +71,7 @@ export default async function About() {
         <div className="story-content">
           <div className="story-image-wrapper">
             <Image
-              src="https://pub-5d8c780110a84ca79435d4e9a0a0bb30.r2.dev/jp221.jpg.jpeg"
+              src={aboutData?.image_url || "https://pub-5d8c780110a84ca79435d4e9a0a0bb30.r2.dev/jp221.jpg.jpeg"}
               alt="Raj Hansh Event Decor"
               fill
               className="story-image"

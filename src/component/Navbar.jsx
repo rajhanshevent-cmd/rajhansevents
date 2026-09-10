@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { openCalendlyModal } from '@/component/CalendlyModal';
+import { BUSINESS_CONFIG } from '@/utils/constants';
 import './Navbar.css';
 
 function Navbar() {
@@ -312,7 +313,7 @@ function Navbar() {
           >
             Plan Your Celebration
           </Link>
-          <p className="mobile-drawer-phone">Direct Line: +91 90060 89331</p>
+          <p className="mobile-drawer-phone">Direct Line: {BUSINESS_CONFIG.phone}</p>
         </div>
       </aside>
     </>

@@ -1,6 +1,7 @@
-const ALLOWED_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp", "mp4", "webm", "mov"]);
+const ALLOWED_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp", "mp4", "webm", "mov", "pdf", "doc", "docx"]);
 const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
 const MAX_VIDEO_SIZE = 50 * 1024 * 1024; // 50MB
+const MAX_DOCUMENT_SIZE = 35 * 1024 * 1024; // 35MB
 
 /**
  * Uploads media directly to Cloudflare R2 via presigned S3 URLs.
@@ -18,7 +19,7 @@ export const uploadToR2 = async (file, folder = "general") => {
   // Guard: file extension
   if (!ALLOWED_EXTENSIONS.has(fileExt)) {
     throw new Error(
-      `File type .${fileExt} is not permitted. Allowed types: jpg, jpeg, png, webp, mp4, webm, mov.`
+      `File type .${fileExt} is not permitted. Allowed types: jpg, jpeg, png, webp, mp4, webm, mov, pdf, doc, docx.`
     );
   }
 
@@ -28,6 +29,9 @@ export const uploadToR2 = async (file, folder = "general") => {
   }
   if (file.type.startsWith("image/") && file.size > MAX_IMAGE_SIZE) {
     throw new Error("Image file exceeds the 10MB limit.");
+  }
+  if (["pdf", "doc", "docx"].includes(fileExt) && file.size > MAX_DOCUMENT_SIZE) {
+    throw new Error("Document exceeds the 35MB limit.");
   }
 
   // 1. Request presigned upload URL from our secure API

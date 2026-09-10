@@ -1,126 +1,304 @@
 import React from 'react';
 import Link from 'next/link';
+import '@/app/legal.css';
 
 export const metadata = {
   title: 'Privacy Policy | Raj Hansh Events',
-  description: 'Privacy Policy for Raj Hansh Events. Learn how we handle your personal data, inquiries, and information securely.',
+  description: 'Privacy Policy for Raj Hansh Events. Learn how we handle your personal data, celebration inquiries, and information securely.',
 };
 
 export default function PrivacyPolicy() {
   return (
-    <main style={{ backgroundColor: '#FDFBF7', minHeight: '100vh', padding: '120px 20px 80px' }}>
-      <div style={{ maxWidth: '860px', margin: '0 auto', backgroundColor: '#ffffff', padding: '40px 32px', borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,0,0,0.04)', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
+    <main className="legal-page">
+      <div className="legal-container">
         
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <span style={{ color: '#D4AF37', fontSize: '0.8rem', fontWeight: '700', letterSpacing: '3px', textTransform: 'uppercase' }}>
-            LEGAL &amp; PRIVACY
-          </span>
-          <h1 style={{ fontFamily: 'var(--font-heading, serif)', fontSize: '2.5rem', color: '#7b1a28', marginTop: '10px', marginBottom: '8px' }}>
-            Privacy Policy
-          </h1>
-          <p style={{ color: '#666', fontSize: '0.9rem' }}>
-            Effective Date: January 1, 2025 &bull; Last Updated: March 2026
-          </p>
+        {/* Top Switcher Navigation */}
+        <div className="legal-tabs-wrapper">
+          <nav className="legal-tabs" aria-label="Legal Documents Navigation">
+            <Link href="/terms" className="legal-tab-btn">
+              <span>📜</span> Terms of Service
+            </Link>
+            <Link href="/privacy" className="legal-tab-btn active">
+              <span>🛡️</span> Privacy Policy
+            </Link>
+          </nav>
         </div>
 
-        <div style={{ color: '#333', fontSize: '1rem', lineHeight: '1.8' }}>
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              1. Introduction
-            </h2>
+        {/* Hero Header */}
+        <header className="legal-header">
+          <span className="legal-kicker">
+            <span>🔒</span> PRIVACY &amp; DATA PROTECTION
+          </span>
+          <h1 className="legal-title">
+            Privacy Policy
+          </h1>
+          <div className="legal-meta-bar">
+            <span className="legal-meta-item">
+              <span>📅</span> Effective: January 1, 2025
+            </span>
+            <span>&bull;</span>
+            <span className="legal-meta-item">
+              <span>🛡️</span> Last Reviewed: March 2026
+            </span>
+            <span>&bull;</span>
+            <span className="legal-meta-item">
+              <span>📍</span> Ranchi, Jharkhand
+            </span>
+          </div>
+        </header>
+
+        {/* Table of Contents Quick Jump Pills */}
+        <nav className="legal-toc-wrapper" aria-label="Table of contents">
+          <div className="legal-toc-label">
+            <span>📑</span> Quick Navigation
+          </div>
+          <div className="legal-toc-pills">
+            <a href="#intro" className="legal-toc-link">1. Introduction</a>
+            <a href="#collection" className="legal-toc-link">2. Data We Collect</a>
+            <a href="#usage" className="legal-toc-link">3. How We Use Data</a>
+            <a href="#infrastructure" className="legal-toc-link">4. Cloud Infrastructure</a>
+            <a href="#cookies" className="legal-toc-link">5. Cookies &amp; Sessions</a>
+            <a href="#security" className="legal-toc-link">6. Retention &amp; Security</a>
+            <a href="#rights" className="legal-toc-link">7. Your Rights</a>
+            <a href="#contact" className="legal-toc-link">8. Contact Desk</a>
+          </div>
+        </nav>
+
+        {/* Main Document Card */}
+        <article className="legal-card">
+
+          {/* Section 1 */}
+          <section id="intro" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">01</span>
+              <h2 className="legal-section-title">Introduction</h2>
+            </div>
             <p>
-              Welcome to <strong>Raj Hansh Events</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;). We provide premier wedding planning, decor styling, catering coordination, and luxury celebration management based in Ranchi, Jharkhand, India. We respect your privacy and are committed to protecting the personal information you share with us through our website.
+              Welcome to <strong>Raj Hansh Events</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;). We provide luxury wedding planning, bespoke stage decor, hospitality coordination, and milestone celebration management based in Ranchi, Jharkhand, India.
+            </p>
+            <p>
+              We treat your personal details and celebration visions with the utmost confidentiality. This Privacy Policy details the measures we take to safeguard the personal information you entrust to us when visiting our website or reaching out for consultation.
             </p>
           </section>
 
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              2. Information We Collect
-            </h2>
-            <p>We only collect personal information that is reasonably necessary to fulfill your event consultation requests, communicate with you, and manage our website:</p>
-            <ul style={{ paddingLeft: '24px', marginTop: '10px' }}>
-              <li><strong>Inquiry &amp; Booking Details:</strong> Your full name, email address, phone number, preferred event date, celebration type, approximate guest count, and venue location provided when submitting our consultation or inquiry forms.</li>
-              <li><strong>Communications Data:</strong> Information exchanged when you reach out to our team via WhatsApp, direct phone call, or email.</li>
-              <li><strong>Administrative Access Data (Google OAuth):</strong> For authorized administrators accessing the internal management portal (/Manage), our application requests basic Google profile information (name, email address, and profile photo) strictly to verify administrator identity. We do not access, store, or share any personal emails, Google Drive files, contacts, or sensitive Google account data.</li>
-              <li><strong>Technical Data:</strong> Non-personally identifiable analytical information such as browser type, device information, and anonymous session statistics to help us maintain website speed and security.</li>
+          {/* Section 2 */}
+          <section id="collection" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">02</span>
+              <h2 className="legal-section-title">Information We Collect</h2>
+            </div>
+            <p>
+              We only gather personal information that is reasonably necessary to fulfill celebration inquiries, craft customized proposals, and provide seamless customer service:
+            </p>
+            <ul className="legal-list">
+              <li className="legal-list-item">
+                <span className="legal-bullet">✦</span>
+                <div>
+                  <strong>Consultation &amp; Inquiry Details:</strong> Full name, email address, phone number, event date, celebration type (e.g. Wedding, Reception, Corporate Gala), anticipated guest count, and venue preferences submitted via our contact forms.
+                </div>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✦</span>
+                <div>
+                  <strong>Direct Communications:</strong> Information and preferences exchanged when you initiate contact with our team through WhatsApp direct chat, phone calls, or emails.
+                </div>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✦</span>
+                <div>
+                  <strong>Administrative Identity (Google OAuth):</strong> For authorized administrators accessing the internal management portal (/Manage), our application verifies administrative identity using Google OAuth 2.0 (name, email address, and profile photo). We never access, store, or view personal emails, Google Drive files, or sensitive account data.
+                </div>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✦</span>
+                <div>
+                  <strong>Technical Performance Data:</strong> Anonymous browser type, device information, and speed metrics utilized strictly to ensure page load performance and infrastructure reliability.
+                </div>
+              </li>
             </ul>
           </section>
 
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              3. How We Use Your Information
-            </h2>
-            <p>We use collected data solely for legitimate business purposes:</p>
-            <ul style={{ paddingLeft: '24px', marginTop: '10px' }}>
-              <li>To prepare customized event proposals, theme designs, and pricing quotations tailored to your requirements.</li>
-              <li>To schedule planning appointments, venue visits, and consultation sessions.</li>
-              <li>To authenticate authorized site administrators via secure Google OAuth sign-in.</li>
-              <li>To comply with statutory and legal obligations in India.</li>
+          {/* Section 3 */}
+          <section id="usage" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">03</span>
+              <h2 className="legal-section-title">How We Use Your Information</h2>
+            </div>
+            <p>
+              Your information is utilized solely for genuine event management and communication purposes:
+            </p>
+            <ul className="legal-list">
+              <li className="legal-list-item">
+                <span className="legal-bullet">✓</span>
+                <span>To compose customized event moodboards, decor blueprints, and accurate financial quotations.</span>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✓</span>
+                <span>To schedule on-site venue walkthroughs and creative design consultations.</span>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✓</span>
+                <span>To coordinate logistics with verified decor and hospitality teams for booked celebrations.</span>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✓</span>
+                <span>To authenticate authorized administrative staff via secure session tokens.</span>
+              </li>
             </ul>
-            <p style={{ marginTop: '12px' }}>
-              <strong>We never sell, rent, or trade your personal information to third-party advertisers or data brokers.</strong>
-            </p>
-          </section>
 
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              4. Third-Party Service Providers
-            </h2>
-            <p>To deliver a smooth and secure digital experience, we utilize reputable, enterprise-grade cloud providers:</p>
-            <ul style={{ paddingLeft: '24px', marginTop: '10px' }}>
-              <li><strong>Neon PostgreSQL:</strong> Secure serverless database storage for booking inquiries and client messages with SSL encryption in transit.</li>
-              <li><strong>Cloudflare R2:</strong> S3-compatible media storage for publicly visible portfolio photos and celebration galleries.</li>
-              <li><strong>Google OAuth 2.0:</strong> Identity provider utilized exclusively for administrative staff access control.</li>
-              <li><strong>Meta / WhatsApp Business Cloud API:</strong> Facilitating direct client messaging and instant WhatsApp inquiries initiated by the user.</li>
-            </ul>
-          </section>
-
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              5. Cookies and Session Management
-            </h2>
-            <p>
-              We use strictly necessary HTTP-only session cookies to maintain secure sessions for logged-in administrators. We do not use third-party tracking or invasive behavioral advertising cookies.
-            </p>
-          </section>
-
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              6. Data Retention and Security
-            </h2>
-            <p>
-              We implement industry-standard encryption, firewalls, and token-based authentication to safeguard your information. We retain consultation records only as long as necessary to coordinate your events and maintain required accounting records.
-            </p>
-          </section>
-
-          <section style={{ marginBottom: '32px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              7. Your Rights
-            </h2>
-            <p>
-              You have the right to request access to the personal data we hold about you, request corrections, or request deletion of your contact records at any time by emailing us.
-            </p>
-          </section>
-
-          <section style={{ marginBottom: '24px' }}>
-            <h2 style={{ fontFamily: 'var(--font-heading, serif)', color: '#7b1a28', fontSize: '1.4rem', marginBottom: '12px' }}>
-              8. Contact Us
-            </h2>
-            <p>If you have any questions about this Privacy Policy or our data practices, please reach out to us:</p>
-            <div style={{ marginTop: '12px', padding: '16px', backgroundColor: '#FDFBF7', borderRadius: '8px', borderLeft: '4px solid #7b1a28' }}>
-              <p style={{ margin: '4px 0' }}><strong>Raj Hansh Events</strong></p>
-              <p style={{ margin: '4px 0' }}>Email: <a href="mailto:rajhanshevent@gmail.com" style={{ color: '#7b1a28', textDecoration: 'underline' }}>rajhanshevent@gmail.com</a></p>
-              <p style={{ margin: '4px 0' }}>Location: Ranchi, Jharkhand, India</p>
+            <div className="legal-callout">
+              <div className="legal-callout-title">
+                <span>🛡️</span> Zero Data Commercialization Guarantee
+              </div>
+              <p>
+                We never sell, rent, monetize, or trade your personal information or celebration details to third-party telemarketers, data brokers, or marketing networks. Your trust is foundational to our brand.
+              </p>
             </div>
           </section>
 
-          <div style={{ textAlign: 'center', marginTop: '40px', paddingTop: '24px', borderTop: '1px solid rgba(212, 175, 55, 0.2)' }}>
-            <Link href="/" style={{ color: '#7b1a28', fontWeight: '600', textDecoration: 'none' }}>
-              &larr; Return to Home Page
-            </Link>
-          </div>
+          {/* Section 4 */}
+          <section id="infrastructure" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">04</span>
+              <h2 className="legal-section-title">Secure Cloud Infrastructure Partners</h2>
+            </div>
+            <p>
+              To maintain high availability, instant load speeds, and enterprise security, we partner with world-class cloud infrastructure providers:
+            </p>
+            <ul className="legal-list">
+              <li className="legal-list-item">
+                <span className="legal-bullet">✦</span>
+                <div>
+                  <strong>Neon PostgreSQL:</strong> Encrypted serverless database hosting inquiries and content configurations with SSL/TLS encryption in transit and at rest.
+                </div>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✦</span>
+                <div>
+                  <strong>Cloudflare R2:</strong> High-performance distributed media storage delivering fast portfolio images and videos with zero egress fees.
+                </div>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✦</span>
+                <div>
+                  <strong>Google Identity Services:</strong> Enterprise OAuth 2.0 authentication protocol used exclusively for internal staff login verification.
+                </div>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✦</span>
+                <div>
+                  <strong>Meta / WhatsApp Business Cloud API:</strong> Enabling direct, user-initiated messaging for consultations and event discussions.
+                </div>
+              </li>
+            </ul>
+          </section>
 
-        </div>
+          {/* Section 5 */}
+          <section id="cookies" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">05</span>
+              <h2 className="legal-section-title">Cookies and Session Management</h2>
+            </div>
+            <p>
+              Our website uses strictly necessary, HTTP-only, secure session cookies required solely for authenticating administrator sessions on the management dashboard.
+            </p>
+            <p>
+              We do not employ third-party cross-site advertising cookies, invasive tracking pixels, or user behavior tracking tools.
+            </p>
+          </section>
+
+          {/* Section 6 */}
+          <section id="security" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">06</span>
+              <h2 className="legal-section-title">Data Retention and Security Safeguards</h2>
+            </div>
+            <p>
+              We implement comprehensive security measures including SSL/TLS encrypted transmissions, strict database connection whitelists, and authenticated API gatekeepers to protect your data from unauthorized access or alteration.
+            </p>
+            <p>
+              Inquiry and consultation records are retained only as long as necessary to complete your celebration coordination and fulfill statutory accounting requirements under Indian tax law.
+            </p>
+          </section>
+
+          {/* Section 7 */}
+          <section id="rights" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">07</span>
+              <h2 className="legal-section-title">Your Privacy Rights &amp; Choices</h2>
+            </div>
+            <p>
+              You maintain complete control over your personal data. At any time, you have the right to:
+            </p>
+            <ul className="legal-list">
+              <li className="legal-list-item">
+                <span className="legal-bullet">✓</span>
+                <span>Request a copy of the personal information we maintain regarding your inquiries.</span>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✓</span>
+                <span>Request the correction or update of any inaccurate contact details.</span>
+              </li>
+              <li className="legal-list-item">
+                <span className="legal-bullet">✓</span>
+                <span>Request the permanent deletion of your inquiry records from our active database.</span>
+              </li>
+            </ul>
+            <p>
+              To exercise any of these rights, please send an email request to <a href="mailto:rajhanshevent@gmail.com">rajhanshevent@gmail.com</a>. We will process your request within 48 business hours.
+            </p>
+          </section>
+
+          {/* Section 8 */}
+          <section id="contact" className="legal-section">
+            <div className="legal-section-header">
+              <span className="legal-num-badge">08</span>
+              <h2 className="legal-section-title">Privacy Officer Contact Information</h2>
+            </div>
+            <p>
+              If you have any questions or feedback regarding our privacy practices or this policy, please reach out to our team:
+            </p>
+            
+            <div className="legal-contact-grid">
+              <div className="legal-contact-item">
+                <div className="legal-contact-icon">📧</div>
+                <div className="legal-contact-content">
+                  <strong>Privacy Desk Email</strong>
+                  <a href="mailto:rajhanshevent@gmail.com">rajhanshevent@gmail.com</a>
+                </div>
+              </div>
+
+              <div className="legal-contact-item">
+                <div className="legal-contact-icon">📞</div>
+                <div className="legal-contact-content">
+                  <strong>Phone / WhatsApp</strong>
+                  <a href="https://wa.me/919905002293" target="_blank" rel="noopener noreferrer">+91 99050 02293</a>
+                </div>
+              </div>
+
+              <div className="legal-contact-item" style={{ gridColumn: '1 / -1' }}>
+                <div className="legal-contact-icon">📍</div>
+                <div className="legal-contact-content">
+                  <strong>Registered Office Location</strong>
+                  <a href="https://maps.app.goo.gl/CeZKUvDzapYfJzWv9?g_st=ac" target="_blank" rel="noopener noreferrer">
+                    Maa Aamdmai Nagar, Kathitand, Ratu, Ranchi, Jharkhand 835222
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Footer Navigation Actions */}
+          <footer className="legal-footer-nav">
+            <Link href="/" className="legal-back-btn">
+              <span>&larr;</span> Return to Home
+            </Link>
+            <Link href="/contact" className="legal-action-btn">
+              Plan Your Celebration <span>&rarr;</span>
+            </Link>
+          </footer>
+
+        </article>
       </div>
     </main>
   );

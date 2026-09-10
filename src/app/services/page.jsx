@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAll } from '@/lib/db';
+import { getAll, getSingle } from '@/lib/db';
 import './Services.css';
 
 export const metadata = {
@@ -11,8 +11,11 @@ export const metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function Services() {
-  // Fetch live services data from Neon PostgreSQL
-  const servicesData = await getAll('services', 'created_at ASC');
+  // Fetch live services and about data from Neon PostgreSQL
+  const [servicesData, aboutData] = await Promise.all([
+    getAll('services', 'created_at ASC'),
+    getSingle('about_us', 'about_main')
+  ]);
 
   // Fallback data mirroring the elegant structure with curated images
   const fallbackServices = [
@@ -94,7 +97,7 @@ export default async function Services() {
         </div>
       </section>
       <section className="brochure-section" style={{ textAlign: 'center', margin: '60px 0 20px' }}>
-        <a href="/brochure.pdf" download><span>📄</span> Download Brochure</a>
+        <a href={aboutData?.brochure_url || "/brochure.pdf"} download target="_blank" rel="noopener noreferrer"><span>📄</span> Download Brochure</a>
       </section>
     </div>
   );

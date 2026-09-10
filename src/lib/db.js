@@ -19,6 +19,7 @@ function getClient() {
 const ALLOWED_TABLES = new Set([
   "home_content",
   "expertise",
+  "expertise_images",
   "featured",
   "contact_info",
   "about_us",
@@ -26,6 +27,7 @@ const ALLOWED_TABLES = new Set([
   "services",
   "packages",
   "portfolio",
+  "event_images",
   "testimonials",
   "experiences",
   "smiles",
@@ -168,4 +170,21 @@ export async function deleteRecord(table, identifier, idColumn = "identifier") {
     throw error;
   }
 }
+
+/**
+ * Execute a custom parameterized query.
+ */
+export async function query(sqlText, params = []) {
+  const sql = getClient();
+  if (!sql) return [];
+  try {
+    const rows = await sql.query(sqlText, params);
+    return rows || [];
+  } catch (error) {
+    console.error(`[Neon DB Error] query:`, error);
+    throw error;
+  }
+}
+
+export { getClient };
 

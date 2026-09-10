@@ -4,7 +4,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { getR2Client, getR2BucketName, getR2PublicUrl } from "@/lib/r2";
 import { getSession } from "@/lib/session";
 
-const ALLOWED_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp", "mp4", "webm", "mov"]);
+const ALLOWED_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp", "mp4", "webm", "mov", "pdf", "doc", "docx"]);
 const ALLOWED_MIME_TYPES = new Set([
   "image/jpeg",
   "image/png",
@@ -12,6 +12,10 @@ const ALLOWED_MIME_TYPES = new Set([
   "video/mp4",
   "video/webm",
   "video/quicktime",
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "application/octet-stream",
 ]);
 
 export async function POST(request) {

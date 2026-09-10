@@ -136,8 +136,8 @@ export default function CalendlyModal({
     embedUrl = `${baseUrl}?embed_domain=rajhansevents.com&embed_type=Inline&hide_landing_page_details=1&hide_gdpr_banner=1&primary_color=b68d40`;
   }
 
-  const cleanPhone = (BUSINESS_CONFIG.phone || "+91 90060 89331").replace(/[^\d+]/g, "");
-  const waUrl = `https://wa.me/${BUSINESS_CONFIG.whatsappNumber || "919006089331"}?text=${encodeURIComponent(
+  const cleanPhone = (BUSINESS_CONFIG.phone || "+91 99050 02293").replace(/[^\d+]/g, "");
+  const waUrl = `https://wa.me/${BUSINESS_CONFIG.whatsappNumber || "919905002293"}?text=${encodeURIComponent(
     "Hello Raj Hansh Events, I would like to schedule a consultation."
   )}`;
 
@@ -231,7 +231,7 @@ export default function CalendlyModal({
           <div className="calendly-modal-footer-contact">
             <span className="footer-label">Prefer instant contact?</span>
             <a href={`tel:${cleanPhone}`} className="footer-link">
-              📞 {BUSINESS_CONFIG.phone || "+91 90060 89331"}
+              📞 {BUSINESS_CONFIG.phone || "+91 99050 02293"}
             </a>
           </div>
 

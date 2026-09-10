@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const items = await getAll("portfolio", "created_at DESC");
+    const items = await getAll("expertise", "created_at ASC");
 
     if (!items || items.length === 0) {
       return NextResponse.json({ data: [] });
@@ -14,23 +14,22 @@ export async function GET() {
     let galleryImages = [];
     try {
       galleryImages = await query(
-        `SELECT * FROM event_images ORDER BY display_order ASC, id ASC`
+        `SELECT * FROM expertise_images ORDER BY display_order ASC, id ASC`
       );
     } catch (err) {
-      console.warn("[Portfolio API] event_images query notice:", err.message);
+      console.warn("[Expertise API] expertise_images query notice:", err.message);
     }
 
-    const imagesByEventId = {};
+    const imagesByIdentifier = {};
     for (const img of galleryImages) {
-      const eId = String(img.event_id);
-      if (!imagesByEventId[eId]) imagesByEventId[eId] = [];
-      imagesByEventId[eId].push(img);
+      const key = String(img.expertise_identifier);
+      if (!imagesByIdentifier[key]) imagesByIdentifier[key] = [];
+      imagesByIdentifier[key].push(img);
     }
 
     const enrichedItems = items.map((item) => {
-      const associated = imagesByEventId[String(item.id)] || [];
+      const associated = imagesByIdentifier[String(item.identifier)] || [];
 
-      // Build normalized gallery images array
       let images = [];
       if (associated.length > 0) {
         images = associated.map((img) => ({
@@ -40,12 +39,11 @@ export async function GET() {
           alt_text: img.alt_text || item.title || "",
           display_order: img.display_order ?? 0,
         }));
-      } else if (item.media_url) {
-        // Backward-compatible fallback: single image becomes first gallery item
+      } else if (item.image_url) {
         images = [
           {
-            id: `cover-${item.id || item.identifier}`,
-            image_url: item.media_url,
+            id: `cover-${item.identifier}`,
+            image_url: item.image_url,
             caption: item.title || "",
             alt_text: item.title || "",
             display_order: 0,
@@ -62,7 +60,7 @@ export async function GET() {
 
     return NextResponse.json({ data: enrichedItems });
   } catch (error) {
-    console.error("[Portfolio API Error]:", error);
+    console.error("[Expertise API Error]:", error);
     return NextResponse.json({ data: [] }, { status: 500 });
   }
 }

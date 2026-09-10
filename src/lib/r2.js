@@ -1,4 +1,4 @@
-import { S3Client } from "@aws-sdk/client-s3";
+import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3";
 
 /**
  * Cloudflare R2 Client (S3 Compatible)
@@ -48,4 +48,37 @@ export function getR2PublicUrl() {
     process.env.NEXT_PUBLIC_R2_PUBLIC_URL ||
     `https://${process.env.R2_BUCKET_NAME || "rajhansevents-media"}.r2.dev`
   ).replace(/\/$/, "");
+}
+
+/**
+ * Delete a file from Cloudflare R2 storage by its URL or key.
+ */
+export async function deleteR2File(fileUrlOrKey) {
+  if (!fileUrlOrKey) return false;
+  const s3 = getR2Client();
+  if (!s3) return false;
+
+  try {
+    let key = fileUrlOrKey.trim();
+    const publicUrl = getR2PublicUrl();
+    if (key.startsWith(publicUrl)) {
+      key = key.replace(`${publicUrl}/`, "");
+    } else if (key.startsWith("http://") || key.startsWith("https://")) {
+      const urlObj = new URL(key);
+      key = urlObj.pathname.replace(/^\//, "");
+    }
+
+    if (!key) return false;
+
+    const command = new DeleteObjectCommand({
+      Bucket: getR2BucketName(),
+      Key: key,
+    });
+
+    await s3.send(command);
+    return true;
+  } catch (err) {
+    console.warn("[R2 Delete Warning]:", err.message);
+    return false;
+  }
 }
