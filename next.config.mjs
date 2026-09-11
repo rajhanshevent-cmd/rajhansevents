@@ -14,6 +14,9 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
+      { protocol: 'https', hostname: 'media.rajhanshevent.com' },
+      { protocol: 'https', hostname: '**.rajhanshevent.com' },
+      { protocol: 'https', hostname: '**.rajhansevents.com' },
       { protocol: 'https', hostname: '**.r2.dev' },
       { protocol: 'https', hostname: '**.cloudflarestorage.com' },
       { protocol: 'https', hostname: 'images.pexels.com' },

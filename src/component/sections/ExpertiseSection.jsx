@@ -93,6 +93,8 @@ export default function ExpertiseSection({ initialData = [] }) {
                 src={item.image_url || 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800'}
                 alt={item.title || 'Our Expertise'}
                 fill
+                loading="lazy"
+                quality={75}
                 style={{ objectFit: 'cover' }}
                 sizes="(max-width: 768px) 100vw, 33vw"
               />

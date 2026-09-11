@@ -207,8 +207,10 @@ export default async function Home() {
                 src={aboutData?.image_url || "https://pub-5d8c780110a84ca79435d4e9a0a0bb30.r2.dev/jp221.jpg.jpeg"}
                 alt="Raj Hansh Event Decor"
                 fill
+                loading="lazy"
+                quality={75}
                 className="story-image"
-                sizes="(max-width: 900px) 100vw, 55vw"
+                sizes="(max-width: 900px) 100vw, 50vw"
                 style={{ objectFit: 'cover' }}
               />
             </div>
@@ -279,6 +281,8 @@ export default async function Home() {
                     src={member.photo_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800'}
                     alt={member.name}
                     fill
+                    loading="lazy"
+                    quality={75}
                     className="team-img"
                     sizes="(max-width: 768px) 100vw, 33vw"
                     style={{ objectFit: 'cover', objectPosition: 'top center' }}
@@ -314,6 +318,8 @@ export default async function Home() {
                     src={service.image_url}
                     alt={service.title}
                     fill
+                    loading="lazy"
+                    quality={75}
                     className="card-image"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     style={{ objectFit: 'cover' }}
@@ -537,6 +543,7 @@ export default async function Home() {
               <div key={photo.identifier} className="photo-card squarish-card">
                 <Image
                   loading="lazy"
+                  quality={75}
                   src={photo.image_url}
                   alt={photo.alt || photo.identifier}
                   fill

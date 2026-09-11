@@ -59,6 +59,8 @@ export default function FeaturedEventsSection({ initialData = [] }) {
                   src={event.image_url || 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800'}
                   alt={event.title || 'Featured Event'}
                   fill
+                  loading="lazy"
+                  quality={75}
                   style={{ objectFit: 'cover' }}
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />

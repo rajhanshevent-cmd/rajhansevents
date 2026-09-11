@@ -235,6 +235,8 @@ export default function LuxuryGalleryModal({
                           src={img.image_url}
                           alt={img.alt_text || `Thumbnail ${idx + 1}`}
                           fill
+                          loading="lazy"
+                          quality={75}
                           sizes="120px"
                           className="gallery-thumbnail-img"
                         />

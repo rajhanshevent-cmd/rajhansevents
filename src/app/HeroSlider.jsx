@@ -86,14 +86,14 @@ export default function HeroSlider({ homeData }) {
           {slide.type === 'video' ? (
             <video
               key={slide.src}
-              autoPlay
+              autoPlay={index === currentSlide}
               loop
               muted
               playsInline
               crossOrigin="anonymous"
               className="hero-media"
-              poster={homeData?.thumbnail_url || 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1600'}
-              preload="metadata"
+              poster={homeData?.thumbnail_url || 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200'}
+              preload={index === 0 ? "metadata" : "none"}
               onError={() => {
                 setFailedSlides(prev => ({ ...prev, [index]: true }));
               }}
@@ -107,7 +107,7 @@ export default function HeroSlider({ homeData }) {
               alt={`Celebration showcase slide ${index + 1}`}
               fill
               priority={index === 0}
-              loading={index === 0 ? "eager" : "lazy"}
+              quality={75}
               sizes="100vw"
               className="hero-media"
               style={{ objectFit: 'cover' }}

@@ -27,7 +27,8 @@ export default function VideoCard({ video, index }) {
           src={video.video_url}
           className="video-player"
           playsInline
-          preload="metadata"
+          preload="none"
+          poster={video.thumbnail_url}
           controls={isPlaying}
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}

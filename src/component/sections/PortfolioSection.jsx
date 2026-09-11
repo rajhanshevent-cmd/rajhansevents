@@ -170,15 +170,19 @@ export default function PortfolioSection({ id = "portfolio" }) {
               {project.media_type === 'video' ? (
                 <video
                   src={project.thumbnail_url || project.media_url}
+                  poster={project.thumbnail_url}
                   className="portfolio-media"
                   muted
                   playsInline
+                  preload="none"
                 />
               ) : (
                 <Image
                   src={project.thumbnail_url || project.media_url || 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800'}
                   alt={project.title || "Portfolio showcase"}
                   fill
+                  loading="lazy"
+                  quality={75}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   style={{ objectFit: 'cover' }}
                   className="portfolio-media"
