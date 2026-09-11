@@ -82,11 +82,12 @@
 
 .continuous-scroll-page .story-section {
   padding: 0 !important;
+  margin-bottom: 2rem !important;
 }
 
 .continuous-scroll-page .mission-promise-section {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  margin-top: 4rem !important;
+  margin-bottom: 4.5rem !important;
   padding: 0 !important;
 }
 
