@@ -427,7 +427,7 @@ export default async function Home() {
               <h3 className="elegant-section-title" style={{ fontSize: '2.4rem' }}>Common Questions</h3>
             </div>
 
-            <div className="faq-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+            <div className="faq-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
               {faqs.map((faq, idx) => (
                 <div key={idx} className="faq-card" style={{ background: '#ffffff', padding: '2rem', borderRadius: '14px', border: '1px solid rgba(212, 175, 55, 0.25)', boxShadow: '0 4px 15px rgba(0,0,0,0.03)' }}>
                   <h4 style={{ color: 'var(--primary-maroon)', fontFamily: 'var(--font-heading)', fontSize: '1.25rem', marginBottom: '0.8rem' }}>{faq.q}</h4>

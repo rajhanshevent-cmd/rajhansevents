@@ -2182,7 +2182,7 @@ export default function ManagePage() {
                   Configure all 4 hero slideshow slots. Upload custom MP4/WebM videos or WebP/JPG/PNG images directly to Cloudflare R2, or paste direct URLs. Live previews and delete options are available for each slot.
                 </p>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
                   {/* SLIDE 1 */}
                   <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
