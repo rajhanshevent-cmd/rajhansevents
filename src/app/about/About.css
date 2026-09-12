@@ -278,8 +278,9 @@
 
 .process-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.8rem;
+  align-items: stretch;
 }
 
 .process-step-card {
@@ -470,5 +471,21 @@
     grid-template-columns: 1fr;
     max-width: 400px;
     margin: 0 auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin: 0 auto;
+    gap: 1.4rem;
   }
 }

@@ -212,7 +212,6 @@
 /* --- Extended Section (Our Process) --- */
 /* ========================================= */
 /* Retained exactly as you had it! */
-.process-section,
 .process-section.how-it-works-section {
   background: linear-gradient(
     145deg,
@@ -228,7 +227,6 @@
   margin: 4.5rem 0 2rem; 
 }
 
-.process-section .section-title,
 .process-section.how-it-works-section .section-title {
   font-family: var(--font-heading); 
   font-size: clamp(2.2rem, 4vw, 3rem); 
@@ -236,7 +234,6 @@
   margin-bottom: 3.5rem; 
 }
 
-.process-section .process-grid,
 .how-it-works-grid {
   display: grid; 
   grid-template-columns: repeat(3, 1fr); 
@@ -328,15 +325,12 @@
   .services-grid {
     grid-template-columns: 1fr;
   }
-  .process-section,
   .process-section.how-it-works-section {
     padding: 4.5rem 1.5rem; 
   }
-  .process-section .section-title,
   .process-section.how-it-works-section .section-title {
     font-size: 2.2rem; 
   }
-  .process-section .process-grid,
   .how-it-works-grid {
     grid-template-columns: 1fr; 
     max-width: 440px;
