@@ -212,7 +212,8 @@
 /* --- Extended Section (Our Process) --- */
 /* ========================================= */
 /* Retained exactly as you had it! */
-.process-section {
+.process-section,
+.process-section.how-it-works-section {
   background: linear-gradient(
     145deg,
     #140002,
@@ -222,60 +223,72 @@
     #b30033
   ); 
   color: var(--text-light); 
-  padding: 6rem 10%; 
+  padding: 6.5rem 0; 
   text-align: center; 
-  margin-top: 4rem; 
+  margin: 4.5rem 0 2rem; 
 }
 
-.process-section .section-title {
+.process-section .section-title,
+.process-section.how-it-works-section .section-title {
   font-family: var(--font-heading); 
-  font-size: 3rem; 
+  font-size: clamp(2.2rem, 4vw, 3rem); 
   color: var(--accent-gold); 
-  margin-bottom: 4rem; 
+  margin-bottom: 3.5rem; 
 }
 
-.process-grid {
+.process-section .process-grid,
+.how-it-works-grid {
   display: grid; 
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-  gap: 3rem; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 2.5rem; 
   max-width: 1200px; 
   margin: 0 auto; 
+  align-items: stretch;
 }
 
 .process-card {
-  background: rgba(255, 255, 255, 0.03); 
-  border: 1px solid rgba(212, 175, 55, 0.2); 
-  padding: 3rem 2rem; 
-  border-radius: 12px; 
-  transition: transform 0.3s ease, border-color 0.3s ease; 
+  background: rgba(255, 255, 255, 0.035); 
+  border: 1px solid rgba(212, 175, 55, 0.22); 
+  padding: 3.2rem 2.2rem; 
+  border-radius: 16px; 
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .process-card:hover {
-  transform: translateY(-5px); 
+  transform: translateY(-6px); 
   border-color: var(--accent-gold); 
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
 }
 
 .process-step {
   display: block; 
   font-family: var(--font-heading); 
-  font-size: 4rem; 
+  font-size: 3.8rem; 
   color: var(--accent-gold); 
-  opacity: 0.3; 
-  margin-bottom: 1rem; 
+  opacity: 0.35; 
+  margin-bottom: 1.2rem; 
   line-height: 1; 
 }
 
 .process-card h3 {
   color: var(--text-light); 
   font-family: var(--font-heading); 
-  font-size: 1.6rem; 
+  font-size: 1.65rem; 
+  font-weight: 400;
   margin-bottom: 1rem; 
 }
 
 .process-card p {
   font-size: 1.05rem; 
   opacity: 0.9; 
-  line-height: 1.6; 
+  line-height: 1.65; 
+  margin: 0;
 }
 .brochure-section a {
   font-family: var(--font-body), sans-serif;
@@ -315,13 +328,22 @@
   .services-grid {
     grid-template-columns: 1fr;
   }
-  .process-section {
-    padding: 4rem 1.5rem; 
+  .process-section,
+  .process-section.how-it-works-section {
+    padding: 4.5rem 1.5rem; 
   }
-  .process-section .section-title {
+  .process-section .section-title,
+  .process-section.how-it-works-section .section-title {
     font-size: 2.2rem; 
   }
-  .process-grid {
+  .process-section .process-grid,
+  .how-it-works-grid {
     grid-template-columns: 1fr; 
+    max-width: 440px;
+    margin: 0 auto;
+    gap: 1.8rem;
+  }
+  .process-card {
+    padding: 2.5rem 1.8rem;
   }
 }

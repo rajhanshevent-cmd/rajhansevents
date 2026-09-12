@@ -82,10 +82,10 @@ export default async function Services() {
 
       {/* --- Extended Section: Our Process --- */}
       {/* Kept exactly as you loved it! */}
-      <section className="process-section">
+      <section className="process-section how-it-works-section">
         <div className="container">
           <h2 className="section-title">How We Bring It to Life</h2>
-          <div className="process-grid">
+          <div className="process-grid how-it-works-grid">
             {planningProcess.map((item, index) => (
               <div key={index} className="process-card">
                 <span className="process-step">{item.step}</span>
