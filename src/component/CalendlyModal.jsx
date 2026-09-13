@@ -48,6 +48,51 @@ export default function CalendlyModal({
   const isControlled = controlledIsOpen !== undefined;
   const isOpen = isControlled ? controlledIsOpen : internalIsOpen;
 
+  const dragStartY = useRef(0);
+  const isDragging = useRef(false);
+
+  const handleTouchStart = (e) => {
+    dragStartY.current = e.touches[0].clientY;
+    isDragging.current = true;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging.current || !modalRef.current) return;
+    const currentY = e.touches[0].clientY;
+    const deltaY = currentY - dragStartY.current;
+    if (deltaY > 0) {
+      modalRef.current.style.transform = `translateY(${deltaY}px)`;
+      modalRef.current.style.transition = "none";
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!isDragging.current || !modalRef.current) return;
+    isDragging.current = false;
+    const endY = e.changedTouches[0]?.clientY ?? dragStartY.current;
+    const deltaY = endY - dragStartY.current;
+    if (deltaY > 80) {
+      modalRef.current.style.transition = "transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)";
+      modalRef.current.style.transform = "translateY(100%)";
+      setTimeout(() => {
+        handleClose();
+        if (modalRef.current) {
+          modalRef.current.style.transform = "";
+          modalRef.current.style.transition = "";
+        }
+      }, 200);
+    } else {
+      modalRef.current.style.transition = "transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)";
+      modalRef.current.style.transform = "translateY(0)";
+      setTimeout(() => {
+        if (modalRef.current) {
+          modalRef.current.style.transform = "";
+          modalRef.current.style.transition = "";
+        }
+      }, 260);
+    }
+  };
+
   const handleClose = useCallback(() => {
     setIframeLoaded(false);
     if (isControlled && controlledOnClose) {
@@ -155,8 +200,24 @@ export default function CalendlyModal({
       aria-labelledby="calendly-modal-title"
     >
       <div className="calendly-modal-card" ref={modalRef}>
+        {/* Android / Mobile Drag Handle */}
+        <div
+          className="calendly-modal-drag-indicator"
+          aria-hidden="true"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <span />
+        </div>
+
         {/* Modal Window Header */}
-        <div className="calendly-modal-header">
+        <div
+          className="calendly-modal-header"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div className="calendly-modal-title-wrap">
             <div className="calendly-modal-badge" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -235,14 +296,19 @@ export default function CalendlyModal({
             </a>
           </div>
 
-          <a
-            href={waUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="calendly-modal-wa-btn"
-          >
-            <WhatsAppIcon size={14} style={{ marginRight: "6px" }} /> Chat on WhatsApp
-          </a>
+          <div className="calendly-modal-footer-buttons">
+            <a href={`tel:${cleanPhone}`} className="calendly-modal-call-btn">
+              📞 Call Directly
+            </a>
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="calendly-modal-wa-btn"
+            >
+              <WhatsAppIcon size={14} style={{ marginRight: "6px" }} /> Chat on WhatsApp
+            </a>
+          </div>
         </div>
       </div>
     </div>

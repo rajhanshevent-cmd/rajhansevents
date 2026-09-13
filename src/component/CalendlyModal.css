@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Raj Hansh Events — Calendly Small Window Modal (Same Tab)
+   Raj Hansh Events — Consultation Modal (Desktop Expanded & Android Sheet)
    ========================================================================== */
 
 .calendly-modal-backdrop {
@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 24px;
   animation: calendlyBackdropFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -25,31 +25,32 @@
   }
 }
 
-/* Floating Window Card */
+/* Floating Window Card — Desktop Expanded */
 .calendly-modal-card {
   position: relative;
-  width: 100%;
-  max-width: 720px;
-  height: 88vh;
-  max-height: 740px;
-  min-height: 520px;
-  background: #15131c;
+  width: 94vw;
+  max-width: 1060px;
+  height: 90vh;
+  max-height: 860px;
+  min-height: 580px;
+  background: #14111a;
   border-radius: 20px;
-  border: 1px solid rgba(182, 141, 64, 0.38);
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
   box-shadow: 
-    0 25px 65px -10px rgba(0, 0, 0, 0.75),
-    0 0 0 1px rgba(182, 141, 64, 0.15),
-    0 12px 36px -4px rgba(139, 30, 63, 0.3);
+    0 30px 90px -15px rgba(0, 0, 0, 0.88),
+    0 0 0 1px rgba(212, 175, 55, 0.2),
+    0 16px 45px -8px rgba(139, 30, 63, 0.35);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   animation: calendlyModalPop 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: transform 0.2s ease-out;
 }
 
 @keyframes calendlyModalPop {
   0% {
     opacity: 0;
-    transform: scale(0.94) translateY(16px);
+    transform: scale(0.95) translateY(16px);
   }
   100% {
     opacity: 1;
@@ -57,30 +58,37 @@
   }
 }
 
+/* Drag Indicator Handle (Android / Mobile only) */
+.calendly-modal-drag-indicator {
+  display: none;
+}
+
 /* Header */
 .calendly-modal-header {
-  padding: 14px 20px;
+  padding: 14px 22px;
   background: linear-gradient(180deg, #241926 0%, #171520 100%);
-  border-bottom: 1px solid rgba(182, 141, 64, 0.25);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.28);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   flex-shrink: 0;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .calendly-modal-title-wrap {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .calendly-modal-badge {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
-  background: linear-gradient(135deg, rgba(139, 30, 63, 0.35), rgba(182, 141, 64, 0.35));
-  border: 1px solid rgba(182, 141, 64, 0.4);
+  background: linear-gradient(135deg, rgba(139, 30, 63, 0.4), rgba(212, 175, 55, 0.4));
+  border: 1px solid rgba(212, 175, 55, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,7 +99,7 @@
 .calendly-modal-title {
   margin: 0;
   font-family: var(--font-playfair, 'Playfair Display', serif);
-  font-size: 1.15rem;
+  font-size: 1.22rem;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.3px;
@@ -101,24 +109,24 @@
 .calendly-modal-subtitle {
   margin: 2px 0 0 0;
   font-family: var(--font-poppins, 'Poppins', sans-serif);
-  font-size: 0.78rem;
-  color: #b5b1c2;
+  font-size: 0.8rem;
+  color: #c0bccf;
   letter-spacing: 0.2px;
 }
 
 .calendly-modal-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .calendly-modal-action-btn,
 .calendly-modal-close-btn {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: #d1ceda;
   display: flex;
   align-items: center;
@@ -131,15 +139,15 @@
 
 .calendly-modal-action-btn:hover,
 .calendly-modal-close-btn:hover {
-  background: rgba(182, 141, 64, 0.2);
-  border-color: rgba(182, 141, 64, 0.5);
+  background: rgba(212, 175, 55, 0.2);
+  border-color: rgba(212, 175, 55, 0.55);
   color: #ffffff;
   transform: translateY(-1px);
 }
 
 .calendly-modal-close-btn:hover {
-  background: rgba(139, 30, 63, 0.3);
-  border-color: rgba(139, 30, 63, 0.6);
+  background: rgba(139, 30, 63, 0.35);
+  border-color: rgba(139, 30, 63, 0.65);
   color: #ffb8ca;
 }
 
@@ -168,9 +176,9 @@
 }
 
 .calendly-modal-spinner {
-  width: 42px;
-  height: 42px;
-  border: 3px solid rgba(182, 141, 64, 0.2);
+  width: 44px;
+  height: 44px;
+  border: 3px solid rgba(212, 175, 55, 0.2);
   border-top-color: #8B1E3F;
   border-right-color: #B68D40;
   border-radius: 50%;
@@ -186,7 +194,7 @@
 .calendly-modal-loader-text {
   margin: 0;
   font-family: var(--font-poppins, 'Poppins', sans-serif);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: #615d6e;
   letter-spacing: 0.2px;
@@ -209,13 +217,13 @@
 
 /* Footer */
 .calendly-modal-footer {
-  padding: 10px 18px;
+  padding: 12px 22px;
   background: #110f17;
-  border-top: 1px solid rgba(182, 141, 64, 0.2);
+  border-top: 1px solid rgba(212, 175, 55, 0.22);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 16px;
   flex-shrink: 0;
   font-family: var(--font-poppins, 'Poppins', sans-serif);
 }
@@ -224,7 +232,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: #a5a1b3;
 }
 
@@ -244,15 +252,43 @@
   text-decoration: underline;
 }
 
+.calendly-modal-footer-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.calendly-modal-call-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 15px;
+  border-radius: 20px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #f7e096;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.calendly-modal-call-btn:hover {
+  background: rgba(212, 175, 55, 0.25);
+  border-color: rgba(212, 175, 55, 0.6);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
 .calendly-modal-wa-btn {
   display: inline-flex;
   align-items: center;
-  padding: 6px 14px;
+  padding: 7px 15px;
   border-radius: 20px;
   background: rgba(37, 211, 102, 0.12);
-  border: 1px solid rgba(37, 211, 102, 0.3);
+  border: 1px solid rgba(37, 211, 102, 0.35);
   color: #25d366;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -265,49 +301,149 @@
   box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
 }
 
-/* Responsive adjustments */
-@media (max-width: 640px) {
+/* ==========================================================================
+   Android & Mobile Specialized Bottom Sheet Design (<= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
   .calendly-modal-backdrop {
-    padding: 10px;
+    padding: 0;
+    align-items: flex-end;
+    background: rgba(8, 6, 12, 0.82);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .calendly-modal-card {
-    height: 94vh;
-    max-height: 94vh;
-    border-radius: 16px;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 94dvh !important;
+    max-height: 96dvh !important;
+    min-height: 0 !important;
+    border-radius: 24px 24px 0 0 !important;
+    border: none !important;
+    border-top: 1.5px solid rgba(212, 175, 55, 0.55) !important;
+    box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.85) !important;
+    animation: calendlySheetSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    will-change: transform;
   }
 
+  @keyframes calendlySheetSlideUp {
+    0% {
+      transform: translateY(100%);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Android Native Drag Indicator */
+  .calendly-modal-drag-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0 4px 0;
+    background: #191421;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    flex-shrink: 0;
+  }
+
+  .calendly-modal-drag-indicator span {
+    display: block;
+    width: 44px;
+    height: 4px;
+    border-radius: 3px;
+    background: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Compact Native Header */
   .calendly-modal-header {
-    padding: 12px 14px;
+    padding: 8px 16px 12px 16px;
+    background: #191421;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+    touch-action: none;
   }
 
   .calendly-modal-badge {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
   }
 
   .calendly-modal-badge svg {
-    width: 16px;
-    height: 16px;
+    width: 17px;
+    height: 17px;
   }
 
   .calendly-modal-title {
-    font-size: 1rem;
+    font-size: 1.05rem;
   }
 
   .calendly-modal-subtitle {
     font-size: 0.72rem;
   }
 
+  /* 42px touch-friendly targets */
+  .calendly-modal-action-btn,
+  .calendly-modal-close-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  /* Body scrolling */
+  .calendly-modal-body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Android Bottom Action Bar */
   .calendly-modal-footer {
-    padding: 8px 12px;
+    padding: 10px 16px calc(12px + env(safe-area-inset-bottom, 0px)) 16px;
+    background: #110f17;
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 8px;
   }
 
-  .calendly-modal-wa-btn {
-    width: 100%;
+  .calendly-modal-footer-contact {
+    display: flex;
+    align-items: center;
     justify-content: center;
+    gap: 6px;
+    font-size: 0.75rem;
+  }
+
+  .calendly-modal-footer-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .calendly-modal-call-btn,
+  .calendly-modal-wa-btn {
+    min-height: 44px;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    justify-content: center;
+    padding: 8px 10px;
+    text-align: center;
+  }
+
+  .calendly-modal-call-btn {
+    background: rgba(212, 175, 55, 0.16);
+    border-color: rgba(212, 175, 55, 0.5);
+  }
+
+  .calendly-modal-wa-btn {
+    background: rgba(37, 211, 102, 0.16);
+    border-color: rgba(37, 211, 102, 0.45);
   }
 }
