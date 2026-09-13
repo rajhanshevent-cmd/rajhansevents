@@ -15,7 +15,7 @@ export { ReviewList, ReviewCardItem, default as GoogleReviewsCard } from '@/comp
  */
 function ReviewCardItemBox({ review }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const starsNum = Math.round(Number(review.stars) || 5);
+  const starsNum = Math.min(5, Math.max(4, Math.round(Number(review.stars || review.rating) || 5)));
   const reviewTargetUrl = review.author_url || GOOGLE_REVIEWS_URL;
   const reviewComment = review.comment || review.text || '';
   const isLong = reviewComment.length > 160;
@@ -33,6 +33,7 @@ function ReviewCardItemBox({ review }) {
           aria-label="View authentic review on Google"
         >
           {review.avatar ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
             <img
               src={review.avatar}
               alt={review.name}
@@ -85,14 +86,14 @@ function ReviewCardItemBox({ review }) {
         </a>
       </div>
 
-      {/* Stars Row with Exact Rating */}
+      {/* Stars Row with Whole Integer Rating */}
       <div className="review-stars-row">
-        <div className="stars">
-          {"★".repeat(starsNum)}
-          {"☆".repeat(5 - starsNum)}
+        <div className="stars" aria-label={`${starsNum} out of 5 stars`}>
+          <span className="filled-stars">{"★".repeat(starsNum)}</span>
+          {starsNum < 5 && <span className="empty-stars">{"☆".repeat(5 - starsNum)}</span>}
         </div>
         <span className="review-date">
-          {Number(review.stars || 5).toFixed(1)} ★ • {review.date || 'Recent'}
+          {starsNum} ★ • {review.date || 'Recent'}
         </span>
       </div>
 

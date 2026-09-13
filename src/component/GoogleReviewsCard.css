@@ -162,6 +162,10 @@
   font-size: 0.85rem;
 }
 
+.grc-stars .empty-stars {
+  color: rgba(251, 188, 4, 0.35);
+}
+
 .grc-dot {
   color: #dadce0;
 }

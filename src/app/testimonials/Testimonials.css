@@ -307,6 +307,10 @@
   line-height: 1;
 }
 
+.stars .empty-stars {
+  color: rgba(251, 188, 4, 0.35);
+}
+
 .review-date {
   font-size: 0.78rem;
   font-weight: 600;

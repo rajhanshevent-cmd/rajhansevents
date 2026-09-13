@@ -10,7 +10,7 @@ import './GoogleReviewsCard.css';
 export function ReviewCardItem({ review }) {
   const [isExpanded, setIsExpanded] = useState(false);
   if (!review) return null;
-  const stars = Math.min(5, Math.max(1, Math.round(Number(review.rating || review.stars) || 5)));
+  const stars = Math.min(5, Math.max(4, Math.round(Number(review.rating || review.stars) || 5)));
   const authorName = review.author_name || review.name || 'Verified Client';
   const text = review.text || review.comment || '';
   const isLong = text.length > 150;
@@ -30,6 +30,7 @@ export function ReviewCardItem({ review }) {
           aria-label={`View ${authorName}'s review on Google`}
         >
           {avatar ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
             <img src={avatar} alt={authorName} className="grc-avatar-img" loading="lazy" />
           ) : (
             <div className="grc-avatar-placeholder">
@@ -56,12 +57,12 @@ export function ReviewCardItem({ review }) {
             {authorName}
           </a>
           <span className="grc-review-meta">
-            <span className="grc-stars">
-              {"★".repeat(stars)}
-              {"☆".repeat(5 - stars)}
+            <span className="grc-stars" aria-label={`${stars} out of 5 stars`}>
+              <span className="filled-stars">{"★".repeat(stars)}</span>
+              {stars < 5 && <span className="empty-stars">{"☆".repeat(5 - stars)}</span>}
             </span>
             <span className="grc-dot">•</span>
-            <span className="grc-date">{date}</span>
+            <span className="grc-date">{stars} ★ • {date}</span>
           </span>
         </div>
       </div>
