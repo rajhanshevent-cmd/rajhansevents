@@ -211,7 +211,6 @@
 /* ========================================= */
 /* --- Extended Section (Our Process) --- */
 /* ========================================= */
-/* Retained exactly as you had it! */
 .process-section.how-it-works-section {
   background: linear-gradient(
     145deg,
@@ -227,17 +226,28 @@
   margin: 4.5rem 0 2rem; 
 }
 
-.process-section.how-it-works-section .section-title {
+.process-section.how-it-works-section .container,
+.how-it-works-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.process-section.how-it-works-section .section-title,
+.how-it-works-section .section-title {
   font-family: var(--font-heading); 
   font-size: clamp(2.2rem, 4vw, 3rem); 
-  color: var(--accent-gold); 
+  color: #D4AF37 !important; 
   margin-bottom: 3.5rem; 
+  text-shadow: none !important;
 }
 
 .how-it-works-grid {
   display: grid; 
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 2.5rem; 
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 1.8rem; 
   max-width: 1200px; 
   margin: 0 auto; 
   align-items: stretch;
@@ -246,7 +256,7 @@
 .process-card {
   background: rgba(255, 255, 255, 0.035); 
   border: 1px solid rgba(212, 175, 55, 0.22); 
-  padding: 3.2rem 2.2rem; 
+  padding: 2.6rem 1.6rem; 
   border-radius: 16px; 
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease; 
   display: flex;
@@ -259,15 +269,15 @@
 
 .process-card:hover {
   transform: translateY(-6px); 
-  border-color: var(--accent-gold); 
+  border-color: #D4AF37; 
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
 }
 
 .process-step {
   display: block; 
   font-family: var(--font-heading); 
-  font-size: 3.8rem; 
-  color: var(--accent-gold); 
+  font-size: 3.2rem; 
+  color: #D4AF37; 
   opacity: 0.35; 
   margin-bottom: 1.2rem; 
   line-height: 1; 
@@ -276,15 +286,15 @@
 .process-card h3 {
   color: var(--text-light); 
   font-family: var(--font-heading); 
-  font-size: 1.65rem; 
+  font-size: 1.45rem; 
   font-weight: 400;
   margin-bottom: 1rem; 
 }
 
 .process-card p {
-  font-size: 1.05rem; 
+  font-size: 0.96rem; 
   opacity: 0.9; 
-  line-height: 1.65; 
+  line-height: 1.6; 
   margin: 0;
 }
 .brochure-section a {
@@ -313,8 +323,15 @@
   box-shadow: 0 10px 25px rgba(212, 175, 55, 0.35);
 }
 /* ========================================= */
-/* --- MOBILE FIXES --- */
+/* --- RESPONSIVE ADJUSTMENTS --- */
 /* ========================================= */
+@media (max-width: 1024px) {
+  .how-it-works-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem;
+  }
+}
+
 @media (max-width: 768px) {
   .services-container {
     padding: 4rem 1.5rem; 
@@ -330,14 +347,18 @@
   }
   .process-section.how-it-works-section .section-title {
     font-size: 2.2rem; 
+    margin-bottom: 2.5rem;
   }
+}
+
+@media (max-width: 640px) {
   .how-it-works-grid {
     grid-template-columns: 1fr; 
     max-width: 440px;
     margin: 0 auto;
-    gap: 1.8rem;
+    gap: 1.4rem;
   }
   .process-card {
-    padding: 2.5rem 1.8rem;
+    padding: 2.2rem 1.5rem;
   }
 }

@@ -539,8 +539,8 @@
   text-shadow: none !important;
 }
 
-.process-section .section-title,
-.process-section h2 {
+.process-section:not(.how-it-works-section) .section-title,
+.process-section:not(.how-it-works-section) h2 {
   color: #FFFDF9 !important;
   text-shadow: none !important;
 }

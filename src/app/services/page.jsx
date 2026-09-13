@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { getAll, getSingle } from '@/lib/db';
+import ProcessSection from '@/component/sections/ProcessSection';
 import './Services.css';
 
 export const metadata = {
@@ -29,12 +30,6 @@ export default async function Services() {
 
   const displayServices = servicesData && servicesData.length > 0 ? servicesData : fallbackServices;
 
-  // Planning process steps
-  const planningProcess = [
-    { step: '01', title: 'Initial Consultation', desc: 'We sit down with you to understand your vision, preferences, and budget, ensuring we align completely with your dream.' },
-    { step: '02', title: 'Design & Curation', desc: 'Our team crafts a meticulous plan, pulling together the best vendors, themes, and timelines tailored just for you.' },
-    { step: '03', title: 'Flawless Execution', desc: 'On the big day, we handle every single detail behind the scenes so you can focus on making beautiful memories with your guests.' }
-  ];
 
   return (
     <div className="services-page">
@@ -81,21 +76,7 @@ export default async function Services() {
       </section>
 
       {/* --- Extended Section: Our Process --- */}
-      {/* Kept exactly as you loved it! */}
-      <section className="process-section how-it-works-section">
-        <div className="container">
-          <h2 className="section-title">How We Bring It to Life</h2>
-          <div className="process-grid how-it-works-grid">
-            {planningProcess.map((item, index) => (
-              <div key={index} className="process-card">
-                <span className="process-step">{item.step}</span>
-                <h3>{item.title}</h3>
-                <p>{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProcessSection />
       <section className="brochure-section" style={{ textAlign: 'center', margin: '60px 0 20px' }}>
         <a href={aboutData?.brochure_url || "/brochure.pdf"} download target="_blank" rel="noopener noreferrer"><span>📄</span> Download Brochure</a>
       </section>

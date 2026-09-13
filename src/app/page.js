@@ -8,6 +8,7 @@ import VideoCard from '@/component/VideoCard';
 import SmartEmailButton from '@/component/SmartEmailButton';
 import ExpertiseSection from '@/component/sections/ExpertiseSection';
 import FeaturedEventsSection from '@/component/sections/FeaturedEventsSection';
+import ProcessSection from '@/component/sections/ProcessSection';
 import { getServiceYears, getRelativeTime } from '@/utils/date';
 
 import './Home.css';
@@ -140,11 +141,6 @@ export default async function Home() {
     displayReviews.reduce((sum, r) => sum + (Number(r.stars) || 5), 0) / (totalReviewsCount || 1)
   ).toFixed(1);
 
-  const planningProcess = [
-    { step: '01', title: 'Initial Consultation', desc: 'We sit down with you to understand your vision, preferences, and budget, ensuring we align completely with your dream.' },
-    { step: '02', title: 'Design & Curation', desc: 'Our team crafts a meticulous plan, pulling together the best vendors, themes, and timelines tailored just for you.' },
-    { step: '03', title: 'Flawless Execution', desc: 'On the big day, we handle every single detail behind the scenes so you can focus on making beautiful memories with your guests.' }
-  ];
 
   const faqs = [
     { q: 'Can I customize a package?', a: 'Absolutely! Every event is designed around your story, and we provide clear, itemised quotations with no hidden costs.' },
@@ -342,20 +338,7 @@ export default async function Home() {
         </div>
 
         {/* Extended Section: Our Process */}
-        <div className="process-section how-it-works-section">
-          <div className="container">
-            <h2 className="section-title">How We Bring It to Life</h2>
-            <div className="process-grid how-it-works-grid">
-              {planningProcess.map((item, index) => (
-                <div key={index} className="process-card">
-                  <span className="process-step">{item.step}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <ProcessSection />
 
         <div className="brochure-section" style={{ textAlign: 'center', margin: '60px 0 20px' }}>
           <a href={aboutData?.brochure_url || "/brochure.pdf"} download target="_blank" rel="noopener noreferrer"><span>📄</span> Download Brochure</a>
