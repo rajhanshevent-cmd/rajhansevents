@@ -15,7 +15,10 @@ export { ReviewList, ReviewCardItem, default as GoogleReviewsCard } from '@/comp
  */
 function ReviewCardItemBox({ review }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const starsNum = Math.min(5, Math.max(4, Math.round(Number(review.stars || review.rating) || 5)));
+  const rawStars = review.stars !== undefined && review.stars !== null
+    ? review.stars
+    : (review.rating !== undefined && review.rating !== null ? review.rating : 5);
+  const starsNum = Math.min(5, Math.max(1, Math.round(Number(rawStars) || 5)));
   const reviewTargetUrl = review.author_url || GOOGLE_REVIEWS_URL;
   const reviewComment = review.comment || review.text || '';
   const isLong = reviewComment.length > 160;

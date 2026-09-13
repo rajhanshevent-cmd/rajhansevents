@@ -10,7 +10,10 @@ import './GoogleReviewsCard.css';
 export function ReviewCardItem({ review }) {
   const [isExpanded, setIsExpanded] = useState(false);
   if (!review) return null;
-  const stars = Math.min(5, Math.max(4, Math.round(Number(review.rating || review.stars) || 5)));
+  const rawStars = review.rating !== undefined && review.rating !== null
+    ? review.rating
+    : (review.stars !== undefined && review.stars !== null ? review.stars : 5);
+  const stars = Math.min(5, Math.max(1, Math.round(Number(rawStars) || 5)));
   const authorName = review.author_name || review.name || 'Verified Client';
   const text = review.text || review.comment || '';
   const isLong = text.length > 150;

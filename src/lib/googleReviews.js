@@ -106,7 +106,7 @@ export const fallbackReviews = [
     identifier: 'rev-7',
     name: 'Pooja & Rahul Verma',
     comment: "Outstanding coordination for our 3-day wedding festivities in Jharkhand. Every vendor, timeline, and aesthetic cue was flawlessly synchronized.",
-    stars: 4,
+    stars: 5,
     platform: 'Google Review',
     date: '2 months ago',
     eventType: '3-Day Royal Wedding',
@@ -407,20 +407,26 @@ export function selectBestReviews(reviews = [], targetCount = 6) {
   const valid = Array.isArray(reviews)
     ? [...reviews]
         .filter(r => r && (r.comment || r.text) && (r.name || r.author_name))
-        .map(r => ({
-          identifier: r.identifier || r.id || `rev-${Math.random()}`,
-          name: r.name || r.author_name || 'Verified Client',
-          comment: r.comment || r.text || '',
-          stars: Math.min(5, Math.max(4, Math.round(Number(r.stars || r.rating) || 5))),
-          rating: Math.min(5, Math.max(4, Math.round(Number(r.stars || r.rating) || 5))),
-          platform: 'Google Review',
-          date: r.date || r.relative_time_description || (r.created_at ? getRelativeTime(r.created_at) : 'Recent'),
-          created_at: r.created_at || (r.publishTime ? new Date(r.publishTime).toISOString() : (r.time ? new Date(r.time * 1000).toISOString() : null)),
-          eventType: r.eventType || r.occasion || null,
-          author_url: r.author_url || r.googleMapsUri || r.authorAttribution?.uri || GOOGLE_REVIEWS_URL,
-          avatar: r.avatar || r.profile_photo_url || r.authorAttribution?.photoUri || null,
-          source: r.source || 'database'
-        }))
+        .map(r => {
+          const rawStars = r.stars !== undefined && r.stars !== null
+            ? r.stars
+            : (r.rating !== undefined && r.rating !== null ? r.rating : 5);
+          const starsVal = Math.min(5, Math.max(1, Math.round(Number(rawStars) || 5)));
+          return {
+            identifier: r.identifier || r.id || `rev-${Math.random()}`,
+            name: r.name || r.author_name || 'Verified Client',
+            comment: r.comment || r.text || '',
+            stars: starsVal,
+            rating: starsVal,
+            platform: 'Google Review',
+            date: r.date || r.relative_time_description || (r.created_at ? getRelativeTime(r.created_at) : 'Recent'),
+            created_at: r.created_at || (r.publishTime ? new Date(r.publishTime).toISOString() : (r.time ? new Date(r.time * 1000).toISOString() : null)),
+            eventType: r.eventType || r.occasion || null,
+            author_url: r.author_url || r.googleMapsUri || r.authorAttribution?.uri || GOOGLE_REVIEWS_URL,
+            avatar: r.avatar || r.profile_photo_url || r.authorAttribution?.photoUri || null,
+            source: r.source || 'database'
+          };
+        })
     : [];
 
   const existingNames = new Set(valid.map(r => (r.name || '').toLowerCase().trim()));
@@ -439,8 +445,8 @@ export function selectBestReviews(reviews = [], targetCount = 6) {
 
   const selected = [...googleApiReviews, ...shuffledOthers].slice(0, targetCount);
 
-  // Apply organic whole integer stars (randomly 4 or 5 stars)
-  return applyOrganicRatings(selected);
+  // Directly pull the stars from the original reviews
+  return selected;
 }
 
 /**
