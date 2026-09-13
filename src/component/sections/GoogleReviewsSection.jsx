@@ -1,10 +1,145 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import {
   GOOGLE_REVIEWS_URL,
   GOOGLE_WRITE_REVIEW_URL,
   GOOGLE_MAPS_URL,
   selectBestReviews
 } from '@/lib/googleReviews';
+
+export { ReviewList, ReviewCardItem, default as GoogleReviewsCard } from '@/component/GoogleReviewsCard';
+
+/**
+ * Individual Review Card with expandable Show More / Show Less and smooth scroll
+ */
+function ReviewCardItemBox({ review }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const starsNum = Math.round(Number(review.stars) || 5);
+  const reviewTargetUrl = review.author_url || GOOGLE_REVIEWS_URL;
+  const reviewComment = review.comment || review.text || '';
+  const isLong = reviewComment.length > 160;
+
+  return (
+    <div className={`review-card ${isExpanded ? 'is-expanded' : ''}`}>
+      {/* Header with Clickable Google Button on the Left Corner */}
+      <div className="review-card-header">
+        <a
+          href={reviewTargetUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="google-corner-btn"
+          title="Verified Google Review — Click to view authentic review on Google"
+          aria-label="View authentic review on Google"
+        >
+          {review.avatar ? (
+            <img
+              src={review.avatar}
+              alt={review.name}
+              className="reviewer-avatar-img"
+              loading="lazy"
+            />
+          ) : (
+            <div className="reviewer-avatar">
+              {(review.name || 'G').charAt(0).toUpperCase()}
+            </div>
+          )}
+          {/* Google G icon badge on the left corner */}
+          <span className="google-avatar-badge" title="Verified Google Review">
+            <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
+              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z" />
+              <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.15z" />
+              <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
+            </svg>
+          </span>
+        </a>
+
+        <div className="reviewer-meta">
+          <h4 className="review-author">{review.name}</h4>
+          <a
+            href={reviewTargetUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="reviewer-badge-link"
+            title="Click to view verified review on Google"
+          >
+            <span className="verified-check">✓</span> Google Review
+          </a>
+        </div>
+
+        <a
+          href={reviewTargetUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="google-logo-wrapper"
+          title="Verified Google Review — Click to View on Google"
+          aria-label="View on Google"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z" />
+            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.15z" />
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
+          </svg>
+        </a>
+      </div>
+
+      {/* Stars Row with Exact Rating */}
+      <div className="review-stars-row">
+        <div className="stars">
+          {"★".repeat(starsNum)}
+          {"☆".repeat(5 - starsNum)}
+        </div>
+        <span className="review-date">
+          {Number(review.stars || 5).toFixed(1)} ★ • {review.date || 'Recent'}
+        </span>
+      </div>
+
+      {/* Review Comment with Clamp, Scroll & Read More */}
+      <div className="review-body-wrapper">
+        <div className={`review-text-scroll ${isExpanded ? 'expanded' : 'clamped'}`}>
+          <p className="review-text">&ldquo;{reviewComment}&rdquo;</p>
+        </div>
+
+        {isLong && (
+          <button
+            type="button"
+            className="review-toggle-btn"
+            onClick={() => setIsExpanded(!isExpanded)}
+            aria-expanded={isExpanded}
+          >
+            {isExpanded ? (
+              <>
+                Show less <span className="toggle-arrow">▴</span>
+              </>
+            ) : (
+              <>
+                Read more <span className="toggle-arrow">▾</span>
+              </>
+            )}
+          </button>
+        )}
+      </div>
+
+      {/* Footer with Direct Link to Google Maps */}
+      <div className="review-card-footer">
+        <a
+          href={reviewTargetUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="review-source-tag"
+          title="View authentic review on Google Maps"
+        >
+          <span className="google-dot">●</span> Verified on Google Maps
+        </a>
+        {review.eventType && (
+          <span className="review-occasion-tag">{review.eventType}</span>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function GoogleReviewsSection({
   testimonialsData = [],
@@ -69,107 +204,12 @@ export default function GoogleReviewsSection({
 
       {/* Exactly Six Evenly Placed Review Cards */}
       <div className="reviews-grid">
-        {sixReviews.map((review) => {
-          const starsNum = Math.round(Number(review.stars) || 5);
-          const reviewTargetUrl = review.author_url || GOOGLE_REVIEWS_URL;
-
-          return (
-            <div key={review.identifier || review.id} className="review-card">
-              {/* Header with Clickable Google Button on the Left Corner */}
-              <div className="review-card-header">
-                <a
-                  href={reviewTargetUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="google-corner-btn"
-                  title="Verified Google Review — Click to view authentic review on Google"
-                  aria-label="View authentic review on Google"
-                >
-                  {review.avatar ? (
-                    <img
-                      src={review.avatar}
-                      alt={review.name}
-                      className="reviewer-avatar-img"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="reviewer-avatar">
-                      {(review.name || 'G').charAt(0).toUpperCase()}
-                    </div>
-                  )}
-                  {/* Google G icon badge on the left corner */}
-                  <span className="google-avatar-badge" title="Verified Google Review">
-                    <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
-                      <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z" />
-                      <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.15z" />
-                      <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
-                    </svg>
-                  </span>
-                </a>
-
-                <div className="reviewer-meta">
-                  <h4 className="review-author">{review.name}</h4>
-                  <a
-                    href={reviewTargetUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="reviewer-badge-link"
-                    title="Click to view verified review on Google"
-                  >
-                    <span className="verified-check">✓</span> Google Review
-                  </a>
-                </div>
-
-                <a
-                  href={reviewTargetUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="google-logo-wrapper"
-                  title="Verified Google Review — Click to View on Google"
-                  aria-label="View on Google"
-                >
-                  <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
-                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z" />
-                    <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.15z" />
-                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
-                  </svg>
-                </a>
-              </div>
-
-              {/* Stars Row with Exact Rating */}
-              <div className="review-stars-row">
-                <div className="stars">
-                  {"★".repeat(starsNum)}
-                  {"☆".repeat(5 - starsNum)}
-                </div>
-                <span className="review-date">
-                  {Number(review.stars || 5).toFixed(1)} ★ • {review.date || 'Recent'}
-                </span>
-              </div>
-
-              {/* Review Comment */}
-              <p className="review-text">&ldquo;{review.comment}&rdquo;</p>
-
-              {/* Footer with Direct Link to Google Maps */}
-              <div className="review-card-footer">
-                <a
-                  href={reviewTargetUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="review-source-tag"
-                  title="View authentic review on Google Maps"
-                >
-                  <span className="google-dot">●</span> Verified on Google Maps
-                </a>
-                {review.eventType && (
-                  <span className="review-occasion-tag">{review.eventType}</span>
-                )}
-              </div>
-            </div>
-          );
-        })}
+        {sixReviews.map((review) => (
+          <ReviewCardItemBox
+            key={review.identifier || review.id}
+            review={review}
+          />
+        ))}
       </div>
 
       {/* Google Reviews Action CTA Banner */}
