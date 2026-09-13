@@ -296,14 +296,23 @@
   display: none;
 }
 
-/* Mobile Responsiveness */
+/* Mobile Responsiveness (Android & Safe Areas) */
 @media (max-width: 480px) {
   .wa-widget-container {
-    bottom: 18px;
+    bottom: max(18px, env(safe-area-inset-bottom, 18px));
     right: 18px;
   }
+
+  .wa-floating-btn {
+    width: 56px;
+    height: 56px;
+  }
+
   .wa-chat-window {
-    width: calc(100vw - 36px);
+    width: calc(100vw - 32px);
+    max-height: calc(100dvh - 90px);
+    max-height: calc(100vh - 90px);
     margin-bottom: 12px;
+    border-radius: 16px;
   }
 }

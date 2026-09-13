@@ -309,81 +309,217 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
 }
 
-/* --- Tablet View Fixes --- */
+/* ========================================================== */
+/* --- Specialized Android & Mobile View (Contact Page) --- */
+/* ========================================================== */
 @media screen and (max-width: 900px) {
   .contact-page {
-    padding: 3.5rem 1.25rem;
+    padding: 3rem 1.15rem 3.5rem;
   }
-  .contact-grid {
-    grid-template-columns: 1fr; 
-    gap: 32px;
-  }
-  .form-card {
-    padding: 2.5rem 1.8rem;
-  }
-  .direct-line-card {
-    padding: 2.5rem 1.8rem;
-  }
-  .form-row {
-    grid-template-columns: 1fr; 
-  }
-  .elegant-section-title {
-    font-size: 2.2rem;
-  }
-  .action-buttons {
-    flex-direction: column; 
-  }
-}
 
-/* --- Android / Mobile View Fixes --- */
-@media screen and (max-width: 600px) {
-  html, body {
-    overflow-x: clip;
-    word-wrap: break-word;
+  .contact-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
   }
-  .contact-page {
-    padding: 2.5rem 1rem;
+
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    margin-bottom: 2rem;
   }
+
+  /* Place Direct Concierge VIP Line Card first on mobile for immediate contact access */
+  .sidebar {
+    order: 1;
+    width: 100%;
+    gap: 0;
+  }
+
   .form-card {
-    padding: 1.8rem 1.15rem;
-    border-radius: 12px;
+    order: 2;
+    width: 100%;
+    padding: 2rem 1.35rem;
+    border-radius: 18px;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
   }
+
+  /* Royal VIP Concierge Card */
   .direct-line-card {
-    padding: 1.8rem 1.15rem;
-    border-radius: 12px;
+    padding: 2rem 1.4rem;
+    border-radius: 18px;
+    border: 1.5px solid var(--secondary-gold);
+    background: linear-gradient(135deg, #7b1a28 0%, #4a1018 100%);
+    box-shadow: 0 12px 32px rgba(123, 26, 40, 0.22);
+    box-sizing: border-box;
+    width: 100%;
   }
+
+  .direct-line-card h3 {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    color: var(--secondary-gold);
+    margin-bottom: 6px;
+  }
+
   .direct-line-card h2 {
-    font-size: 1.75rem;
+    font-size: 1.6rem;
+    line-height: 1.25;
     margin-bottom: 20px;
+    color: #FFFDF9;
   }
-  .luxury-form {
-    gap: 18px;
+
+  .contact-info-list {
+    gap: 12px;
+    margin-bottom: 22px;
   }
+
+  .contact-info-list li {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 240, 0.92);
+  }
+
+  /* Quick-action buttons in a clean 2-column mobile touch row */
+  .action-buttons {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+    width: 100%;
+  }
+
+  .btn-whatsapp,
+  .btn-call {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    justify-content: center;
+    text-align: center;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .btn-whatsapp:active,
+  .btn-call:active,
+  .btn-calendar-slot:active {
+    transform: scale(0.98);
+  }
+
+  .btn-calendar-slot {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 16px;
+    border-radius: 12px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    justify-content: center;
+    text-align: center;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Form elements */
   .form-row {
+    grid-template-columns: 1fr;
     gap: 16px;
   }
+
+  .form-group label {
+    font-size: 0.74rem;
+    letter-spacing: 1.2px;
+  }
+
+  .luxury-form input,
+  .luxury-form select,
+  .luxury-form textarea {
+    min-height: 48px;
+    border-radius: 10px;
+    font-size: 16px; /* Prevents auto-zoom on Android Chrome & iOS browsers */
+    padding: 12px 14px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .luxury-form textarea {
+    min-height: 120px;
+  }
+
   .luxury-form button.btn-primary {
     width: 100%;
     align-self: stretch;
-    text-align: center;
-    padding: 14px 20px;
+    padding: 15px 24px;
+    border-radius: 50px;
     font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    min-height: 52px;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(123, 26, 40, 0.25);
   }
-  .btn-whatsapp, .btn-call, .btn-calendar-slot {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    text-align: center;
-    padding: 12px 16px;
+
+  .luxury-form button.btn-primary:active {
+    transform: scale(0.98);
   }
+
   .map-section {
     height: 280px;
-    border-radius: 12px;
+    border-radius: 18px;
+    border: 1.5px solid rgba(212, 175, 55, 0.28);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    touch-action: pan-x pan-y;
   }
-  .elegant-section-header {
-    margin-bottom: 2.5rem;
+}
+
+@media screen and (max-width: 480px) {
+  .contact-page {
+    padding: 2.6rem 0.95rem 3rem;
   }
+
+  .contact-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+
   .elegant-section-title {
-    font-size: clamp(1.8rem, 6vw, 2.2rem);
+    font-size: 1.8rem;
+  }
+
+  .form-card {
+    padding: 1.6rem 1.15rem;
+    border-radius: 16px;
+  }
+
+  .direct-line-card {
+    padding: 1.6rem 1.15rem;
+    border-radius: 16px;
+  }
+
+  .direct-line-card h2 {
+    font-size: 1.45rem;
+  }
+
+  .action-buttons {
+    grid-template-columns: 1fr !important;
+  }
+
+  .map-section {
+    height: 240px;
+    border-radius: 14px;
   }
 }

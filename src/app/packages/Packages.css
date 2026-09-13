@@ -426,32 +426,167 @@
 }
 
 /* ========================================= */
-/* --- Mobile Responsive Fixes --- */
+/* --- Mobile Responsive Fixes (Android & Mobile Overhaul) --- */
 /* ========================================= */
 @media (max-width: 768px) {
   .container {
-    padding: 0 1.5rem; 
+    padding: 0 1.15rem; 
   }
+
   .packages-page {
-    padding-top: 3.5rem; 
-    padding-bottom: 4rem; 
+    padding-top: 3.2rem; 
+    padding-bottom: 3.5rem; 
   }
+
+  /* Horizontal snap carousel for Packages cards */
   .grid-3 {
-    grid-template-columns: 1fr;  
-    max-width: 440px;
-    margin: 0 auto;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: 1.25rem !important;
+    padding: 1.2rem calc(50vw - (min(82vw, 320px) / 2)) 1.4rem !important;
+    margin: 0 -1.15rem !important;
+    scroll-padding-inline: calc(50vw - (min(82vw, 320px) / 2));
+    max-width: none !important;
+    align-items: stretch !important;
+    box-sizing: border-box;
   }
+
+  .grid-3::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pricing-card {
+    flex: 0 0 min(82vw, 320px) !important;
+    max-width: 320px !important;
+    min-width: 260px !important;
+    width: min(82vw, 320px) !important;
+    scroll-snap-align: center !important;
+    padding: 2.6rem 1.4rem 2rem !important;
+    border-radius: 18px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    align-self: stretch !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    transform: none !important;
+  }
+
+  .pricing-card:hover {
+    transform: none !important;
+  }
+
   .pricing-card.featured-card {
-    transform: scale(1);  
+    transform: none !important;
+    padding: 2.6rem 1.4rem 2rem !important;
+    border: 1.5px solid var(--secondary-gold) !important;
+    box-shadow: 0 16px 36px rgba(123, 26, 40, 0.22) !important;
+    align-self: stretch !important;
+    height: auto !important;
   }
+
   .pricing-card.featured-card:hover {
-    transform: translateY(-6px); 
+    transform: none !important;
   }
+
+  .package-ribbon,
+  .package-popular-ribbon {
+    top: -12px;
+    font-size: 0.68rem;
+    padding: 5px 18px;
+    border-radius: 20px;
+  }
+
+  .pricing-card h3,
+  .pkg-name {
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .pricing-card .price,
+  .pkg-price {
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .features-list,
+  .pricing-card ul {
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem;
+    text-align: left;
+    padding: 0;
+    margin-bottom: 1.8rem;
+  }
+
+  .feature-item,
+  .pricing-card li {
+    font-size: 0.88rem;
+    gap: 10px;
+  }
+
+  .faq-section {
+    margin-top: 3.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .faq-container {
+    gap: 1rem;
+  }
+
+  .faq-item {
+    padding: 1.4rem 1.2rem;
+    border-radius: 14px;
+    border-left: 4px solid var(--secondary-gold);
+  }
+
+  .faq-item h4 {
+    font-size: 1.15rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .faq-item p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* Horizontal snap carousel for Process steps */
   .process-grid {
-    grid-template-columns: 1fr;
-    max-width: 440px;
-    margin: 0 auto;
-    gap: 1.4rem;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: 1.25rem !important;
+    padding: 0.5rem calc(50vw - (min(82vw, 320px) / 2)) 1.25rem !important;
+    margin: 0 -1.15rem !important;
+    scroll-padding-inline: calc(50vw - (min(82vw, 320px) / 2));
+    max-width: none !important;
+    box-sizing: border-box;
+  }
+
+  .process-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .process-step-card {
+    flex: 0 0 min(82vw, 320px) !important;
+    max-width: 320px !important;
+    min-width: 260px !important;
+    width: min(82vw, 320px) !important;
+    scroll-snap-align: center !important;
+    margin: 0 !important;
+    border-radius: 18px;
+    box-sizing: border-box !important;
   }
 }
 
@@ -459,5 +594,24 @@
   .process-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-card,
+  .pricing-card.featured-card {
+    padding: 2.4rem 1.15rem 1.8rem !important;
+    border-radius: 18px !important;
+    transform: none !important;
+  }
+
+  .pricing-card:hover,
+  .pricing-card.featured-card:hover {
+    transform: none !important;
+  }
+
+  .pricing-card .price,
+  .pkg-price {
+    font-size: 1.95rem;
   }
 }

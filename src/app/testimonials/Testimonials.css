@@ -850,13 +850,35 @@
     font-size: 0.82rem;
   }
 
+  /* Horizontal snap carousel for Video Cards */
   .video-grid {
-    grid-template-columns: minmax(0, 1fr);
-    width: 100%;
-    max-width: 460px;
-    margin: 0 auto;
-    gap: 2.2rem;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: 1.25rem !important;
+    padding: 0.5rem calc(50vw - (min(82vw, 320px) / 2)) 1.25rem !important;
+    margin: 0 -1.15rem !important;
+    scroll-padding-inline: calc(50vw - (min(82vw, 320px) / 2));
+    max-width: none !important;
     box-sizing: border-box;
+  }
+
+  .video-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .video-grid > * {
+    flex: 0 0 min(82vw, 320px) !important;
+    max-width: 320px !important;
+    min-width: 260px !important;
+    width: min(82vw, 320px) !important;
+    scroll-snap-align: center !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
   }
 
   .video-caption {
@@ -872,22 +894,95 @@
     height: 56px;
   }
 
-  .reviews-grid,
-  .photo-grid {
-    grid-template-columns: minmax(0, 1fr);
-    width: 100%;
-    max-width: 440px;
-    margin: 0 auto;
+  /* Horizontal snap carousel for Reviews Cards */
+  .reviews-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: 1.25rem !important;
+    padding: 0.5rem calc(50vw - (min(82vw, 320px) / 2)) 1.25rem !important;
+    margin: 0 -1.15rem !important;
+    scroll-padding-inline: calc(50vw - (min(82vw, 320px) / 2));
+    max-width: none !important;
+    align-items: stretch !important;
     box-sizing: border-box;
+  }
+
+  .reviews-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Standardized Horizontal snap carousel for Mobile Photos (Smiles) */
+  .photo-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: 1.25rem !important;
+    padding: 0.5rem calc(50vw - (min(82vw, 320px) / 2)) 1.25rem !important;
+    margin: 0 -1.15rem !important;
+    scroll-padding-inline: calc(50vw - (min(82vw, 320px) / 2));
+    max-width: none !important;
+    align-items: stretch !important;
+    box-sizing: border-box;
+  }
+
+  .photo-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .photo-card {
+    flex: 0 0 min(82vw, 320px) !important;
+    max-width: 320px !important;
+    min-width: 260px !important;
+    width: min(82vw, 320px) !important;
+    scroll-snap-align: center !important;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    aspect-ratio: 1 / 1;
+    margin: 0 !important;
+    box-sizing: border-box !important;
   }
 
   /* Prevent card overflow and fix mobile padding */
   .review-card {
-    padding: 1.6rem 1.25rem;
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-    border-radius: 16px;
+    flex: 0 0 min(82vw, 320px) !important;
+    max-width: 320px !important;
+    min-width: 260px !important;
+    width: min(82vw, 320px) !important;
+    scroll-snap-align: center !important;
+    padding: 1.6rem 1.25rem !important;
+    box-sizing: border-box !important;
+    border-radius: 18px !important;
+    margin: 0 !important;
+    align-self: stretch !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    transform: none !important;
+  }
+
+  .review-card:hover {
+    transform: none !important;
+  }
+
+  .review-body-wrapper {
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .review-card-footer {
+    margin-top: auto !important;
   }
 
   .review-card-header {
@@ -985,7 +1080,13 @@
   }
 
   .review-card {
-    padding: 1.35rem 1rem;
+    padding: 1.35rem 1rem !important;
+    border-radius: 18px !important;
+    transform: none !important;
+  }
+
+  .review-card:hover {
+    transform: none !important;
   }
 
   .google-trust-badge {

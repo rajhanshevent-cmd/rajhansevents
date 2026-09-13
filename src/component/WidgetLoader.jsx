@@ -16,5 +16,7 @@ export default function WidgetLoader() {
     return () => clearTimeout(timer);
   }, []);
 
+
+
   return show ? <WhatsAppWidget /> : null;
 }

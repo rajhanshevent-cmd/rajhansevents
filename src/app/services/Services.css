@@ -22,7 +22,7 @@
 /* --- Header Area --- */
 /* ========================================= */
 .services-container {
-  padding: 5rem 5%;
+  padding: 2.5rem 5% 4rem;
   text-align: left; /* Shifted from center to match the design */
   max-width: 1200px;
   margin: 0 auto;
@@ -323,7 +323,7 @@
   box-shadow: 0 10px 25px rgba(212, 175, 55, 0.35);
 }
 /* ========================================= */
-/* --- RESPONSIVE ADJUSTMENTS --- */
+/* --- RESPONSIVE ADJUSTMENTS (ANDROID & MOBILE OVERHAUL) --- */
 /* ========================================= */
 @media (max-width: 1024px) {
   .how-it-works-grid {
@@ -334,31 +334,176 @@
 
 @media (max-width: 768px) {
   .services-container {
-    padding: 4rem 1.5rem; 
+    padding: 3.2rem 1.15rem; 
   }
-  .services-title {
-    font-size: 2.5rem;
-  }
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
-  .process-section.how-it-works-section {
-    padding: 4.5rem 1.5rem; 
-  }
-  .process-section.how-it-works-section .section-title {
-    font-size: 2.2rem; 
-    margin-bottom: 2.5rem;
-  }
-}
 
-@media (max-width: 640px) {
-  .how-it-works-grid {
-    grid-template-columns: 1fr; 
-    max-width: 440px;
-    margin: 0 auto;
-    gap: 1.4rem;
+  .services-header-content {
+    margin-bottom: 1.8rem;
+    text-align: center;
   }
+
+  .services-title {
+    font-size: clamp(1.85rem, 6.8vw, 2.35rem);
+    line-height: 1.22;
+  }
+
+  .services-subtitle {
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  /* Horizontal snap carousel for Services cards */
+  .services-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: 1.25rem !important;
+    padding: 0.5rem calc(50vw - (min(82vw, 320px) / 2)) 1.25rem !important;
+    margin: 1.5rem -1.15rem 0 !important;
+    scroll-padding-inline: calc(50vw - (min(82vw, 320px) / 2));
+    max-width: none !important;
+    align-items: stretch !important;
+    box-sizing: border-box;
+  }
+
+  .services-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .service-card {
+    flex: 0 0 min(82vw, 320px) !important;
+    max-width: 320px !important;
+    min-width: 260px !important;
+    width: min(82vw, 320px) !important;
+    scroll-snap-align: center !important;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    align-self: stretch !important;
+    height: auto !important;
+    transform: none !important;
+  }
+
+  .service-card:hover {
+    transform: none !important;
+  }
+
+  .card-image-wrapper {
+    aspect-ratio: 16 / 10;
+    height: auto;
+    min-height: 200px;
+  }
+
+  .card-tag {
+    top: 12px;
+    left: 12px;
+    font-size: 0.68rem;
+    padding: 4px 12px;
+    letter-spacing: 1.2px;
+    border-radius: 20px;
+  }
+
+  .card-content {
+    padding: 1.4rem 1.25rem 1.6rem;
+  }
+
+  .card-divider {
+    width: 32px;
+    height: 2px;
+    margin: 0 0 0.85rem 0;
+  }
+
+  .service-card .card-title {
+    font-size: 1.35rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+
+  .card-quote-link {
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+  }
+
+  .services-footer-link a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    letter-spacing: 1.2px;
+  }
+
+  .brochure-section {
+    margin: 40px 0 10px !important;
+  }
+
+  .brochure-section a {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+    padding: 0.9rem 1.8rem;
+    font-size: 0.84rem;
+    letter-spacing: 1.2px;
+  }
+
+  .process-section.how-it-works-section {
+    padding: 3.5rem 1.15rem; 
+  }
+
+  .process-section.how-it-works-section .section-title {
+    font-size: 2rem; 
+    margin-bottom: 2rem;
+  }
+
+  /* Horizontal snap carousel for How It Works / Process cards */
+  .how-it-works-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: 1.25rem !important;
+    padding: 0.5rem calc(50vw - (min(82vw, 320px) / 2)) 1.25rem !important;
+    margin: 0 -1.15rem !important;
+    scroll-padding-inline: calc(50vw - (min(82vw, 320px) / 2));
+    max-width: none !important;
+    align-items: stretch !important;
+    box-sizing: border-box;
+  }
+
+  .how-it-works-grid::-webkit-scrollbar {
+    display: none;
+  }
+
   .process-card {
-    padding: 2.2rem 1.5rem;
+    flex: 0 0 min(82vw, 320px) !important;
+    max-width: 320px !important;
+    min-width: 260px !important;
+    width: min(82vw, 320px) !important;
+    scroll-snap-align: center !important;
+    padding: 1.8rem 1.3rem;
+    border-radius: 18px;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    align-self: stretch !important;
+    height: auto !important;
+    transform: none !important;
+  }
+
+  .process-card:hover {
+    transform: none !important;
   }
 }

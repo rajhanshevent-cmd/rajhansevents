@@ -324,14 +324,14 @@
 /* --- 4. Team Section --- */
 /* ========================================= */
 .team-section {
-  padding-bottom: 2.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 1.2rem;
 }
 
 .team-card {
@@ -447,30 +447,130 @@
   transform: translateX(5px);
 }
 
-/* --- Responsive Adjustments --- */
+/* --- Responsive Adjustments (Android & Mobile Overhaul) --- */
 @media (max-width: 900px) {
+  .story-section {
+    padding: 1.5rem 0 2rem !important;
+  }
+
   .story-content {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 1.6rem;
   }
 
   .story-image-wrapper {
-    min-height: 320px;
-    height: 360px;
+    min-height: 240px;
+    height: 260px;
+    border-radius: 16px;
+  }
+
+  .story-desc p {
+    font-size: 0.95rem;
+    line-height: 1.68;
+    margin-bottom: 1.1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+    margin-top: 0.8rem;
+  }
+
+  .stat-box {
+    padding: 1.1rem 0.85rem;
+    border-radius: 14px;
+  }
+
+  .stat-box h3 {
+    font-size: 1.7rem;
+    margin: 0.2rem 0;
+  }
+
+  .stat-box p {
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
   }
 
   .mission-promise-section {
     flex-direction: column;
     padding: 0;
-    margin-top: 3rem;
-    margin-bottom: 4rem;
-    gap: 2rem;
+    margin-top: 2.2rem !important;
+    margin-bottom: 2.8rem !important;
+    gap: 1.25rem;
+  }
+
+  .mission-box,
+  .promise-box {
+    padding: 1.6rem 1.3rem;
+    border-radius: 16px;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+  }
+
+  .mission-box h2,
+  .promise-box h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .mission-box p,
+  .promise-box p {
+    font-size: 0.92rem;
+    line-height: 1.6;
   }
   
+  /* Horizontal snap carousel for Team cards */
   .team-grid {
-    grid-template-columns: 1fr;
-    max-width: 400px;
-    margin: 0 auto;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: 1.25rem !important;
+    padding: 0.5rem calc(50vw - (min(82vw, 320px) / 2)) 1.25rem !important;
+    margin: 0 -1.15rem !important;
+    scroll-padding-inline: calc(50vw - (min(82vw, 320px) / 2));
+    max-width: none !important;
+    box-sizing: border-box;
+  }
+
+  .team-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .team-card {
+    flex: 0 0 min(82vw, 320px) !important;
+    max-width: 320px !important;
+    min-width: 260px !important;
+    width: min(82vw, 320px) !important;
+    scroll-snap-align: center !important;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .team-img-wrapper {
+    aspect-ratio: 4 / 3;
+    min-height: 240px;
+    width: 100%;
+  }
+
+  .team-info {
+    padding: 1.2rem 1rem;
+    text-align: center;
+  }
+
+  .cta-button {
+    width: 100%;
+    max-width: 340px;
+    padding: 1rem 1.8rem;
+    font-size: 0.84rem;
+    letter-spacing: 1.5px;
   }
 }
 
@@ -487,5 +587,20 @@
     max-width: 440px;
     margin: 0 auto;
     gap: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-box {
+    padding: 0.95rem 0.75rem;
+  }
+  
+  .stat-box h3 {
+    font-size: 1.5rem;
+  }
+
+  .mission-box,
+  .promise-box {
+    padding: 1.35rem 1.15rem;
   }
 }

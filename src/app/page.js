@@ -18,6 +18,7 @@ import '@/app/about/About.css';
 import '@/app/services/Services.css';
 import '@/app/packages/Packages.css';
 import '@/app/testimonials/Testimonials.css';
+import '@/app/contact/Contact.css';
 
 export const metadata = {
   title: "Raj Hansh Events | Premier Wedding & Event Management in Ranchi",
