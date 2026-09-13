@@ -273,8 +273,8 @@ export async function getGooglePlacesReviews({ forceRefresh = false, useMock = f
   }
 
   try {
-    // Places API (New) endpoint
-    const endpoint = `https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}?languageCode=en`;
+    // Places API (New) endpoint: Specify regionCode=IN so reviews for Jharkhand/India businesses are always returned regardless of server location (e.g. Vercel US data centers)
+    const endpoint = `https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}?languageCode=en&regionCode=IN`;
 
     const res = await fetch(endpoint, {
       headers: {
@@ -282,7 +282,8 @@ export async function getGooglePlacesReviews({ forceRefresh = false, useMock = f
         'X-Goog-Api-Key': apiKey,
         'X-Goog-FieldMask': 'id,displayName,rating,userRatingCount,reviews,googleMapsUri'
       },
-      next: { revalidate: 86400 } // 24 hours Next.js fetch revalidation
+      cache: forceRefresh ? 'no-store' : 'default',
+      next: { revalidate: forceRefresh ? 0 : 86400 }
     });
 
     if (!res.ok) {
@@ -294,7 +295,7 @@ export async function getGooglePlacesReviews({ forceRefresh = false, useMock = f
       return { ...mockGooglePlacesData, source: 'fallback_error', cached: false };
     }
 
-    const data = await res.json();
+    let data = await res.json();
 
     if (data.error) {
       console.warn(`[Google Places API (New)] Status: ${data.error.status || data.error.code} - ${data.error.message || 'Unknown error'}`);
@@ -302,6 +303,29 @@ export async function getGooglePlacesReviews({ forceRefresh = false, useMock = f
         return { ...reviewsMemoryCache.data, cached: true, warning: 'Serving stale cache' };
       }
       return { ...mockGooglePlacesData, source: 'fallback_status_error', cached: false };
+    }
+
+    // If reviews array is empty with languageCode=en, retry with regionCode=IN without language restriction to capture any local reviews
+    if (!Array.isArray(data.reviews) || data.reviews.length === 0) {
+      try {
+        const retryEndpoint = `https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}?regionCode=IN`;
+        const retryRes = await fetch(retryEndpoint, {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Goog-Api-Key': apiKey,
+            'X-Goog-FieldMask': 'id,displayName,rating,userRatingCount,reviews,googleMapsUri'
+          },
+          cache: 'no-store'
+        });
+        if (retryRes.ok) {
+          const retryData = await retryRes.json();
+          if (Array.isArray(retryData.reviews) && retryData.reviews.length > 0) {
+            data = retryData;
+          }
+        }
+      } catch (retryErr) {
+        console.warn('[Google Places API] Region retry exception:', retryErr.message);
+      }
     }
 
     const rawReviews = Array.isArray(data.reviews) ? data.reviews.slice(0, 5) : [];
@@ -423,15 +447,18 @@ export function selectBestReviews(reviews = [], targetCount = 6) {
  * High-level helper for page rendering:
  * Combines Google Places API (cached 24h) + Database reviews + Placeholders
  */
-export async function fetchGoogleReviews(dbReviews = [], count = 6) {
+export async function fetchGoogleReviews(dbReviews = [], count = 6, options = {}) {
   let googleData;
   try {
-    googleData = await getGooglePlacesReviews();
+    googleData = await getGooglePlacesReviews(options);
   } catch (e) {
     googleData = mockGooglePlacesData;
   }
 
-  const googleApiReviews = (googleData.reviews || []).map((r, i) => sanitizeGoogleReview(r, i)).filter(Boolean);
+  const googleApiReviews = (googleData.reviews || []).map((r, i) => {
+    if (r && r.source === 'google_places_api') return r;
+    return sanitizeGoogleReview(r, i);
+  }).filter(Boolean);
   const pool = [...googleApiReviews, ...(Array.isArray(dbReviews) ? dbReviews : [])];
   const finalSix = selectBestReviews(pool, count);
 

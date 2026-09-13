@@ -25,8 +25,9 @@ export async function GET(request) {
       },
       {
         headers: {
-          // Standard browser/CDN cache control aligned with 24-hour cache
-          'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=43200'
+          'Cache-Control': forceRefresh
+            ? 'no-store, no-cache, must-revalidate'
+            : 'public, s-maxage=86400, stale-while-revalidate=43200'
         }
       }
     );
