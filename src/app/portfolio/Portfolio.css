@@ -240,6 +240,20 @@
   transform: rotate(90deg) scale(1.06);
 }
 
+.desktop-close-btn {
+  display: flex;
+}
+
+/* Mobile Sticky Header (Hidden on Desktop) */
+.gallery-modal-mobile-header {
+  display: none;
+}
+
+/* Mobile Swipe Hint Badge (Hidden on Desktop) */
+.gallery-mobile-swipe-badge {
+  display: none;
+}
+
 /* Two-column layout */
 .gallery-modal-grid {
   display: grid;
@@ -641,28 +655,275 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
 }
 
-/* Modal Responsive Behavior */
+/* ========================================= */
+/* --- Modal Responsive Behavior (Android & Mobile Optimized) --- */
+/* ========================================= */
 @media (max-width: 860px) {
+  .luxury-gallery-modal-backdrop {
+    padding: max(10px, env(safe-area-inset-top, 10px)) 8px max(10px, env(safe-area-inset-bottom, 10px));
+    overscroll-behavior: contain;
+  }
+
+  .luxury-gallery-modal-card {
+    width: 100%;
+    max-width: 580px;
+    max-height: 90dvh;
+    max-height: 90vh; /* Fallback for browsers without dvh */
+    margin: 0 auto;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Sticky Mobile Header with Accessible Close Button */
+  .gallery-modal-mobile-header {
+    display: flex;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.1rem;
+    background: rgba(250, 248, 245, 0.97);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+  }
+
+  .gallery-modal-mobile-kicker {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #9B7B38;
+    text-transform: uppercase;
+  }
+
+  .gallery-modal-close-btn.mobile-close-btn {
+    position: static;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4A121A;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+  }
+
+  .desktop-close-btn {
+    display: none !important;
+  }
+
   .gallery-modal-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 2rem 1.4rem;
+    gap: 1.25rem;
+    padding: 1rem 1.1rem 1.8rem;
   }
+
   .gallery-modal-media-col {
     order: 1;
+    width: 100%;
   }
+
   .gallery-modal-info-col {
     order: 2;
+    padding: 0 0.2rem;
   }
-  .gallery-modal-featured-wrapper {
-    height: 270px;
+
+  /* Kicker already in sticky mobile header */
+  .gallery-modal-info-col .gallery-modal-kicker {
+    display: none;
   }
+
   .gallery-modal-title {
-    font-size: 1.8rem;
+    font-size: 1.55rem;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
   }
+
+  .gallery-modal-divider {
+    width: 36px;
+    height: 2px;
+    margin-bottom: 0.85rem;
+  }
+
+  .gallery-modal-story {
+    font-size: 0.9rem;
+    line-height: 1.62;
+    margin-bottom: 1.2rem;
+    color: #4b4b4b;
+  }
+
+  .gallery-modal-featured-wrapper {
+    height: auto;
+    aspect-ratio: 16 / 11;
+    max-height: 42dvh;
+    max-height: 42vh;
+    border-radius: 14px;
+    touch-action: pan-y;
+  }
+
+  .gallery-nav-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.88);
+  }
+
+  .gallery-nav-prev {
+    left: 8px;
+  }
+
+  .gallery-nav-next {
+    right: 8px;
+  }
+
+  .gallery-zoom-btn {
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .gallery-image-counter {
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .gallery-mobile-swipe-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(18, 10, 12, 0.65);
+    color: #FAF8F5;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 4px 9px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    pointer-events: none;
+    z-index: 5;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  /* Thumbnails row on mobile */
+  .gallery-thumbnails-wrapper {
+    margin-top: 10px;
+    gap: 8px;
+  }
+
+  .gallery-thumbs-scroll-btn {
+    display: none !important;
+  }
+
+  .gallery-thumbnails-track {
+    gap: 8px;
+    padding: 3px 1px;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+
+  .gallery-thumbnail-item {
+    width: 72px;
+    height: 52px;
+    border-radius: 8px;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  /* Zoom Overlay on Mobile/Android */
+  .image-zoom-overlay {
+    padding: max(12px, env(safe-area-inset-top, 12px)) 10px max(12px, env(safe-area-inset-bottom, 12px));
+    overscroll-behavior: contain;
+  }
+
+  .image-zoom-close-btn {
+    top: max(14px, env(safe-area-inset-top, 14px));
+    right: 14px;
+    width: 42px;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  .image-zoom-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .image-zoom-nav-prev {
+    left: 10px;
+  }
+
+  .image-zoom-nav-next {
+    right: 10px;
+  }
+
+  .image-zoom-media-wrapper {
+    width: 95vw;
+    height: 72dvh;
+    height: 72vh;
+    max-height: 72dvh;
+    touch-action: pan-y;
+  }
+
+  .image-zoom-caption-bar {
+    padding: 0.55rem 0.35rem 0;
+  }
+
+  .image-zoom-title {
+    font-size: 1.05rem;
+  }
+
+  .image-zoom-meta {
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra Compact Android Devices (width <= 480px) */
+@media (max-width: 480px) {
+  .luxury-gallery-modal-backdrop {
+    padding: max(6px, env(safe-area-inset-top, 6px)) 6px max(6px, env(safe-area-inset-bottom, 6px));
+  }
+
   .luxury-gallery-modal-card {
     border-radius: 16px;
-    margin: 0.5rem;
+  }
+
+  .gallery-modal-mobile-header {
+    padding: 0.75rem 0.95rem;
+  }
+
+  .gallery-modal-grid {
+    padding: 0.85rem 0.85rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .gallery-modal-title {
+    font-size: 1.35rem;
+  }
+
+  .gallery-thumbnail-item {
+    width: 64px;
+    height: 46px;
   }
 }
 

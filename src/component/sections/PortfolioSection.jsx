@@ -123,7 +123,6 @@ export default function PortfolioSection({ id = "portfolio" }) {
 
   const handleOpenModal = (project) => {
     setSelectedMedia(project);
-    setActiveImgIndex(0);
   };
 
   return (

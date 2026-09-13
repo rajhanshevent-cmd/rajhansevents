@@ -93,6 +93,36 @@ export default function LuxuryGalleryModal({
     }
   }, [activeImgIndex]);
 
+  // Touch swipe support for mobile/Android
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+
+  const handleTouchStart = (e) => {
+    if (e.touches && e.touches.length > 0) {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    if (!e.changedTouches || e.changedTouches.length === 0) return;
+
+    const diffX = touchStartX.current - e.changedTouches[0].clientX;
+    const diffY = touchStartY.current - e.changedTouches[0].clientY;
+
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
+      if (diffX > 0) {
+        handleNext();
+      } else {
+        handlePrev();
+      }
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
   // Reset state when opening new item
   useEffect(() => {
     if (isOpen) {
@@ -117,10 +147,26 @@ export default function LuxuryGalleryModal({
           className="luxury-gallery-modal-card"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Top Close Button */}
+          {/* Mobile Sticky Header Bar for Android/iOS */}
+          <div className="gallery-modal-mobile-header">
+            <span className="gallery-modal-mobile-kicker">{kicker}</span>
+            <button
+              type="button"
+              className="gallery-modal-close-btn mobile-close-btn"
+              onClick={onClose}
+              aria-label="Close modal"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Desktop Top Close Button */}
           <button
             type="button"
-            className="gallery-modal-close-btn"
+            className="gallery-modal-close-btn desktop-close-btn"
             onClick={onClose}
             aria-label="Close modal"
           >
@@ -148,7 +194,11 @@ export default function LuxuryGalleryModal({
 
             {/* Right Column: Featured Image & Carousel */}
             <div className="gallery-modal-media-col">
-              <div className="gallery-modal-featured-wrapper">
+              <div
+                className="gallery-modal-featured-wrapper"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
                 {currentImage?.image_url && (
                   item.media_type === 'video' && activeImgIndex === 0 ? (
                     <video
@@ -211,6 +261,13 @@ export default function LuxuryGalleryModal({
                       <polyline points="9 18 15 12 9 6" />
                     </svg>
                   </button>
+                )}
+
+                {/* Swipe Hint for Mobile Devices */}
+                {imagesList.length > 1 && (
+                  <div className="gallery-mobile-swipe-badge" aria-hidden="true">
+                    <span>Swipe &harr;</span>
+                  </div>
                 )}
 
                 {/* Image Counter Badge */}
@@ -325,6 +382,8 @@ export default function LuxuryGalleryModal({
           <div
             className="image-zoom-content"
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             <div className="image-zoom-media-wrapper">
               <Image
