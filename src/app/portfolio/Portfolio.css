@@ -206,7 +206,14 @@
   overflow-y: auto;
   border: 1px solid rgba(212, 175, 55, 0.32);
   animation: luxuryModalZoomIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  scrollbar-width: thin;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.gallery-modal-content::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 @keyframes luxuryModalZoomIn {

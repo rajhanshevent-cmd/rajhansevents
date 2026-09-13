@@ -59,8 +59,8 @@
 .home-featured-section {
   background-color: transparent !important;
   border: none !important;
-  padding-top: 5.5rem !important;
-  padding-bottom: 5.5rem !important;
+  padding-top: 2.8rem !important;
+  padding-bottom: 2.8rem !important;
   min-height: auto !important;
 }
 
@@ -88,18 +88,18 @@
 }
 
 .continuous-scroll-page .story-section {
-  padding: 2rem 2rem 3rem !important;
-  margin-bottom: 2rem !important;
+  padding: 1.5rem 2rem 2rem !important;
+  margin-bottom: 1.5rem !important;
 }
 
 .continuous-scroll-page .mission-promise-section {
-  margin-top: 4rem !important;
-  margin-bottom: 4.5rem !important;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
   padding: 0 !important;
 }
 
 .continuous-scroll-page .team-section {
-  margin-top: 2.5rem !important;
+  margin-top: 1.8rem !important;
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
 }
@@ -109,21 +109,60 @@
 }
 
 .continuous-scroll-page .about-page {
-  padding-bottom: 1.2rem !important;
+  padding-bottom: 1rem !important;
 }
 
 .continuous-scroll-page .services-page {
-  padding-top: 1.8rem !important;
+  padding-top: 1rem !important;
+  padding-bottom: 1.2rem !important;
 }
 
 .continuous-scroll-page .services-container {
   padding-top: 0 !important;
+  padding-bottom: 1.5rem !important;
+}
+
+.continuous-scroll-page .process-section.how-it-works-section {
+  padding: 3.5rem 0 !important;
+  margin: 2rem 0 1.2rem !important;
+}
+
+.continuous-scroll-page .packages-page {
+  padding-top: 1.2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+.continuous-scroll-page .faq-section {
+  margin-top: 2.2rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.continuous-scroll-page .testimonials-page {
+  padding-top: 1.8rem !important;
+  padding-bottom: 1.8rem !important;
+}
+
+.continuous-scroll-page .testimonials-container {
+  padding: 1.5rem 2rem 2rem !important;
+}
+
+.continuous-scroll-page .video-section {
+  padding: 2.2rem 0 !important;
+}
+
+.continuous-scroll-page .gallery-section {
+  padding-bottom: 1.5rem !important;
+}
+
+.continuous-scroll-page .contact-page {
+  padding-top: 2rem !important;
+  padding-bottom: 3.5rem !important;
 }
 
 .continuous-scroll-page .elegant-section-header {
   text-align: center !important;
   margin-inline: auto !important;
-  margin-bottom: 3.5rem !important;
+  margin-bottom: 2.2rem !important;
   max-width: 820px !important;
 }
 
@@ -818,16 +857,21 @@
     .continuous-scroll-page .contact-page,
     .home-expertise-section,
     .home-featured-section {
-      padding-top: 3.2rem !important;
-      padding-bottom: 3.2rem !important;
+      padding-top: 1.6rem !important;
+      padding-bottom: 1.6rem !important;
     }
 
     .continuous-scroll-page .about-page {
-      padding-bottom: 0.8rem !important;
+      padding-bottom: 0.6rem !important;
+    }
+
+    .continuous-scroll-page .mission-promise-section {
+      margin-top: 1.2rem !important;
+      margin-bottom: 1.2rem !important;
     }
 
     .continuous-scroll-page .team-section {
-      margin-top: 1.5rem !important;
+      margin-top: 1.2rem !important;
       padding-bottom: 0 !important;
       margin-bottom: 0 !important;
     }
@@ -837,16 +881,44 @@
     }
 
     .continuous-scroll-page .services-page {
-      padding-top: 1.2rem !important;
+      padding-top: 0.8rem !important;
+      padding-bottom: 1rem !important;
     }
 
     .continuous-scroll-page .services-container {
       padding-top: 0 !important;
-      padding-bottom: 2.5rem !important;
+      padding-bottom: 1.2rem !important;
+    }
+
+    .continuous-scroll-page .process-section.how-it-works-section {
+      padding: 2.2rem 0 !important;
+      margin: 1.2rem 0 0.8rem !important;
+    }
+
+    .continuous-scroll-page .packages-page {
+      padding-top: 0.8rem !important;
+      padding-bottom: 1.2rem !important;
+    }
+
+    .continuous-scroll-page .testimonials-page {
+      padding-top: 1rem !important;
+      padding-bottom: 1rem !important;
+    }
+
+    .continuous-scroll-page .testimonials-container {
+      padding: 0.8rem 1.15rem 1.2rem !important;
+    }
+
+    .continuous-scroll-page .video-section {
+      padding: 1.4rem 0 !important;
+    }
+
+    .continuous-scroll-page .gallery-section {
+      padding-bottom: 1rem !important;
     }
 
     .continuous-scroll-page .contact-page {
-      padding: 3rem 1.15rem 3.5rem !important;
+      padding: 1.6rem 1.15rem 2.5rem !important;
     }
 
     .continuous-scroll-page .contact-container {
@@ -858,7 +930,7 @@
 
     /* Section Typography Hierarchy */
     .elegant-section-header {
-      margin-bottom: 2.2rem !important;
+      margin-bottom: 1.6rem !important;
     }
 
     .section-kicker {

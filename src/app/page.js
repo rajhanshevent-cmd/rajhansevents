@@ -294,7 +294,7 @@ export default async function Home() {
             <p className="services-subtitle" style={{ maxWidth: '750px', marginInline: 'auto' }}>From intimate ceremonies to landmark corporate galas — we bring your vision to life with quiet luxury and meticulous execution.</p>
           </div>
 
-          <div className="services-grid" style={{ marginTop: '3.5rem' }}>
+          <div className="services-grid" style={{ marginTop: '2rem' }}>
             {displayServices.map((service, index) => (
               <div key={service.identifier || index} className="service-card">
                 <div className="card-image-wrapper">
@@ -329,7 +329,7 @@ export default async function Home() {
         {/* Extended Section: Our Process */}
         <ProcessSection />
 
-        <div className="brochure-section" style={{ textAlign: 'center', margin: '60px 0 20px' }}>
+        <div className="brochure-section" style={{ textAlign: 'center', margin: '28px 0 12px' }}>
           <a href={aboutData?.brochure_url || "/brochure.pdf"} download target="_blank" rel="noopener noreferrer"><span>📄</span> Download Brochure</a>
         </div>
       </section>
@@ -393,7 +393,7 @@ export default async function Home() {
           </div>
 
           {/* FAQs Section */}
-          <div className="faq-section" style={{ marginTop: '5rem' }}>
+          <div className="faq-section" style={{ marginTop: '2.5rem' }}>
             <div className="elegant-section-header" style={{ marginBottom: '2.5rem' }}>
               <span className="section-kicker">— FREQUENTLY ASKED</span>
               <h3 className="elegant-section-title" style={{ fontSize: '2.4rem' }}>Common Questions</h3>

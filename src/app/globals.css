@@ -50,23 +50,19 @@ body {
   line-height: 1.65;
 }
 
-/* --- Luxury Custom Scrollbar --- */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* --- Hide Scrollbars Across Entire Site (Clean App-Like Experience) --- */
+html,
+body,
+* {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
 }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-ivory);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c5a059;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-maroon);
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* Selection Highlight */
