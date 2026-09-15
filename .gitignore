@@ -66,3 +66,4 @@ yarn-error.log*
 next-env.d.ts
 /backend
 WhatsApp Image*
+*.har

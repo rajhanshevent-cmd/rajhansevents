@@ -11,7 +11,17 @@ import { openEmailInquiry } from '@/utils/email';
 export default function SmartEmailButton({
   to,
   subject = "Custom Event Quotation Request",
-  body = "Hello Raj Hansh Events,\n\nI would like to inquire about a custom quotation for an upcoming celebration.\n\nDate:\nLocation:\nGuest Count:\n\nThank you!",
+  body = `Hello Raj Hansh Events,
+
+I would like to request a tailored quote for our upcoming celebration.
+
+Event Type:
+Tentative Date:
+Location / Venue:
+Estimated Guests:
+Special Requirements:
+
+Looking forward to hearing from your concierge team.`,
   className = "btn btn-primary",
   children = "Contact Us for Custom Quote"
 }) {

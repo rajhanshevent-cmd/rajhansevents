@@ -15,7 +15,18 @@
 @media (max-width: 768px) {
   .admin-login-wrapper {
     min-height: calc(100dvh - 75px);
-    padding: 18px 16px;
+    padding: 16px 12px;
+  }
+
+  .admin-login-card {
+    padding: 26px 18px;
+    border-radius: 14px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .admin-title {
+    font-size: 1.6rem;
   }
 }
 

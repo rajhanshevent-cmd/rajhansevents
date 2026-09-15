@@ -640,7 +640,8 @@
 .featured-image-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
+  min-height: 310px;
   overflow: hidden;
   background: #f4ede4;
 }
@@ -1124,7 +1125,8 @@
       min-width: 260px !important;
       width: min(82vw, 320px) !important;
       scroll-snap-align: center !important;
-      aspect-ratio: 16 / 11;
+      aspect-ratio: 4 / 5 !important;
+      min-height: 390px !important;
       border-radius: 18px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
       margin: 0 !important;
@@ -1197,7 +1199,8 @@
     }
 
     .featured-image-wrapper {
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 1 / 1 !important;
+      min-height: 290px !important;
     }
 
     .featured-card-info {
@@ -1300,7 +1303,8 @@
     }
 
     .image-card {
-      aspect-ratio: 16 / 12;
+      aspect-ratio: 4 / 5 !important;
+      min-height: 390px !important;
       border-radius: 16px;
     }
 

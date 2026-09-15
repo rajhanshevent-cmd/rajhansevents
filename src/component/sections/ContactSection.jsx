@@ -12,7 +12,7 @@ export default function ContactSection({ id = "contact", initialContact = null }
     name: "",
     email: "",
     phone: "",
-    eventType: "Wedding",
+    eventType: "Wedding & Pre-Wedding Planning",
     eventDate: "",
     guests: "",
     budget: "",
@@ -74,7 +74,7 @@ export default function ContactSection({ id = "contact", initialContact = null }
         name: "",
         email: "",
         phone: "",
-        eventType: "Wedding",
+        eventType: "Wedding & Pre-Wedding Planning",
         eventDate: "",
         guests: "",
         budget: "",
@@ -322,13 +322,14 @@ export default function ContactSection({ id = "contact", initialContact = null }
                 <div className="form-group">
                   <label>Event Type <span>*</span></label>
                   <select name="eventType" value={form.eventType} onChange={handleChange} disabled={isSubmitting}>
-                    <option value="Wedding">Wedding</option>
-                    <option value="Destination Wedding">Destination Wedding</option>
-                    <option value="Sangeet & Mehendi">Sangeet & Mehendi</option>
-                    <option value="Reception">Reception</option>
-                    <option value="Corporate">Corporate Event</option>
-                    <option value="Birthday">Birthday/Anniversary</option>
-                    <option value="Other">Other Celebration</option>
+                    <option value="Wedding & Pre-Wedding Planning">Wedding & Pre-Wedding Planning</option>
+                    <option value="Corporate Event Management">Corporate Event Management</option>
+                    <option value="Decor, Theming & Design">Decor, Theming & Design</option>
+                    <option value="Catering Coordination">Catering Coordination</option>
+                    <option value="Photography & Videography">Photography & Videography</option>
+                    <option value="Entertainment & Anchoring">Entertainment & Anchoring</option>
+                    <option value="Invitations & Stationery">Invitations & Stationery</option>
+                    <option value="Venue Selection & Booking">Venue Selection & Booking</option>
                   </select>
                 </div>
               </div>

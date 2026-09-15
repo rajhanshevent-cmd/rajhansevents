@@ -83,6 +83,7 @@ function AdminLoginContent() {
 
       if (!res.ok) {
         setLocalError(data.error || "Authentication failed. Please verify your credentials.");
+        setPassword("");
         setLoading(false);
         return;
       }

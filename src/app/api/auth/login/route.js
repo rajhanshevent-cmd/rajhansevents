@@ -43,7 +43,7 @@ export async function POST(request) {
 
     if (!isPasswordCorrect) {
       return NextResponse.json(
-        { error: "Incorrect password. The administrator password is: Rajhans@2026" },
+        { error: "Incorrect password. Please verify your administrator credentials and try again." },
         { status: 401 }
       );
     }

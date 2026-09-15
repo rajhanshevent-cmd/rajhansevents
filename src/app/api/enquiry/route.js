@@ -38,7 +38,7 @@ export async function POST(request) {
       name: trimmedName,
       email: trimmedEmail,
       phone: trimmedPhone || null,
-      event_type: eventType?.trim() || "Wedding",
+      event_type: eventType?.trim() || "Wedding & Pre-Wedding Planning",
       event_date: eventDate?.trim() || null,
       guests: guests ? String(guests).trim() : null,
       budget: budget?.trim() || null,

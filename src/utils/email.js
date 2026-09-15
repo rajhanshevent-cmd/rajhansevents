@@ -12,8 +12,10 @@ import { BUSINESS_CONFIG } from './constants';
  */
 export function openEmailInquiry({ to, subject = '', body = '' }) {
   const targetEmail = to || BUSINESS_CONFIG.email;
+  // Convert any literal string '\n' or '\\n' into real newlines for email client formatting
+  const cleanBody = typeof body === 'string' ? body.replace(/\\n/g, '\n') : body;
   const encodedSubject = encodeURIComponent(subject);
-  const encodedBody = encodeURIComponent(body);
+  const encodedBody = encodeURIComponent(cleanBody);
 
   const isMobile = typeof window !== 'undefined' && (
     /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||

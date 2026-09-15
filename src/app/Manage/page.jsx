@@ -202,12 +202,24 @@ export default function ManagePage() {
   const [packageData, setPackageData] = useState({ identifier: '', pkg_name: '', f1: '', f2: '', f3: '', f4: '', price: '' });
 
   // Portfolio & Luxury Gallery
+  const PORTFOLIO_PRESET_CATEGORIES = [
+    { value: 'wedding-planning', label: 'Wedding Planning' },
+    { value: 'birthday-anniversary', label: 'Birthday & Anniversary' },
+    { value: 'corporate-events', label: 'Corporate Events' },
+    { value: 'decor-design', label: 'Decor & Design' },
+    { value: 'catering-coordination', label: 'Catering Coordination' },
+    { value: 'venue-selection', label: 'Venue Selection' },
+    { value: 'entertainment-logistics', label: 'Entertainment & Logistics' },
+    { value: 'photography-films', label: 'Photography & Films' },
+  ];
   const [portfolioList, setPortfolioList] = useState([]);
   const [selectedPortfolioId, setSelectedPortfolioId] = useState(null);
   const [portfolioFilePreview, setPortfolioFilePreview] = useState('');
   const [portfolioGalleryImages, setPortfolioGalleryImages] = useState([]);
   const [galleryUploadFiles, setGalleryUploadFiles] = useState([]);
   const [galleryUploading, setGalleryUploading] = useState(false);
+  const [isCustomCategory, setIsCustomCategory] = useState(false);
+  const [customCategoryInput, setCustomCategoryInput] = useState('');
   const [portfolioData, setPortfolioData] = useState({
     id: null,
     identifier: '',
@@ -871,6 +883,8 @@ export default function ManagePage() {
     const selectedId = e.target.value;
     if (!selectedId || selectedId === 'new') {
       setSelectedPortfolioId(null);
+      setIsCustomCategory(false);
+      setCustomCategoryInput('');
       setPortfolioData({
         id: null,
         identifier: getNextAutoId('port', portfolioList),
@@ -889,6 +903,17 @@ export default function ManagePage() {
     const item = portfolioList.find((p) => String(p.id) === String(selectedId));
     if (item) {
       setSelectedPortfolioId(item.id);
+      const isPreset = PORTFOLIO_PRESET_CATEGORIES.some((c) => c.value === item.category);
+      if (isPreset) {
+        setIsCustomCategory(false);
+        setCustomCategoryInput('');
+      } else if (item.category) {
+        setIsCustomCategory(true);
+        setCustomCategoryInput(item.category);
+      } else {
+        setIsCustomCategory(false);
+        setCustomCategoryInput('');
+      }
       setPortfolioData({
         id: item.id,
         identifier: item.identifier || '',
@@ -1017,6 +1042,8 @@ export default function ManagePage() {
       }
       alert('Event deleted successfully.');
       setSelectedPortfolioId(null);
+      setIsCustomCategory(false);
+      setCustomCategoryInput('');
       setPortfolioData({
         id: null,
         identifier: '',
@@ -1650,7 +1677,7 @@ export default function ManagePage() {
                 value={enquirySearch}
                 onChange={(e) => setEnquirySearch(e.target.value)}
                 className={styles.input}
-                style={{ maxWidth: '400px' }}
+                style={{ width: '100%', maxWidth: '400px', boxSizing: 'border-box' }}
               />
               {enquirySearch && (
                 <button
@@ -1701,7 +1728,7 @@ export default function ManagePage() {
               }
 
               return (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '1.2rem' }}>
+                <div className={styles.enquiriesGrid}>
                   {filtered.map((enq) => {
                     const cleanPhone = enq.phone ? enq.phone.replace(/\D/g, '') : '';
                     const waNumber = cleanPhone.length === 10 ? '91' + cleanPhone : cleanPhone;
@@ -1727,6 +1754,11 @@ export default function ManagePage() {
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'space-between',
+                          minWidth: 0,
+                          maxWidth: '100%',
+                          overflowWrap: 'break-word',
+                          wordBreak: 'break-word',
+                          boxSizing: 'border-box',
                         }}
                       >
                         <div>
@@ -1758,7 +1790,7 @@ export default function ManagePage() {
                           <div style={{ fontSize: '0.85rem', color: '#4A5568', lineHeight: 1.6, marginBottom: '0.8rem' }}>
                             <div>
                               <strong>Email:</strong>{' '}
-                              <a href={`mailto:${enq.email}`} style={{ color: '#7B1A28', textDecoration: 'none' }}>
+                              <a href={`mailto:${enq.email}`} style={{ color: '#7B1A28', textDecoration: 'none', wordBreak: 'break-all' }}>
                                 {enq.email}
                               </a>
                             </div>
@@ -2182,9 +2214,9 @@ export default function ManagePage() {
                   Configure all 4 hero slideshow slots. Upload custom MP4/WebM videos or WebP/JPG/PNG images directly to Cloudflare R2, or paste direct URLs. Live previews and delete options are available for each slot.
                 </p>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
+                <div className={styles.heroSlidesGrid}>
                   {/* SLIDE 1 */}
-                  <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+                  <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)', minWidth: 0, maxWidth: '100%', boxSizing: 'border-box' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                       <strong style={{ fontSize: '0.95rem', color: '#0B192C' }}>Slide 1 (Primary)</strong>
                       <span style={{ fontSize: '0.72rem', background: '#e0f2fe', color: '#0369a1', padding: '3px 8px', borderRadius: '10px', fontWeight: 700 }}>SLOT 1</span>
@@ -2253,7 +2285,7 @@ export default function ManagePage() {
                   </div>
 
                   {/* SLIDE 2 */}
-                  <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+                  <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)', minWidth: 0, maxWidth: '100%', boxSizing: 'border-box' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                       <strong style={{ fontSize: '0.95rem', color: '#0B192C' }}>Slide 2</strong>
                       <span style={{ fontSize: '0.72rem', background: '#fef3c7', color: '#92400e', padding: '3px 8px', borderRadius: '10px', fontWeight: 700 }}>SLOT 2</span>
@@ -2322,7 +2354,7 @@ export default function ManagePage() {
                   </div>
 
                   {/* SLIDE 3 */}
-                  <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+                  <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)', minWidth: 0, maxWidth: '100%', boxSizing: 'border-box' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                       <strong style={{ fontSize: '0.95rem', color: '#0B192C' }}>Slide 3</strong>
                       <span style={{ fontSize: '0.72rem', background: '#f3e8ff', color: '#6b21a8', padding: '3px 8px', borderRadius: '10px', fontWeight: 700 }}>SLOT 3</span>
@@ -2391,7 +2423,7 @@ export default function ManagePage() {
                   </div>
 
                   {/* SLIDE 4 */}
-                  <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+                  <div style={{ background: '#ffffff', border: '1px solid rgba(212, 175, 55, 0.35)', borderRadius: '12px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)', minWidth: 0, maxWidth: '100%', boxSizing: 'border-box' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                       <strong style={{ fontSize: '0.95rem', color: '#0B192C' }}>Slide 4</strong>
                       <span style={{ fontSize: '0.72rem', background: '#dcfce7', color: '#166534', padding: '3px 8px', borderRadius: '10px', fontWeight: 700 }}>SLOT 4</span>
@@ -3405,7 +3437,7 @@ export default function ManagePage() {
                   'portfolio',
                   {
                     identifier: portfolioData.identifier,
-                    category: portfolioData.category,
+                    category: (isCustomCategory ? customCategoryInput.trim() : portfolioData.category) || 'General',
                     media_type: portfolioData.media_type,
                     title: portfolioData.title,
                     story: portfolioData.story,
@@ -3456,19 +3488,45 @@ export default function ManagePage() {
                   <label>Category</label>
                   <select
                     required
-                    value={portfolioData.category}
-                    onChange={(e) => setPortfolioData({ ...portfolioData, category: e.target.value })}
+                    value={isCustomCategory ? 'other' : (portfolioData.category || '')}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val === 'other') {
+                        setIsCustomCategory(true);
+                        setPortfolioData({ ...portfolioData, category: customCategoryInput });
+                      } else {
+                        setIsCustomCategory(false);
+                        setCustomCategoryInput('');
+                        setPortfolioData({ ...portfolioData, category: val });
+                      }
+                    }}
                   >
                     <option value="" disabled>Select Category</option>
-                    <option value="wedding-planning">Wedding Planning</option>
-                    <option value="birthday-anniversary">Birthday &amp; Anniversary</option>
-                    <option value="corporate-events">Corporate Events</option>
-                    <option value="decor-design">Decor &amp; Design</option>
-                    <option value="catering-coordination">Catering Coordination</option>
-                    <option value="venue-selection">Venue Selection</option>
-                    <option value="entertainment-logistics">Entertainment &amp; Logistics</option>
-                    <option value="photography-films">Photography &amp; Films</option>
+                    {PORTFOLIO_PRESET_CATEGORIES.map(cat => (
+                      <option key={cat.value} value={cat.value}>{cat.label}</option>
+                    ))}
+                    <option value="other">Other (Custom Category)...</option>
                   </select>
+
+                  {isCustomCategory && (
+                    <div style={{ marginTop: '8px' }}>
+                      <label style={{ fontSize: '0.75rem', color: '#7b1a28', fontWeight: 700, display: 'block', marginBottom: '4px' }}>
+                        Custom Category Name <span style={{ color: '#c53030' }}>*</span>
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Enter customized category (e.g. Sangeet & Cocktail, Haldi)"
+                        value={customCategoryInput}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setCustomCategoryInput(val);
+                          setPortfolioData({ ...portfolioData, category: val });
+                        }}
+                        style={{ width: '100%', boxSizing: 'border-box' }}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className={styles.fieldGroup}>
                   <label>Media Type</label>
